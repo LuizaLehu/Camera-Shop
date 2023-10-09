@@ -10,14 +10,14 @@ type ProductCardProp = {
 
 
 function ProductCard({ product, onMouseEnter, onMouseLeave }: ProductCardProp): JSX.Element {
-  const { id, name, type, price, rating, previewImage, reviewCount } = product;
+  const { id, name, price, rating, reviewCount } = product;
 
 
-  const handleMouseEnter = () => {
+  const onCardMouseEnter = () => {
     onMouseEnter?.(id);
   };
 
-  const handleMouseLeave = () => {
+  const onCardMouseLeave = () => {
     onMouseLeave?.();
   };
 

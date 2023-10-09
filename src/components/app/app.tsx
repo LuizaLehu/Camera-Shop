@@ -1,14 +1,10 @@
-import MainPage from "../../pages/main-page/main-page";
-import { HelmetProvider } from "react-helmet-async";
+import MainPage from '../../pages/main-page/main-page';
+import { HelmetProvider } from 'react-helmet-async';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
-import { AppRoute } from "../../const";
-import NotFoundPage from "../../pages/not-found-page/not-found-page";
-import ProductPage from "../../pages/product-page/product-page";
+import { AppRoute } from '../../const';
+import NotFoundPage from '../../pages/not-found-page/not-found-page';
+import ProductPage from '../../pages/product-page/product-page';
 
-
-type AppScreenProps = {
-  productsCount: number;
-}
 
 function App() {
 
@@ -18,7 +14,7 @@ function App() {
         <Routes>
           <Route
             path={AppRoute.Main}
-            element={<MainPage productsCount={productsCount />}
+            element={<MainPage />}
           />
           <Route
             path={AppRoute.Basket}

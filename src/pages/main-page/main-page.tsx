@@ -5,14 +5,19 @@ import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import Pagination from '../../components/pagination/pagination';
 import ProductCard from '../../components/product-card/product-card';
+import { useState } from 'react';
+import { useAppDispatch } from '../../hooks';
 
 
-type MainPageProps = {
+/*type MainPageProps = {
   productsCount: number;
 }
+*/
 
+function MainPage() {
+  const [selectedOffer, setSelectedOffer] = useState<string | null>(null);
 
-function MainPage({ productsCount }: MainPageProps): JSX.Element {
+  const dispatch = useAppDispatch();
   return (
     <div className="wrapper">
       <Header />
