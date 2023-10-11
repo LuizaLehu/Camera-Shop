@@ -4,12 +4,13 @@ import Filter from '../../components/filter/filter';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import Pagination from '../../components/pagination/pagination';
-import ProductCard from '../../components/product-card/product-card';
+//import ProductCard from '../../components/product-card/product-card';
 import { useState } from 'react';
 import { useAppDispatch } from '../../hooks';
 import Spinner from '../../components/spinner/spinner';
-import { isProductsStatusLoading } from '../../store/data-process/data-process.selectors';
+import { getProducts, isProductsStatusLoading } from '../../store/data-process/data-process.selectors';
 import ProductsList from '../../components/products-list/product-list';
+import { useAppSelector } from '../../hooks';
 
 /*type MainPageProps = {
   productsCount: number;
@@ -19,7 +20,9 @@ import ProductsList from '../../components/products-list/product-list';
 function MainPage() {
   const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
 
-  const dispatch = useAppDispatch();
+  //const dispatch = useAppDispatch();
+
+  const products = useAppSelector(getProducts);
 
   const onMouseEnter = (id: string) => setSelectedProduct(id);
   const onMouseLeave = () => setSelectedProduct(null);
