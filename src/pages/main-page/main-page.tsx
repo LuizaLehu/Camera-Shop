@@ -7,7 +7,9 @@ import Pagination from '../../components/pagination/pagination';
 import ProductCard from '../../components/product-card/product-card';
 import { useState } from 'react';
 import { useAppDispatch } from '../../hooks';
-
+import Spinner from '../../components/spinner/spinner';
+import { isProductsStatusLoading } from '../../store/data-process/data-process.selectors';
+import ProductsList from '../../components/products-list/product-list';
 
 /*type MainPageProps = {
   productsCount: number;
@@ -15,9 +17,22 @@ import { useAppDispatch } from '../../hooks';
 */
 
 function MainPage() {
-  const [selectedOffer, setSelectedOffer] = useState<string | null>(null);
+  const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
 
   const dispatch = useAppDispatch();
+
+  const onMouseEnter = (id: string) => setSelectedProduct(id);
+  const onMouseLeave = () => setSelectedProduct(null);
+
+  const isProductsDataLoading = useAppSelector(isProductsStatusLoading);
+
+  if (isProductsDataLoading) {
+    return (
+      <Spinner />
+    );
+  }
+
+
   return (
     <div className="wrapper">
       <Header />
@@ -87,15 +102,11 @@ function MainPage() {
                     </form>
                   </div>
                   <div className="cards catalog__cards">
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
+                    < ProductsList
+                      products={products}
+                      onMouseEnter={onMouseEnter}
+                      onMouseLeave={onMouseLeave}
+                    />
                   </div>
                   <Pagination />
                 </div>

@@ -1,18 +1,89 @@
 import { NameSpace } from '../../const';
-import { TFullOffer, TOffer } from '../../types/offers';
+import { TProducts } from '../../types/state';
 import { State } from '../../types/state';
+import { createSlice } from '@reduxjs/toolkit';
 
-export const getOffers = (state: State): TOffer[] => state[NameSpace.Data].offers;
-export const isOffersStatusLoading = (state: State): boolean => state[NameSpace.Data].isOffersDataLoading;
+import {
+  fetchSimilarProductAction,
+  fetchProductsAction,
+  fetchProductAction
+} from '../api-action';
 
-export const getOffer = (state: State): TFullOffer | null => state[NameSpace.Data].fullOffer;
-export const isOfferStatusLoading = (state: State): boolean => state[NameSpace.Data].isFullOfferDataLoading;
+import { toast } from 'react-toastify';
 
-export const getNearPlaceOffers = (state: State): TOffer[] | null => state[NameSpace.Data].nearPlaceOffers;
-export const isNearPlaceOffersStatusLoading = (state: State): boolean => state[NameSpace.Data].isNearPlaceOffersLoading;
+const initialState: TProducts = {
+  products: [],
+  fullProduct: null,
+  similarProducts: [],
+  isProductsDataLoading: false,
+  isFullProductDataLoading: false,
+  isSimilarProductsLoading: false,
+  hasError: false,
+};
 
-export const getActiveCity = (state: State): string => state[NameSpace.Data].activeCity;
+export const products = createSlice({
+  name: NameSpace.Data,
+  initialState,
+  reducers: {
+    dropProduct: (state) => {
+      state.fullProduct = null;
+      state.similarProducts = [];
 
-export const getFavoriteOffers = (state: State): TOffer[] => state[NameSpace.Data].favorites;
+    },
+
+    extraReducers(builder) {
+      builder
+        .addCase(fetchProductsAction.pending, (state) => {
+          state.isProductsDataLoading = true;
+        })
+        .addCase(fetchProductsAction.fulfilled, (state, action) => {
+          state.products = action.payload;
+          state.isProductsDataLoading = false;
+        })
+        .addCase(fetchProductsAction.rejected, (state) => {
+          state.isProductsDataLoading = false;
+          toast.warn('Failed to fetch offers. Please, try again later');
+        })
+        .addCase(fetchProductAction.pending, (state) => {
+          state.isFullProductDataLoading = true;
+          state.hasError = false;
+        })
+        .addCase(fetchProductAction.fulfilled, (state, action) => {
+          state.fullProduct = action.payload;
+          state.isFullProductDataLoading = false;
+        })
+        .addCase(fetchProductAction.rejected, (state) => {
+          state.isFullProductDataLoading = false;
+          state.hasError = true;
+        })
+        .addCase(fetchSimilarProductAction.pending, (state) => {
+          state.isSimilarProductsLoading = true;
+        })
+        .addCase(fetchSimilarProductAction.fulfilled, (state, action) => {
+          state.similarProducts = action.payload;
+          state.isSimilarProductsLoading = false;
+        })
+        .addCase(fetchSimilarProductAction.rejected, (state) => {
+          state.isSimilarProductsLoading = false;
+          toast.warn('Failed to fetch offers near by. Please, try again later');
+        });
+    }
+  }),
+
+export const { dropProduct } = products.actions
+
+
+
+
+
+const getProducts = (state: State): TProduct[] => state[NameSpace.Data].products;
+export const isProductsStatusLoading = (state: State): boolean => state[NameSpace.Data].isProductsDataLoading;
+
+export const getProduct = (state: State): TFullProduct | null => state[NameSpace.Data].fullProduct;
+export const isProductStatusLoading = (state: State): boolean => state[NameSpace.Data].isFullProductDataLoading;
+
+export const getSimilarProducts = (state: State): TProduct[] | null => state[NameSpace.Data].similarProducts;
+export const isSimilarProductssStatusLoading = (state: State): boolean => state[NameSpace.Data].isSimilarProductsLoading;
+
 
 export const getErrorStatus = (state: State): boolean => state[NameSpace.Data].hasError;

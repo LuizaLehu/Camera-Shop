@@ -3,14 +3,14 @@ import { TProduct } from '../../types/products';
 
 
 type ProductCardProp = {
-  product: TProduct;
+  item: TProduct;
   onMouseEnter?: (id: string) => void;
   onMouseLeave?: () => void;
 }
 
 
-function ProductCard({ product, onMouseEnter, onMouseLeave }: ProductCardProp): JSX.Element {
-  const { id, name, price, rating, reviewCount } = product;
+function ProductCard({ item, onMouseEnter, onMouseLeave }: ProductCardProp): JSX.Element {
+  const { id, name, price, rating, reviewCount } = item;
 
 
   const onCardMouseEnter = () => {
@@ -77,7 +77,7 @@ function ProductCard({ product, onMouseEnter, onMouseLeave }: ProductCardProp): 
         >
           Купить
         </button>
-        <Link className="btn btn--transparent" to={`/product/${id}`}>
+        <Link className="btn btn--transparent" to={`/item/${id}`}>
           Подробнее
         </Link>
       </div>

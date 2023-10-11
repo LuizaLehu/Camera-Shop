@@ -1,35 +1,30 @@
+import { TProduct } from '../../types/products';
 import ProductCard from '../product-card/product-card';
 
 
-
-type OffersListProps = {
-  offers: TOffer[];
-  onCardMouseEnter: (id: string) => void;
-  onCardMouseLeave: () => void;
+type ProductsListProps = {
+  products?: TProduct[];
+  onMouseEnter?: (id: string) => void;
+  onMouseLeave?: () => void;
 }
 
 
-function OffersList({ offers, onCardMouseEnter, onCardMouseLeave }: OffersListProps) {
+function ProductsList({ products, onMouseEnter, onMouseLeave }: ProductsListProps) {
 
   return (
-    offers.map((offer) => (
-      <Card
-        key={offer.id}
-        item={offer}
-        className={'cities'}
-        onMouseEnter={onCardMouseEnter}
-        onMouseLeave={onCardMouseLeave}
-      />
-    )
-    ));
+    <div className="cards catalog__cards">
+      {products.map((product) => (
+        <ProductCard
+          key={item.id}
+          product={item}
+          onMouseEnter={onMouseEnter}
+          onMouseLeave={onMouseLeave}
+        />
+      ))}
+
+    </div>
+  );
 }
 
-export default OffersList;
-
-
-
-
-
-
-
+export default ProductsList;
 
