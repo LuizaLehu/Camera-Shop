@@ -9,7 +9,7 @@ import Spinner from '../spinner/spinner';
 import { useAppSelector } from '../../hooks';
 import { getErrorStatus } from '../../store/data-process/data-process.selectors';
 import ErrorPage from '../../pages/error-page/error-page';
-import { isProductsStatusLoading } from '../../store/data-process/data-process.slice';
+import { isProductsStatusLoading } from '../../store/data-process/data-process.selectors';
 import ScrollToTop from '../scroll-to-top/scroll-to-top';
 import browserHistory from '../../browser-history';
 import HistoryRouter from '../history-route/history-route';

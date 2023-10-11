@@ -25,3 +25,8 @@ export enum Status {
   Success = 'success',
   Error = 'error'
 }
+
+export const SortProductsType = {
+  Price: 'по цене',
+  Popular: 'по популярности',
+};
