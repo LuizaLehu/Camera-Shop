@@ -3,7 +3,7 @@ import { TFullProduct, TProduct } from './products';
 
 
 export type TProducts = {
-  offers: TProduct[];
+  products: TProduct[];
   fullProduct: TFullProduct | null;
   similarProducts: TProduct[] | null;
   isProductsDataLoading: boolean;

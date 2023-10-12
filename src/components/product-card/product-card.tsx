@@ -1,16 +1,16 @@
 import { Link } from 'react-router-dom';
-import { TProduct } from '../../types/products';
+import { TFullProduct, TProduct } from '../../types/products';
 
 
 type ProductCardProp = {
-  item: TProduct;
+  product: TProduct | TFullProduct;
   onMouseEnter?: (id: string) => void;
   onMouseLeave?: () => void;
 }
 
 
-function ProductCard({ item, onMouseEnter, onMouseLeave }: ProductCardProp): JSX.Element {
-  const { id, name, price, rating, reviewCount } = item;
+function ProductCard({ product, onMouseEnter, onMouseLeave }: ProductCardProp): JSX.Element {
+  const { id, name, price, rating, reviewCount } = product;
 
 
   const onCardMouseEnter = () => {

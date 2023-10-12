@@ -5,7 +5,7 @@ export enum AppRoute {
 }
 
 export enum APIRoute {
-  Products = '/offers',
+  Products = '/productns',
   SimilarProducts = '/similar',
   NotFound = '/404',
   Reviews = '/reviews',
