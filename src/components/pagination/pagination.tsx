@@ -1,29 +1,32 @@
-function Pagination() {
+
+
+function Pagination({ totalPages, currentPage, onPageChange }) {
+  const pages = Array.from({ length: totalPages }, (_, index) => index + 1);
+
   return (
     <div className="pagination">
       <ul className="pagination__list">
-        <li className="pagination__item">
-          <a
-            className="pagination__link pagination__link--active"
-            href="/page1"
+        {pages.map((page) => (
+          <li
+            key={page}
+            className={`pagination__item ${page === currentPage ? 'pagination__item--active' : ''
+              }`}
           >
-            1
-          </a>
-        </li>
-        <li className="pagination__item">
-          <a className="pagination__link" href="/page2">
-            2
-          </a>
-        </li>
-        <li className="pagination__item">
-          <a className="pagination__link" href="/page3">
-            3
-          </a>
-        </li>
+
+            <a
+              className="pagination__link"
+              href={`/page${page}`}
+              onClick={() => onPageChange(page)}
+            >
+              {page}
+            </a>
+          </li>
+        ))}
         <li className="pagination__item">
           <a
             className="pagination__link pagination__link--text"
-            href="/page2"
+            href={`/page${currentPage + 1}`}
+            onClick={() => onPageChange(currentPage + 1)}
           >
             Далее
           </a>

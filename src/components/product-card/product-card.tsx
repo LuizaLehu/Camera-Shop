@@ -10,7 +10,7 @@ type ProductCardProp = {
 
 
 function ProductCard({ product, onMouseEnter, onMouseLeave }: ProductCardProp): JSX.Element {
-  const { id, name, price, rating, reviewCount } = product;
+  const { id, name, price, rating, reviewCount, previewImg, previewImg2x } = product;
 
 
   const onCardMouseEnter = () => {
@@ -30,14 +30,14 @@ function ProductCard({ product, onMouseEnter, onMouseLeave }: ProductCardProp): 
         <picture>
           <source
             type="image/webp"
-            srcSet="img/content/das-auge.webp, img/content/das-auge@2x.webp 2x"
+            srcSet={previewImg}
           />
           <img
             src="img/content/das-auge.jpg"
-            srcSet="img/content/das-auge@2x.jpg 2x"
+            srcSet={previewImg2x}
             width={280}
             height={240}
-            alt="Ретрокамера «Das Auge IV»"
+            alt={name}
           />
         </picture>
       </div>

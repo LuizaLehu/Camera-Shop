@@ -1,4 +1,4 @@
-import Banner from '../../components/banner/banner';
+//import Banner from '../../components/banner/banner';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import Filter from '../../components/filter/filter';
 import Footer from '../../components/footer/footer';
@@ -6,11 +6,12 @@ import Header from '../../components/header/header';
 import Pagination from '../../components/pagination/pagination';
 //import ProductCard from '../../components/product-card/product-card';
 import { useState } from 'react';
-import { useAppDispatch } from '../../hooks';
+//import { useAppDispatch } from '../../hooks';
 import Spinner from '../../components/spinner/spinner';
 import { getProducts, isProductsStatusLoading } from '../../store/data-process/data-process.selectors';
 import ProductsList from '../../components/products-list/product-list';
 import { useAppSelector } from '../../hooks';
+import Slider from '../../components/slider/slider';
 
 /*type MainPageProps = {
   productsCount: number;
@@ -29,6 +30,9 @@ function MainPage() {
 
   const isProductsDataLoading = useAppSelector(isProductsStatusLoading);
 
+  //const currentProducts = products?.slice(0, 9);
+
+
   if (isProductsDataLoading) {
     return (
       <Spinner />
@@ -40,7 +44,7 @@ function MainPage() {
     <div className="wrapper">
       <Header />
       <main>
-        <Banner />
+        <Slider />
         <div className="page-content">
           <Breadcrumbs />
           <section className="catalog">

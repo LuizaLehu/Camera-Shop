@@ -1,36 +1,18 @@
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
 
+import { Link } from 'react-router-dom';
 
 function Banner(): JSX.Element {
-
-  const images = [
-    'img/content/banner-bg.jpg',
-    'img/content/banner-bg2.jpg', // Add more images as needed
-    'img/content/banner-bg3.jpg',
-  ];
-
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-  const nextImage = () => {
-    setCurrentImageIndex((currentImageIndex + 1) % images.length);
-  };
-
-  const previousImage = () => {
-    setCurrentImageIndex((currentImageIndex - 1 + images.length) % images.length);
-  };
-
-
   return (
     <div className="banner">
+
       <picture>
         <source
           type="image/webp"
-          srcSet={`${images[currentImageIndex].replace('.jpg', '.webp')}, ${images[currentImageIndex].replace('.jpg', '@2x.webp')} 2x`}
+          srcSet="img/content/banner-bg.webp, img/content/banner-bg@2x.webp 2x"
         />
         <img
-          src={images[currentImageIndex]}
-          srcSet={`${images[currentImageIndex].replace('.jpg', '@2x.jpg')} 2x`}
+          src="img/content/banner-bg.jpg"
+          srcSet="img/content/banner-bg@2x.jpg 2x"
           width={1280}
           height={280}
           alt="баннер"
@@ -48,10 +30,7 @@ function Banner(): JSX.Element {
           Подробнее
         </Link>
       </p>
-      <div className="slider-controls">
-        <button onClick={previousImage}>Previous</button>
-        <button onClick={nextImage}>Next</button>
-      </div>
+
     </div>
   );
 }
