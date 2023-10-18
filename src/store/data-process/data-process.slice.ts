@@ -6,7 +6,8 @@ import { createSlice } from '@reduxjs/toolkit';
 import {
   fetchSimilarProductAction,
   fetchProductsAction,
-  fetchProductAction
+  fetchProductAction,
+  fetchBasketAction,
 } from '../api-action';
 
 import { toast } from 'react-toastify';
@@ -15,6 +16,8 @@ const initialState: TProducts = {
   products: [],
   fullProduct: null,
   similarProducts: [],
+  promoProducts: [],
+  baskets: [],
   isProductsDataLoading: false,
   isFullProductDataLoading: false,
   isSimilarProductsLoading: false,
@@ -67,6 +70,9 @@ export const products = createSlice({
       .addCase(fetchSimilarProductAction.rejected, (state) => {
         state.isSimilarProductsLoading = false;
         toast.warn('Failed to fetch similar products. Please, try again later');
+      })
+      .addCase(fetchBasketAction.fulfilled, (state, action) => {
+        state.baskets = action.payload;
       });
   }
 });

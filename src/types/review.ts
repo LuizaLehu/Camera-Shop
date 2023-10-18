@@ -15,5 +15,5 @@ export type TNewReview = {
   advantage: string;
   disadvantage: string;
   review: string;
-  raiting: number;
+  rating: number;
 }

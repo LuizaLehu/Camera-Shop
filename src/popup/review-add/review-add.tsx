@@ -1,18 +1,9 @@
-import { TComment } from '../../types/comments';
-import { getRating } from '../../utils/utils';
+import { TReview } from '../../types/review';
 
-type ReviewItemProps = {
-  comment: TComment;
-};
 
-function ReviewItem({ comment }: ReviewItemProps): JSX.Element {
-
-  const commentDate = new Date(comment.date).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+function ReviewAdd(): JSX.Element {
 
   return (
-
-
-    
   );
 }
-export default ReviewItem;
+export default ReviewAdd;

@@ -4,9 +4,27 @@ import 'swiper/swiper-bundle.css';
 import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper/modules';
 import Banner from '../banner/banner';
 import { EffectFade } from 'swiper/modules';
+import { getPromoProducts } from '../../store/data-process/data-process.selectors';
+//import { products } from '../../store/data-process/data-process.slice';
+import { useParams } from 'react-router-dom';
+import { useAppSelector } from '../../hooks';
+import { useEffect } from 'react';
+import { useAppDispatch } from '../../hooks';
+import { fetchProductAction } from '../../store/api-action';
 
 
 function Slider() {
+
+  const product = useAppSelector(getPromoProducts);
+  //const id = /* your product ID */;
+  const { id: cameraId } = useParams();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (cameraId) {
+      dispatch(fetchProductAction(cameraId));
+    }
+  }, [cameraId]);
 
 
   return (
@@ -22,16 +40,16 @@ function Slider() {
 
     >
       <SwiperSlide>
-        <Banner />
+        <Banner product={product} id={cameraId}/>
       </SwiperSlide>
       <SwiperSlide>
-        <Banner />
+        <Banner product={product} id={cameraId} />
       </SwiperSlide>
       <SwiperSlide>
-        <Banner />
+        <Banner product={product} id={cameraId} />
       </SwiperSlide>
       <SwiperSlide>
-        <Banner />
+        <Banner product={product} id={cameraId} />
       </SwiperSlide>
     </Swiper>
   );

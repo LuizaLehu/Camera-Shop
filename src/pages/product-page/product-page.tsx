@@ -10,8 +10,10 @@ import { isSimilarProductsStatusLoading, isProductsStatusLoading } from '../../s
 import { dropProduct } from '../../store/data-process/data-process.slice';
 import NotFoundPage from '../not-found-page/not-found-page';
 import { Helmet } from 'react-helmet-async';
-import { fetchSimilarProductAction, fetchProductAction } from '../../store/api-action';
+import { fetchSimilarProductAction, fetchReviewsProductAction, fetchProductAction } from '../../store/api-action';
 import ProductsList from '../../components/products-list/product-list';
+import { getReviews } from '../../store/comments-data/comments-data.selectors';
+import { isReviewsStatusLoading } from '../../store/comments-data/comments-data.selectors';
 
 
 function ProductPage() {
@@ -21,17 +23,21 @@ function ProductPage() {
   const currentProduct = useAppSelector(getProduct);
   const isFullProductLoading = useAppSelector(isProductsStatusLoading);
 
+  const reviews = useAppSelector(getReviews);
+  const isReviewsDataLoading = useAppSelector(isReviewsStatusLoading);
 
   const isSimilarProductsLoading = useAppSelector(isSimilarProductsStatusLoading);
   const similarProductsList = useAppSelector(getSimilarProducts);
 
   const similarProducts = similarProductsList?.slice(0, 3);
+  const currentReviews = reviews?.slice(0, 3);
+
 
   useEffect(() => {
     if (cameraId) {
       dispatch(fetchProductAction(cameraId));
       dispatch(fetchSimilarProductAction(cameraId));
-
+      dispatch(fetchReviewsProductAction(cameraId));
     }
 
     return () => {
@@ -40,7 +46,7 @@ function ProductPage() {
   }, [cameraId, dispatch]);
 
 
-  if (isFullProductLoading || isSimilarProductsLoading) {
+  if (isFullProductLoading || isSimilarProductsLoading || isReviewsDataLoading) {
     return;
   }
 
@@ -49,6 +55,8 @@ function ProductPage() {
   }
 
   const { name, vendorCode, type, category, description, previewImg, previewImg2x, level, price, rating, reviewCount } = currentProduct;
+
+  const mapProducts = similarProducts && [...similarProducts, currentProduct];
 
   return (
 
