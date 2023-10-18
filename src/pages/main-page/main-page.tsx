@@ -5,13 +5,15 @@ import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import Pagination from '../../components/pagination/pagination';
 //import ProductCard from '../../components/product-card/product-card';
-import { useState } from 'react';
-//import { useAppDispatch } from '../../hooks';
+import { useState, useEffect } from 'react';
+import { useAppDispatch } from '../../hooks';
 import Spinner from '../../components/spinner/spinner';
 import { getProducts, isProductsStatusLoading } from '../../store/data-process/data-process.selectors';
 import ProductsList from '../../components/products-list/product-list';
 import { useAppSelector } from '../../hooks';
 import Slider from '../../components/slider/slider';
+
+import { fetchProductsAction } from '../../store/api-action';
 
 /*type MainPageProps = {
   productsCount: number;
@@ -20,15 +22,25 @@ import Slider from '../../components/slider/slider';
 
 function MainPage() {
   const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
-
-  //const dispatch = useAppDispatch();
+  //const ITEMS_PER_PAGE = 9;
+  const dispatch = useAppDispatch();
 
   const products = useAppSelector(getProducts);
-
+  //const pagesProducts = [[1, 2, 3, 4], [5, 6, 7], [8, 9, 10]];
+  //const currentPageProducts = pagesProducts[page]
   const onMouseEnter = (id: string) => setSelectedProduct(id);
   const onMouseLeave = () => setSelectedProduct(null);
 
   const isProductsDataLoading = useAppSelector(isProductsStatusLoading);
+
+
+  useEffect(() => {
+    if (!products.length && !isProductsDataLoading) {
+      dispatch(fetchProductsAction());
+    }
+
+  }, []);
+
 
   //const currentProducts = products?.slice(0, 9);
 
@@ -82,7 +94,6 @@ function MainPage() {
                               type="radio"
                               id="up"
                               name="sort-icon"
-                              defaultChecked
                               aria-label="По возрастанию"
                             />
                             <label htmlFor="up">
@@ -109,13 +120,13 @@ function MainPage() {
                     </form>
                   </div>
                   <div className="cards catalog__cards">
-                    < ProductsList
+                    <ProductsList
                       products={products}
                       onMouseEnter={onMouseEnter}
                       onMouseLeave={onMouseLeave}
                     />
                   </div>
-                  <Pagination />
+                  <Pagination products={products} />
                 </div>
               </div>
             </div>

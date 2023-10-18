@@ -77,7 +77,7 @@ function ProductCard({ product, onMouseEnter, onMouseLeave }: ProductCardProp): 
         >
           Купить
         </button>
-        <Link className="btn btn--transparent" to={`/item/${id}`}>
+        <Link className="btn btn--transparent" to={`/camera/${id}`}>
           Подробнее
         </Link>
       </div>

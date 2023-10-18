@@ -47,7 +47,7 @@ function App() {
 
           />
           <Route
-            path={`${AppRoute.Product}/:productId`}
+            path={`${AppRoute.Product}/:cameraId`}
             element={<ProductPage />}
           />
           <Route path="*" element={<NotFoundPage />} />

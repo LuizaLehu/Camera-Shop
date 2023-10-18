@@ -1,11 +1,11 @@
 export type TReview = {
   id: number;
   createAt: number;
-   /*  data   */
-  previewImg: string;
-  previewImg2x: string;
-  previewImgWebp: string;
-  previewImgWebp2x: string;
+  userName: string;
+  advantage: string;
+  disadvantage: string;
+  review: string;
+  rating: number;
 }
 
 

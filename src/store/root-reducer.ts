@@ -2,7 +2,7 @@ import { combineReducers } from '@reduxjs/toolkit';
 import { NameSpace } from '../const';
 //import { userProcess } from './user-process/user-process.slice';
 import { products } from './data-process/data-process.slice';
-//import { reviewss } from './comments-data/comments-data.slice';
+//import { reviews } from './comments-data/comments-data.slice';
 
 export const rootReducer = combineReducers({
   //[NameSpace.User]: userProcess.reducer,

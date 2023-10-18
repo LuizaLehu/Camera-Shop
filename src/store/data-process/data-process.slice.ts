@@ -32,6 +32,7 @@ export const products = createSlice({
   },
 
   extraReducers(builder) {
+
     builder
       .addCase(fetchProductsAction.pending, (state) => {
         state.isProductsDataLoading = true;

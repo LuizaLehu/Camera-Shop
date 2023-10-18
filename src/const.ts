@@ -1,17 +1,17 @@
 export enum AppRoute {
   Main = '/',
   Basket = '/basket',
-  Product = '/product/:id'
+  Product = '/camera/:id'
 }
 
+
 export enum APIRoute {
-  Products = '/productns',
+  Products = '/cameras',
   SimilarProducts = '/similar',
   NotFound = '/404',
   Reviews = '/reviews',
 }
 
-export const STARS_COUNT = 5;
 
 export enum NameSpace {
   Data = 'DATA',

@@ -15,7 +15,7 @@ import ProductsList from '../../components/products-list/product-list';
 
 
 function ProductPage() {
-  const { id: productId } = useParams();
+  const { id: cameraId } = useParams();
   const dispatch = useAppDispatch();
 
   const currentProduct = useAppSelector(getProduct);
@@ -28,16 +28,16 @@ function ProductPage() {
   const similarProducts = similarProductsList?.slice(0, 3);
 
   useEffect(() => {
-    if (productId) {
-      dispatch(fetchProductAction(productId));
-      dispatch(fetchSimilarProductAction(productId));
+    if (cameraId) {
+      dispatch(fetchProductAction(cameraId));
+      dispatch(fetchSimilarProductAction(cameraId));
 
     }
 
     return () => {
       dispatch(dropProduct());
     };
-  }, [productId, dispatch]);
+  }, [cameraId, dispatch]);
 
 
   if (isFullProductLoading || isSimilarProductsLoading) {

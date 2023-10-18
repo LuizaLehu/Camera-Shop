@@ -13,10 +13,10 @@ function ProductsList({ products, onMouseEnter, onMouseLeave }: ProductsListProp
 
   return (
     <div className="cards catalog__cards">
-      {products.map((product) => (
+      {products?.map((product) => (
         <ProductCard
-          key={item.id}
-          product={item}
+          key={product.id}
+          product={product}
           onMouseEnter={onMouseEnter}
           onMouseLeave={onMouseLeave}
         />

@@ -11,7 +11,7 @@ export const fetchProductsAction = createAsyncThunk<TProduct[], undefined, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'data/fetchProducts',
+  'DATA/fetchProducts',
   async (_arg, { extra: api }) => {
     const { data } = await api.get<TProduct[]>(APIRoute.Products);
     return data;
@@ -24,10 +24,10 @@ export const fetchProductAction = createAsyncThunk<TFullProduct, string, {
   extra: AxiosInstance;
 }>(
   'PRODUCT/fetch',
-  async (productId, { extra: api }) => {
+  async (cameraId, { extra: api }) => {
 
     const { data } = await api
-      .get<TFullProduct>(`${APIRoute.Products}/${productId}`);
+      .get<TFullProduct>(`${APIRoute.Products}/${cameraId}`);
     return data;
   }
 );
@@ -38,8 +38,8 @@ export const fetchSimilarProductAction = createAsyncThunk<TProduct[], string, {
   extra: AxiosInstance;
 }>(
   'SIMILARPRODUCT/fetch',
-  async (productId, { extra: api }) => {
-    const { data } = await api.get<TProduct[]>(`${APIRoute.Products}/${productId}/similar`);
+  async (cameraId, { extra: api }) => {
+    const { data } = await api.get<TProduct[]>(`${APIRoute.Products}/${cameraId}/similar`);
     return data;
   }
 );
