@@ -13,6 +13,7 @@ export const getSimilarProducts = (state: State): TProduct[] | null => state[Nam
 export const isSimilarProductsStatusLoading = (state: State): boolean => state[NameSpace.Data].isSimilarProductsLoading;
 
 export const getPromoProducts = (state: State): TPromo[] | null => state[NameSpace.Data].promoProducts;
+export const isPromoProductsStatusLoading = (state: State): boolean => state[NameSpace.Data].isSimilarProductsLoading;
 
 export const getBasketProducts = (state: State): TProduct[] => state[NameSpace.Data].baskets;
 

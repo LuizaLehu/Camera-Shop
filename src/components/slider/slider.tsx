@@ -16,7 +16,7 @@ import { fetchProductAction } from '../../store/api-action';
 function Slider() {
 
   const product = useAppSelector(getPromoProducts);
-  //const id = /* your product ID */;
+
   const { id: cameraId } = useParams();
   const dispatch = useAppDispatch();
 
@@ -24,7 +24,7 @@ function Slider() {
     if (cameraId) {
       dispatch(fetchProductAction(cameraId));
     }
-  }, [cameraId]);
+  }, [cameraId, dispatch]);
 
 
   return (
@@ -41,9 +41,6 @@ function Slider() {
     >
       <SwiperSlide>
         <Banner product={product} id={cameraId}/>
-      </SwiperSlide>
-      <SwiperSlide>
-        <Banner product={product} id={cameraId} />
       </SwiperSlide>
       <SwiperSlide>
         <Banner product={product} id={cameraId} />

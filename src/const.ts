@@ -32,3 +32,8 @@ export const SortProductsType = {
   Price: 'по цене',
   Popular: 'по популярности',
 };
+
+export const STARS_COUNT = 5;
+
+export const MIN_CHARACTERS_COUNT = 2;
+export const MAX_CHARACTERS_COUNT = 160;

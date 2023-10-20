@@ -8,6 +8,7 @@ import {
   fetchProductsAction,
   fetchProductAction,
   fetchBasketAction,
+  fetchPromoProductsAction,
 } from '../api-action';
 
 import { toast } from 'react-toastify';
@@ -21,6 +22,7 @@ const initialState: TProducts = {
   isProductsDataLoading: false,
   isFullProductDataLoading: false,
   isSimilarProductsLoading: false,
+  isPromoProductsLoading: false,
   hasError: false,
 };
 
@@ -69,6 +71,17 @@ export const products = createSlice({
       })
       .addCase(fetchSimilarProductAction.rejected, (state) => {
         state.isSimilarProductsLoading = false;
+        toast.warn('Failed to fetch similar products. Please, try again later');
+      })
+      .addCase(fetchPromoProductsAction.pending, (state) => {
+        state.isPromoProductsLoading = true;
+      })
+      .addCase(fetchPromoProductsAction.fulfilled, (state, action) => {
+        state.promoProducts = action.payload;
+        state.isPromoProductsLoading = false;
+      })
+      .addCase(fetchPromoProductsAction.rejected, (state) => {
+        state.isPromoProductsLoading = false;
         toast.warn('Failed to fetch similar products. Please, try again later');
       })
       .addCase(fetchBasketAction.fulfilled, (state, action) => {

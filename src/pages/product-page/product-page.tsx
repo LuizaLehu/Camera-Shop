@@ -54,9 +54,9 @@ function ProductPage() {
     return <NotFoundPage />;
   }
 
-  const { name, vendorCode, type, category, description, previewImg, previewImg2x, level, price, rating, reviewCount } = currentProduct;
+  const { name, vendorCode, type, category, description, previewImg, previewImg2x, level, price, rating, reviewCount, previewImgWebp } = currentProduct;
 
-  const mapProducts = similarProducts && [...similarProducts, currentProduct];
+  // const mapProducts = similarProducts && [...similarProducts, currentProduct];
 
   return (
 
@@ -74,12 +74,12 @@ function ProductPage() {
                 <div className="product__img">
                   <picture>
                     <source
-                      type="image/webp"
-                      srcSet={previewImg2x}
+                      type={`/${previewImgWebp}`}
+                      srcSet={`/${previewImg2x}`}
                     />
                     <img
-                      src={previewImg}
-                      srcSet={previewImg2x}
+                      src={`/${previewImg}`}
+                      srcSet={`/${previewImg2x}`}
                       width={560}
                       height={480}
                       alt={name}

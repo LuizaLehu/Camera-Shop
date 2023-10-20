@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 //import Banner from '../../components/banner/banner';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import Filter from '../../components/filter/filter';
@@ -13,16 +14,29 @@ import ProductsList from '../../components/products-list/product-list';
 import { useAppSelector } from '../../hooks';
 import Slider from '../../components/slider/slider';
 
-import { fetchProductsAction } from '../../store/api-action';
+import { fetchProductsAction, fetchPromoProductsAction } from '../../store/api-action';
+import { TProduct } from '../../types/products';
+import { TProducts } from '../../types/state';
+
 
 /*type MainPageProps = {
   productsCount: number;
 }
 */
 
+//frontend pagination function
+function paginate(array: TProduct[], pageSize: number, pageNumber: number): TProduct[] {
+  return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
+}
+
+
 function MainPage() {
   const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
+
+  const [page, setPage] = useState(1);
+  const [currentPageProducts, setCurrentPageProducts] = useState<TProduct[]>([]);
   //const ITEMS_PER_PAGE = 9;
+
   const dispatch = useAppDispatch();
 
   const products = useAppSelector(getProducts);
@@ -33,13 +47,18 @@ function MainPage() {
 
   const isProductsDataLoading = useAppSelector(isProductsStatusLoading);
 
+  useEffect(() => {
+    const currentProducts = paginate(products, 9, page);
+    setCurrentPageProducts(currentProducts);
+  }, [page]);
 
   useEffect(() => {
     if (!products.length && !isProductsDataLoading) {
       dispatch(fetchProductsAction());
+      dispatch(fetchPromoProductsAction());
     }
 
-  }, []);
+  }, [selectedProduct]);
 
 
   //const currentProducts = products?.slice(0, 9);
@@ -121,12 +140,12 @@ function MainPage() {
                   </div>
                   <div className="cards catalog__cards">
                     <ProductsList
-                      products={products}
+                      products={currentPageProducts}
                       onMouseEnter={onMouseEnter}
                       onMouseLeave={onMouseLeave}
                     />
                   </div>
-                  <Pagination products={products} />
+                  <Pagination setPage={setPage} products={products} />
                 </div>
               </div>
             </div>
