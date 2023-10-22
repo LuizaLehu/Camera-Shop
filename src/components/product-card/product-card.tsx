@@ -33,7 +33,7 @@ function ProductCard({ product, onMouseEnter, onMouseLeave }: ProductCardProp): 
             srcSet={previewImg}
           />
           <img
-            src="img/content/das-auge.jpg"
+            src={previewImg}
             srcSet={previewImg2x}
             width={280}
             height={240}

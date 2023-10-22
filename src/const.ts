@@ -7,7 +7,7 @@ export enum AppRoute {
 
 export enum APIRoute {
   Products = '/cameras',
-  SimilarProducts = '/similar',
+  SimilarProducts = '/cameras/{cameraId}/similar',
   PromoProducts = '/promo',
   NotFound = '/404',
   Reviews = '/reviews',

@@ -16,13 +16,7 @@ import Slider from '../../components/slider/slider';
 
 import { fetchProductsAction, fetchPromoProductsAction } from '../../store/api-action';
 import { TProduct } from '../../types/products';
-import { TProducts } from '../../types/state';
 
-
-/*type MainPageProps = {
-  productsCount: number;
-}
-*/
 
 //frontend pagination function
 function paginate(array: TProduct[], pageSize: number, pageNumber: number): TProduct[] {
@@ -50,7 +44,7 @@ function MainPage() {
   useEffect(() => {
     const currentProducts = paginate(products, 9, page);
     setCurrentPageProducts(currentProducts);
-  }, [page]);
+  }, [page, products]);
 
   useEffect(() => {
     if (!products.length && !isProductsDataLoading) {
@@ -58,7 +52,7 @@ function MainPage() {
       dispatch(fetchPromoProductsAction());
     }
 
-  }, [selectedProduct]);
+  }, [dispatch, isProductsDataLoading, products.length, selectedProduct]);
 
 
   //const currentProducts = products?.slice(0, 9);
@@ -70,6 +64,7 @@ function MainPage() {
     );
   }
 
+  const productName = 'Ретрокамера Das Auge IV';
 
   return (
     <div className="wrapper">
@@ -77,7 +72,7 @@ function MainPage() {
       <main>
         <Slider />
         <div className="page-content">
-          <Breadcrumbs />
+          <Breadcrumbs productName={productName} />
           <section className="catalog">
             <div className="container">
               <h1 className="title title--h2">Каталог фото- и видеотехники</h1>

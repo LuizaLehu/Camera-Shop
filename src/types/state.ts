@@ -12,6 +12,7 @@ export type TProducts = {
   isProductsDataLoading: boolean;
   isFullProductDataLoading: boolean;
   isSimilarProductsLoading: boolean;
+  isPromoProductsLoading: boolean;
   hasError: boolean;
 }
 

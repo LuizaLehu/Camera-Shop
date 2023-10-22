@@ -109,7 +109,7 @@ export const addToBasketAction = createAsyncThunk<
     state: State;
     extra: AxiosInstance;
   }
->('data/addToFavorite',
+>('data/addToBasket',
   async ({ status, id }, { dispatch, extra: api }) => {
     await api.post(`${APIRoute.Basket}/${id}/${status}`);
     dispatch(fetchBasketAction());
