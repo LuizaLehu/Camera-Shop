@@ -102,13 +102,13 @@ function renderStars(rating: number) {
 }
 
 function ReviewItem({ review }: ReviewItemProps): JSX.Element {
-  const reviewDate = new Date(date).toLocaleDateString('en-US', { day: 'numeric', month: 'short' });
+  const reviewDate = new Date(review.createAt).toLocaleDateString('en-US', { day: 'numeric', month: 'short' });
 
   return (
     <li className="review-card" key={review.id}>
       <div className="review-card__head">
         <p className="title title--h4">{review.userName}</p>
-        <time className="review-card__data" dateTime={date.split('T')[0]}>
+        <time className="review-card__data" dateTime={reviewDate}>
           {reviewDate}
         </time>
       </div>

@@ -1,9 +1,15 @@
-import BasketItem from '../../components/basket-item/basket-item';
+import BasketList from '../../components/basket-list/basket-list';
+//import BasketItem from '../../components/basket-list/basket-list';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
+import { useAppSelector } from '../../hooks';
+import { getBasketProducts } from '../../store/data-process/data-process.selectors';
 
 function BasketPage() {
+
+  const basketProducts = useAppSelector(getBasketProducts);
+
   return (
 
     <div className="wrapper">
@@ -14,10 +20,7 @@ function BasketPage() {
           <section className="basket">
             <div className="container">
               <h1 className="title title--h2">Корзина</h1>
-              <ul className="basket__list">
-                <BasketItem />
-                <BasketItem />
-              </ul>
+              <BasketList basketProducts={basketProducts} />
               <div className="basket__summary">
                 <div className="basket__promo">
                   <p className="title title--h4">

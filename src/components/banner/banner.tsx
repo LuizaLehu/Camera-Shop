@@ -11,7 +11,7 @@ type ProductCardProp = {
 function Banner({ product, id}: ProductCardProp): JSX.Element {
 
   const { name, previewImg, previewImg2x, previewImgWebp, previewImgWebp2x } = product;
-
+  // debugger;
   return (
     <div className="banner">
 

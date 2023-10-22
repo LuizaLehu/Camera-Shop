@@ -6,6 +6,7 @@ import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import Pagination from '../../components/pagination/pagination';
 //import ProductCard from '../../components/product-card/product-card';
+import { useSearchParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useAppDispatch } from '../../hooks';
 import Spinner from '../../components/spinner/spinner';
@@ -27,7 +28,8 @@ function paginate(array: TProduct[], pageSize: number, pageNumber: number): TPro
 function MainPage() {
   const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
 
-  const [page, setPage] = useState(1);
+  const [searchParams] = useSearchParams();
+  const page = searchParams.get('page') ? Number(searchParams.get('page')) : 1;
   const [currentPageProducts, setCurrentPageProducts] = useState<TProduct[]>([]);
   //const ITEMS_PER_PAGE = 9;
 
@@ -43,6 +45,7 @@ function MainPage() {
 
   useEffect(() => {
     const currentProducts = paginate(products, 9, page);
+    // debugger;
     setCurrentPageProducts(currentProducts);
   }, [page, products]);
 
@@ -140,7 +143,7 @@ function MainPage() {
                       onMouseLeave={onMouseLeave}
                     />
                   </div>
-                  <Pagination setPage={setPage} products={products} />
+                  <Pagination products={products} page={page} />
                 </div>
               </div>
             </div>

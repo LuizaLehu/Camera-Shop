@@ -15,7 +15,7 @@ import { fetchProductAction } from '../../store/api-action';
 
 function Slider() {
 
-  const product = useAppSelector(getPromoProducts);
+  const products = useAppSelector(getPromoProducts);
 
   const { id: cameraId } = useParams();
   const dispatch = useAppDispatch();
@@ -39,15 +39,11 @@ function Slider() {
       autoplay={{ delay: 3000 }}
 
     >
-      <SwiperSlide>
-        <Banner product={product} id={cameraId}/>
-      </SwiperSlide>
-      <SwiperSlide>
-        <Banner product={product} id={cameraId} />
-      </SwiperSlide>
-      <SwiperSlide>
-        <Banner product={product} id={cameraId} />
-      </SwiperSlide>
+      {products?.map((product) => (
+        <SwiperSlide key={product.id}>
+          <Banner product={product} id={product.id} />
+        </SwiperSlide>
+      ))}
     </Swiper>
   );
 }

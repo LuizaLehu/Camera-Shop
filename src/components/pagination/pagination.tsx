@@ -1,9 +1,18 @@
 //import { Link } from 'react-router-dom';
 import { useState } from 'react';
-//import { TProduct } from '../../types/products';
+import { TProduct } from '../../types/products';
 
-function Pagination() {
-  const [currentPage, setCurrentPage] = useState(1);
+// Dispatch state type from react
+//import { Dispatch } from 'react';
+
+
+type TProps = {
+  products: TProduct[];
+  page: number;
+};
+
+function Pagination({ products, page }: TProps) {
+  const [currentPage, setCurrentPage] = useState(page);
   const totalPages = 10; // Replace with the actual number of pages
 
   // Calculate which pages to display based on the current page

@@ -33,7 +33,7 @@ export const fetchProductAction = createAsyncThunk<TFullProduct, string, {
   }
 );
 
-export const fetchPromoProductsAction = createAsyncThunk<TPromo[], undefined, {
+export const fetchPromoProductsAction = createAsyncThunk<TPromo[], [], {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
@@ -52,7 +52,9 @@ export const fetchSimilarProductAction = createAsyncThunk<TProduct[], string, {
 }>(
   'SIMILARPRODUCT/fetch',
   async (cameraId, { extra: api }) => {
+    // debugger;
     const { data } = await api.get<TProduct[]>(`${APIRoute.Products}/${cameraId}/similar`);
+    //  debugger;
     return data;
   }
 );
@@ -64,7 +66,7 @@ export const fetchReviewsProductAction = createAsyncThunk<TReview[], string, {
 }>(
   'REVIEWS/fetch',
   async (cameraId, { extra: api }) => {
-    const { data } = await api.get<TReview[]>(`${APIRoute.Reviews}/${cameraId}`);
+    const { data } = await api.get<TReview[]>(`${APIRoute.Reviews}/${cameraId}/reviews`);
     return data;
   }
 );

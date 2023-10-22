@@ -21,6 +21,39 @@ function ProductCard({ product, onMouseEnter, onMouseLeave }: ProductCardProp): 
     onMouseLeave?.();
   };
 
+  const renderStarRating = (rating: number) => {
+    const maxRating = 5;
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 !== 0;
+    const stars = [];
+
+    for (let i = 1; i <= maxRating; i++) {
+      if (i <= fullStars) {
+        stars.push(<svg key={i} width={17} height={16} aria-hidden="true">
+          <use xlinkHref="#icon-full-star" />
+        </svg>);
+      } else if (hasHalfStar && i === fullStars + 1) {
+        stars.push(<svg key={i} width={17} height={16} aria-hidden="true">
+          <use xlinkHref="#icon-half-star" />
+        </svg>);
+      } else {
+        stars.push(<svg key={i} width={17} height={16} aria-hidden="true">
+          <use xlinkHref="#icon-star" />
+        </svg>);
+      }
+    }
+
+    return (
+      <div className="rate product-card__rate">
+        {stars}
+        <p className="visually-hidden">Рейтинг: {rating}</p>
+        <p className="rate__count">
+          <span className="visually-hidden">Всего оценок:</span>{reviewCount}
+        </p>
+      </div>
+    );
+  };
+
   return (
     <article className="product-card"
       onMouseEnter={() => onCardMouseEnter}
@@ -42,27 +75,7 @@ function ProductCard({ product, onMouseEnter, onMouseLeave }: ProductCardProp): 
         </picture>
       </div>
       <div className="product-card__info">
-        <div className="rate product-card__rate">
-          <svg width={17} height={16} aria-hidden="true">
-            <use xlinkHref="#icon-full-star" />
-          </svg>
-          <svg width={17} height={16} aria-hidden="true">
-            <use xlinkHref="#icon-full-star" />
-          </svg>
-          <svg width={17} height={16} aria-hidden="true">
-            <use xlinkHref="#icon-full-star" />
-          </svg>
-          <svg width={17} height={16} aria-hidden="true">
-            <use xlinkHref="#icon-star" />
-          </svg>
-          <svg width={17} height={16} aria-hidden="true">
-            <use xlinkHref="#icon-star" />
-          </svg>
-          <p className="visually-hidden">Рейтинг: {rating}</p>
-          <p className="rate__count">
-            <span className="visually-hidden">Всего оценок:</span>{reviewCount}
-          </p>
-        </div>
+        {renderStarRating(rating)}
         <p className="product-card__title">
           {name}
         </p>

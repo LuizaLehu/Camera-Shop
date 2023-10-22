@@ -1,6 +1,6 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getRating } from '../../utils/utils';
+
+import { useAppDispatch} from '../../hooks';
+
 import { addToBasketAction } from '../../store/api-action';
 import { TProduct } from '../../types/products';
 
@@ -11,7 +11,7 @@ type BasketCardProps = {
 function BasketCard({ product }: BasketCardProps): JSX.Element {
 
   const dispatch = useAppDispatch();
-  const { id, name, price, rating, reviewCount, previewImg, previewImg2x } = product;
+  const { id, name, price, level, vendorCode, type, previewImg, previewImg2x } = product;
 
 
 
@@ -43,14 +43,14 @@ function BasketCard({ product }: BasketCardProps): JSX.Element {
         <ul className="basket-item__list">
           <li className="basket-item__list-item">
             <span className="basket-item__article">Артикул:</span>{''}
-            <span className="basket-item__number">{ve}</span>
+            <span className="basket-item__number">{vendorCode}</span>
           </li>
-          <li className="basket-item__list-item">Плёночная фотокамера</li>
-          <li className="basket-item__list-item">Любительский уровень</li>
+          <li className="basket-item__list-item">{type}</li>
+          <li className="basket-item__list-item">{level}</li>
         </ul>
       </div>
       <p className="basket-item__price">
-        <span className="visually-hidden">Цена:</span>18 970 ₽
+        <span className="visually-hidden">Цена:</span>{price}
       </p>
       <div className="quantity">
         <button
