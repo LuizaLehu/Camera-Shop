@@ -3,6 +3,7 @@ import BasketList from '../../components/basket-list/basket-list';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
+import PromoCodeForm from '../../components/promo-code-form/promo-code-form';
 import { useAppSelector } from '../../hooks';
 import { getBasketProducts } from '../../store/data-process/data-process.selectors';
 
@@ -26,25 +27,7 @@ function BasketPage() {
                   <p className="title title--h4">
                     Если у вас есть промокод на скидку, примените его в этом поле
                   </p>
-                  <div className="basket-form">
-                    <form action="#">
-                      <div className="custom-input">
-                        <label>
-                          <span className="custom-input__label">Промокод</span>
-                          <input
-                            type="text"
-                            name="promo"
-                            placeholder="Введите промокод"
-                          />
-                        </label>
-                        <p className="custom-input__error">Промокод неверный</p>
-                        <p className="custom-input__success">Промокод принят!</p>
-                      </div>
-                      <button className="btn" type="submit">
-                        Применить
-                      </button>
-                    </form>
-                  </div>
+                  <PromoCodeForm />
                 </div>
                 <div className="basket__summary-order">
                   <p className="basket__summary-item">

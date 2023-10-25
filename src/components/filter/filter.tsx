@@ -1,5 +1,48 @@
+import { useState, ChangeEvent } from 'react';
+
 
 function Filter(): JSX.Element {
+
+  const [filters, setFilters] = useState({
+    priceMin: '',
+    priceMax: '',
+    photocamera: false,
+    videocamera: false,
+    digital: true,
+    film: false,
+    snapshot: false,
+    collection: true,
+    zero: true,
+    nonProfessional: false,
+    professional: false,
+  });
+
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, value, type, checked } = event.target;
+
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      [name]: type === 'checkbox' ? checked : value,
+    }));
+  };
+
+  const handleReset = () => {
+    setFilters({
+      priceMin: '',
+      priceMax: '',
+      photocamera: false,
+      videocamera: false,
+      digital: true,
+      film: false,
+      snapshot: false,
+      collection: true,
+      zero: true,
+      nonProfessional: false,
+      professional: false,
+    });
+  };
+
+
   return (
     <div className="catalog-filter">
       <form action="#">
@@ -9,14 +52,22 @@ function Filter(): JSX.Element {
           <div className="catalog-filter__price-range">
             <div className="custom-input">
               <label>
-                <input type="number" name="price" placeholder="от" />
+                <input
+                  type="number"
+                  name="priceMin"
+                  value={filters.priceMin}
+                  onChange={handleInputChange}
+                  placeholder="от"
+                />
               </label>
             </div>
             <div className="custom-input">
               <label>
                 <input
                   type="number"
-                  name="priceUp"
+                  name="priceMax"
+                  value={filters.priceMax}
+                  onChange={handleInputChange}
                   placeholder="до"
                 />
               </label>
@@ -30,7 +81,8 @@ function Filter(): JSX.Element {
               <input
                 type="checkbox"
                 name="photocamera"
-                defaultChecked
+                checked={filters.photocamera}
+                onChange={handleInputChange}
               />
               <span className="custom-checkbox__icon" />
               <span className="custom-checkbox__label">
@@ -40,7 +92,12 @@ function Filter(): JSX.Element {
           </div>
           <div className="custom-checkbox catalog-filter__item">
             <label>
-              <input type="checkbox" name="videocamera" />
+              <input
+                type="checkbox"
+                name="videocamera"
+                checked={filters.videocamera}
+                onChange={handleInputChange}
+              />
               <span className="custom-checkbox__icon" />
               <span className="custom-checkbox__label">
                 Видеокамера
@@ -55,7 +112,8 @@ function Filter(): JSX.Element {
               <input
                 type="checkbox"
                 name="digital"
-                checked
+                checked={filters.digital}
+                onChange={handleInputChange}
               />
               <span className="custom-checkbox__icon" />
               <span className="custom-checkbox__label">Цифровая</span>
@@ -63,7 +121,12 @@ function Filter(): JSX.Element {
           </div>
           <div className="custom-checkbox catalog-filter__item">
             <label>
-              <input type="checkbox" name="film" disabled />
+              <input
+                type="checkbox"
+                name="film"
+                checked={filters.film}
+                onChange={handleInputChange}
+              />
               <span className="custom-checkbox__icon" />
               <span className="custom-checkbox__label">
                 Плёночная
@@ -72,7 +135,12 @@ function Filter(): JSX.Element {
           </div>
           <div className="custom-checkbox catalog-filter__item">
             <label>
-              <input type="checkbox" name="snapshot" />
+              <input
+                type="checkbox"
+                name="snapshot"
+                checked={filters.snapshot}
+                onChange={handleInputChange}
+              />
               <span className="custom-checkbox__icon" />
               <span className="custom-checkbox__label">
                 Моментальная
@@ -84,8 +152,8 @@ function Filter(): JSX.Element {
               <input
                 type="checkbox"
                 name="collection"
-                defaultChecked
-                disabled
+                checked={filters.collection}
+                onChange={handleInputChange}
               />
               <span className="custom-checkbox__icon" />
               <span className="custom-checkbox__label">
@@ -98,7 +166,12 @@ function Filter(): JSX.Element {
           <legend className="title title--h5">Уровень</legend>
           <div className="custom-checkbox catalog-filter__item">
             <label>
-              <input type="checkbox" name="zero" checked />
+              <input
+                type="checkbox"
+                name="zero"
+                checked={filters.zero}
+                onChange={handleInputChange}
+              />
               <span className="custom-checkbox__icon" />
               <span className="custom-checkbox__label">Нулевой</span>
             </label>
@@ -114,7 +187,12 @@ function Filter(): JSX.Element {
           </div>
           <div className="custom-checkbox catalog-filter__item">
             <label>
-              <input type="checkbox" name="professional" />
+              <input
+                type="checkbox"
+                name="professional"
+                checked={filters.professional}
+                onChange={handleInputChange}
+              />
               <span className="custom-checkbox__icon" />
               <span className="custom-checkbox__label">
                 Профессиональный
@@ -125,6 +203,7 @@ function Filter(): JSX.Element {
         <button
           className="btn catalog-filter__reset-btn"
           type="reset"
+          onClick={handleReset}
         >
           Сбросить фильтры
         </button>
@@ -132,5 +211,7 @@ function Filter(): JSX.Element {
     </div>
   );
 }
+
+
 
 export default Filter;

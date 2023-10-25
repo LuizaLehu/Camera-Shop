@@ -33,6 +33,26 @@ export const SortProductsType = {
   Popular: 'по популярности',
 };
 
+export const FilterCategory = {
+  Photocamera: 'Фотокамера',
+  Videocamera: 'Видеокамера',
+
+};
+
+export const FilterTypes = {
+  Digital: 'Цифровая',
+  Film: 'Плёночная',
+  Snapshot: 'Моментальная',
+  Collection: 'Коллекционная',
+
+};
+
+export const FilterLevel = {
+  Zero: 'Нулевой',
+  NonProfessional: 'Любительский',
+  Professional: 'Профессиональный',
+};
+
 export const STARS_COUNT = 5;
 
 export const MIN_CHARACTERS_COUNT = 2;

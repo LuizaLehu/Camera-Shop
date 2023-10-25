@@ -52,9 +52,7 @@ export const fetchSimilarProductAction = createAsyncThunk<TProduct[], string, {
 }>(
   'SIMILARPRODUCT/fetch',
   async (cameraId, { extra: api }) => {
-    // debugger;
     const { data } = await api.get<TProduct[]>(`${APIRoute.Products}/${cameraId}/similar`);
-    //  debugger;
     return data;
   }
 );
@@ -112,6 +110,26 @@ export const addToBasketAction = createAsyncThunk<
     extra: AxiosInstance;
   }
 >('data/addToBasket',
+  async ({ status, id }, { dispatch, extra: api }) => {
+    await api.post(`${APIRoute.Basket}/${id}/${status}`);
+    dispatch(fetchBasketAction());
+    dispatch(fetchProductsAction());
+    dispatch(fetchProductAction(id));
+  }
+);
+
+export const removeFromBasketAction = createAsyncThunk<
+  void,
+  {
+    status: number;
+    id: string;
+  },
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>('data/removeFromBasket',
   async ({ status, id }, { dispatch, extra: api }) => {
     await api.post(`${APIRoute.Basket}/${id}/${status}`);
     dispatch(fetchBasketAction());

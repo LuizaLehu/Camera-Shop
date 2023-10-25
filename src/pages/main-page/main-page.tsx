@@ -17,9 +17,10 @@ import Slider from '../../components/slider/slider';
 
 import { fetchProductsAction, fetchPromoProductsAction } from '../../store/api-action';
 import { TProduct } from '../../types/products';
+import Sorting from '../../components/sorting/sorting';
+import { TSorting } from '../../types/sorting';
 
 
-//frontend pagination function
 function paginate(array: TProduct[], pageSize: number, pageNumber: number): TProduct[] {
   return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
 }
@@ -27,17 +28,19 @@ function paginate(array: TProduct[], pageSize: number, pageNumber: number): TPro
 
 function MainPage() {
   const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
+  const [activeSorting, setActiveSorting] = useState<TSorting>('Price');
+  const [sortingOrder, setSortingOrder] = useState('asc');
+
 
   const [searchParams] = useSearchParams();
   const page = searchParams.get('page') ? Number(searchParams.get('page')) : 1;
   const [currentPageProducts, setCurrentPageProducts] = useState<TProduct[]>([]);
-  //const ITEMS_PER_PAGE = 9;
+
 
   const dispatch = useAppDispatch();
 
   const products = useAppSelector(getProducts);
-  //const pagesProducts = [[1, 2, 3, 4], [5, 6, 7], [8, 9, 10]];
-  //const currentPageProducts = pagesProducts[page]
+
   const onMouseEnter = (id: string) => setSelectedProduct(id);
   const onMouseLeave = () => setSelectedProduct(null);
 
@@ -45,7 +48,6 @@ function MainPage() {
 
   useEffect(() => {
     const currentProducts = paginate(products, 9, page);
-    // debugger;
     setCurrentPageProducts(currentProducts);
   }, [page, products]);
 
@@ -67,7 +69,25 @@ function MainPage() {
     );
   }
 
-  const productName = 'Ретрокамера Das Auge IV';
+  /*const sortedProductList = productList.slice().sort((productA, productB) => {
+    if (activeSorting === 'price') {
+      const priceA = productA.price;
+      const priceB = productB.price;
+      return sortingOrder === 'asc' ? priceA - priceB : priceB - priceA;
+    } else if (activeSorting === 'popular') {
+      const popularA = productA.popularity;
+      const popularB = productB.popularity;
+      return sortingOrder === 'asc' ? popularA - popularB : popularB - popularA;
+    }
+    return 0;
+  });
+
+  const handleSortingChange = (newSorting, newSortOrder) => {
+    setActiveSorting(newSorting);
+    setSortingOrder(newSortOrder);
+  };
+*/
+  //const productName = 'Ретрокамера Das Auge IV';
 
   return (
     <div className="wrapper">
@@ -75,7 +95,7 @@ function MainPage() {
       <main>
         <Slider />
         <div className="page-content">
-          <Breadcrumbs productName={productName} />
+          <Breadcrumbs productName="Main Page" isProductPage={false} />
           <section className="catalog">
             <div className="container">
               <h1 className="title title--h2">Каталог фото- и видеотехники</h1>
@@ -86,59 +106,14 @@ function MainPage() {
                   </div>
                 </div>
                 <div className="catalog__content">
-                  <div className="catalog-sort">
-                    <form action="#">
-                      <div className="catalog-sort__inner">
-                        <p className="title title--h5">Сортировать:</p>
-                        <div className="catalog-sort__type">
-                          <div className="catalog-sort__btn-text">
-                            <input
-                              type="radio"
-                              id="sortPrice"
-                              name="sort"
-                              defaultChecked
-                            />
-                            <label htmlFor="sortPrice">по цене</label>
-                          </div>
-                          <div className="catalog-sort__btn-text">
-                            <input type="radio" id="sortPopular" name="sort" />
-                            <label htmlFor="sortPopular">по популярности</label>
-                          </div>
-                        </div>
-                        <div className="catalog-sort__order">
-                          <div className="catalog-sort__btn catalog-sort__btn--up">
-                            <input
-                              type="radio"
-                              id="up"
-                              name="sort-icon"
-                              aria-label="По возрастанию"
-                            />
-                            <label htmlFor="up">
-                              <svg width={16} height={14} aria-hidden="true">
-                                <use xlinkHref="#icon-sort" />
-                              </svg>
-                            </label>
-                          </div>
-                          <div className="catalog-sort__btn catalog-sort__btn--down">
-                            <input
-                              type="radio"
-                              id="down"
-                              name="sort-icon"
-                              aria-label="По убыванию"
-                            />
-                            <label htmlFor="down">
-                              <svg width={16} height={14} aria-hidden="true">
-                                <use xlinkHref="#icon-sort" />
-                              </svg>
-                            </label>
-                          </div>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
+                  <Sorting
+                    activeSorting={activeSorting}
+                    onChange={(newSorting) => setActiveSorting(newSorting)}
+                  />
                   <div className="cards catalog__cards">
                     <ProductsList
                       products={currentPageProducts}
+                      // products={sortedProductList}
                       onMouseEnter={onMouseEnter}
                       onMouseLeave={onMouseLeave}
                     />

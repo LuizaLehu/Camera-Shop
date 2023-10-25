@@ -8,3 +8,4 @@ function getPercent(number: number): string {
 }
 
 export {getPercent};
+

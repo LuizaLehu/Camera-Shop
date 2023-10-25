@@ -1,7 +1,7 @@
 
-import { useAppDispatch} from '../../hooks';
+import { useAppDispatch } from '../../hooks';
 
-import { addToBasketAction } from '../../store/api-action';
+import { addToBasketAction, removeFromBasketAction } from '../../store/api-action';
 import { TProduct } from '../../types/products';
 
 type BasketCardProps = {
@@ -9,17 +9,17 @@ type BasketCardProps = {
 }
 
 function BasketCard({ product }: BasketCardProps): JSX.Element {
-
-  const dispatch = useAppDispatch();
   const { id, name, price, level, vendorCode, type, previewImg, previewImg2x } = product;
 
+  const dispatch = useAppDispatch();
 
-
-  const handleBasketClick = () => {
-
-    dispatch(addToBasketAction({ status: (!isInBasket ? 1 : 0), id: id }));
+  const handleAddToBasket = () => {
+    dispatch(addToBasketAction({ status: 1, id: id }));
   };
 
+  const handleRemoveFromBasket = () => {
+    dispatch(removeFromBasketAction({ id: id }));
+  };
 
   return (
     <article className="basket-item">
@@ -56,6 +56,7 @@ function BasketCard({ product }: BasketCardProps): JSX.Element {
         <button
           className="btn-icon btn-icon--prev"
           aria-label="уменьшить количество товара"
+          onClick={handleRemoveFromBasket}
         >
           <svg width={7} height={12} aria-hidden="true">
             <use xlinkHref="#icon-arrow" />
@@ -73,6 +74,7 @@ function BasketCard({ product }: BasketCardProps): JSX.Element {
         <button
           className="btn-icon btn-icon--next"
           aria-label="увеличить количество товара"
+          onClick={handleAddToBasket}
         >
           <svg width={7} height={12} aria-hidden="true">
             <use xlinkHref="#icon-arrow" />
@@ -80,9 +82,14 @@ function BasketCard({ product }: BasketCardProps): JSX.Element {
         </button>
       </div>
       <div className="basket-item__total-price">
-        <span className="visually-hidden">Общая цена:</span>37 940 ₽
+        <span className="visually-hidden">Общая цена:</span>{price} ₽
       </div>
-      <button className="cross-btn" type="button" aria-label="Удалить товар">
+      <button
+        className="cross-btn"
+        type="button"
+        aria-label="Удалить товар"
+        onClick={handleRemoveFromBasket}
+      >
         <svg width={10} height={10} aria-hidden="true">
           <use xlinkHref="#icon-close" />
         </svg>
