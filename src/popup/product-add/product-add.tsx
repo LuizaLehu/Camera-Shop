@@ -57,7 +57,7 @@ function AddToBasketButton() {
   );
 }
 
-function ProductAdd(): JSX.Element {
+function ProductAdd({ product, closePopup }: { product: TProduct, closePopup: () => void }): JSX.Element {
   return (
     <div className="modal is-active">
       <div className="modal__wrapper">
@@ -68,7 +68,12 @@ function ProductAdd(): JSX.Element {
           <div className="modal__buttons">
             <AddToBasketButton />
           </div>
-          <button className="cross-btn" type="button" aria-label="Закрыть попап">
+          <button
+            className="cross-btn"
+            type="button"
+            aria-label="Закрыть попап"
+            onClick={closePopup}
+          >
             <svg width={10} height={10} aria-hidden="true">
               <use xlinkHref="#icon-close" />
             </svg>

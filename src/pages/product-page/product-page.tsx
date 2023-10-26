@@ -3,7 +3,7 @@ import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import { useEffect, useState } from 'react';
 import { useAppDispatch } from '../../hooks';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
 import { getProduct, getSimilarProducts } from '../../store/data-process/data-process.selectors';
 import { isSimilarProductsStatusLoading, isProductsStatusLoading } from '../../store/data-process/data-process.selectors';
@@ -16,6 +16,8 @@ import { getReviews } from '../../store/comments-data/comments-data.selectors';
 import { isReviewsStatusLoading } from '../../store/comments-data/comments-data.selectors';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import ReviewAdd from '../../popup/review-add/review-add';
+import ProductAdd from '../../popup/product-add/product-add';
+import ProductTabs from '../../components/tabs/tabs';
 
 function ProductPage() {
   const { id: cameraId } = useParams();
@@ -43,6 +45,15 @@ function ProductPage() {
 
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
 
+  const [isProductAddModalOpen, setIsProductAddModalOpen] = useState(false);
+
+  const openProductAddModal = () => {
+    setIsProductAddModalOpen(true);
+  };
+
+  const closeProductAddModal = () => {
+    setIsProductAddModalOpen(false);
+  };
 
   const similarProductsPerPage = 3;
   //const isOpen = isReviewModalOpen;
@@ -204,13 +215,14 @@ function ProductPage() {
                   <button
                     className="btn btn--purple"
                     type="button"
+                    onClick={openProductAddModal}
                   >
                     <svg width={24} height={16} aria-hidden="true">
                       <use xlinkHref="#icon-add-basket" />
                     </svg>
                     Добавить в корзину
                   </button>
-                  <div className="tabs product__tabs">
+<div className="tabs product__tabs">
                     <div className="tabs__controls product__tabs-controls">
                       <button
                         className="tabs__control"
@@ -297,14 +309,17 @@ function ProductPage() {
                 closeModal={() => setIsReviewModalOpen(false)}
               />
             )}
+            {isProductAddModalOpen && (
+              <ProductAdd product={currentProduct} closePopup={closeProductAddModal} />
+            )}
           </div>
         </div >
       </main >
-      <a className="up-btn" href="#header">
+      <Link className="up-btn" to="#header">
         <svg width={12} height={18} aria-hidden="true">
           <use xlinkHref="#icon-arrow2" />
         </svg>
-      </a>
+      </Link>
       <Footer />
     </div >
   );

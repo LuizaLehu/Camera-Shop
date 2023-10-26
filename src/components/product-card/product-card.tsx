@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { TFullProduct, TProduct } from '../../types/products';
-
+import { useState } from 'react';
+import ProductAdd from '../../popup/product-add/product-add';
 
 type ProductCardProp = {
   product: TProduct | TFullProduct;
@@ -10,8 +11,17 @@ type ProductCardProp = {
 
 
 function ProductCard({ product, onMouseEnter, onMouseLeave }: ProductCardProp): JSX.Element {
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
   const { id, name, price, rating, reviewCount, previewImg, previewImg2x } = product;
 
+  const openPopup = () => {
+    setIsPopupOpen(true);
+  };
+
+  const closePopup = () => {
+    setIsPopupOpen(false);
+  };
 
   const onCardMouseEnter = () => {
     onMouseEnter?.(id);
@@ -87,12 +97,16 @@ function ProductCard({ product, onMouseEnter, onMouseLeave }: ProductCardProp): 
         <button
           className="btn btn--purple product-card__btn"
           type="button"
+          onClick={openPopup}
         >
           Купить
         </button>
         <Link className="btn btn--transparent" to={`/camera/${id}`}>
           Подробнее
         </Link>
+        {isPopupOpen && (
+          <ProductAdd product={product} closePopup={closePopup} />
+        )}
       </div>
     </article>
   );
