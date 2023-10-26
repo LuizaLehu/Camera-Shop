@@ -29,8 +29,6 @@ function paginate(array: TProduct[], pageSize: number, pageNumber: number): TPro
 function MainPage() {
   const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
   const [activeSorting, setActiveSorting] = useState<TSorting>('Price');
-  const [sortingOrder, setSortingOrder] = useState('asc');
-
 
   const [searchParams] = useSearchParams();
   const page = searchParams.get('page') ? Number(searchParams.get('page')) : 1;
@@ -46,6 +44,7 @@ function MainPage() {
 
   const isProductsDataLoading = useAppSelector(isProductsStatusLoading);
 
+
   useEffect(() => {
     const currentProducts = paginate(products, 9, page);
     setCurrentPageProducts(currentProducts);
@@ -60,34 +59,12 @@ function MainPage() {
   }, [dispatch, isProductsDataLoading, products.length, selectedProduct]);
 
 
-  //const currentProducts = products?.slice(0, 9);
-
-
   if (isProductsDataLoading) {
     return (
       <Spinner />
     );
   }
 
-  /*const sortedProductList = productList.slice().sort((productA, productB) => {
-    if (activeSorting === 'price') {
-      const priceA = productA.price;
-      const priceB = productB.price;
-      return sortingOrder === 'asc' ? priceA - priceB : priceB - priceA;
-    } else if (activeSorting === 'popular') {
-      const popularA = productA.popularity;
-      const popularB = productB.popularity;
-      return sortingOrder === 'asc' ? popularA - popularB : popularB - popularA;
-    }
-    return 0;
-  });
-
-  const handleSortingChange = (newSorting, newSortOrder) => {
-    setActiveSorting(newSorting);
-    setSortingOrder(newSortOrder);
-  };
-*/
-  //const productName = 'Ретрокамера Das Auge IV';
 
   return (
     <div className="wrapper">
@@ -113,7 +90,6 @@ function MainPage() {
                   <div className="cards catalog__cards">
                     <ProductsList
                       products={currentPageProducts}
-                      // products={sortedProductList}
                       onMouseEnter={onMouseEnter}
                       onMouseLeave={onMouseLeave}
                     />

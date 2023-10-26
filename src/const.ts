@@ -53,7 +53,21 @@ export const FilterLevel = {
   Professional: 'Профессиональный',
 };
 
+export const TabName = {
+  Characteristics: 'Характеристики',
+  Description: 'Описание',
+};
+
 export const STARS_COUNT = 5;
 
 export const MIN_CHARACTERS_COUNT = 2;
 export const MAX_CHARACTERS_COUNT = 160;
+
+export const RATING_TITLES = [
+  'Отлично',
+  'Хорошо',
+  'Нормально',
+  'Плохо',
+  'Ужасно'
+] as const;
+

@@ -5,7 +5,6 @@ import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper/module
 import Banner from '../banner/banner';
 import { EffectFade } from 'swiper/modules';
 import { getPromoProducts } from '../../store/data-process/data-process.selectors';
-//import { products } from '../../store/data-process/data-process.slice';
 import { useParams } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
 import { useEffect } from 'react';

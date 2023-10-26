@@ -15,6 +15,7 @@ import ProductsList from '../../components/products-list/product-list';
 import { getReviews } from '../../store/comments-data/comments-data.selectors';
 import { isReviewsStatusLoading } from '../../store/comments-data/comments-data.selectors';
 import ReviewsList from '../../components/reviews-list/reviews-list';
+import ReviewAdd from '../../popup/review-add/review-add';
 
 function ProductPage() {
   const { id: cameraId } = useParams();
@@ -35,16 +36,23 @@ function ProductPage() {
   const currentReviews = reviews.length ? reviews?.slice(0, 3) : [];
 
   const [activeTab, setActiveTab] = useState('characteristics');
+
   const [reviewsToShow, setReviewsToShow] = useState(3);
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
+
+
   const similarProductsPerPage = 3;
+  //const isOpen = isReviewModalOpen;
+  //const for popup review add
 
   const displayedProducts = similarProducts.slice(
     currentIndex,
     currentIndex + similarProductsPerPage
   );
+
 
   const handleNextClick = () => {
     if (currentIndex + similarProductsPerPage < similarProducts.length) {
@@ -60,11 +68,16 @@ function ProductPage() {
 
 
   const handleTabClick = (tabName) => {
+    //if (tabName === 'characteristics' || tabName === 'description')
     setActiveTab(tabName);
   };
 
   const handleShowMoreReviews = () => {
     setReviewsToShow((prevCount) => prevCount + 3);
+  };
+
+  const openReviewModal = () => {
+    setIsReviewModalOpen(true);
   };
 
   useEffect(() => {
@@ -128,7 +141,7 @@ function ProductPage() {
     tabContent = (
       <div className="product__tabs-text">
         <p>{description}</p>
-        <p>{description}</p>
+
       </div>
     );
   }
@@ -138,12 +151,12 @@ function ProductPage() {
 
     <div className="wrapper">
       <Helmet>
-        <title>Cameras -best products</title>
+        <title>{name}</title>
       </Helmet>
       <Header />
       <main>
         <div className="page-content">
-          <Breadcrumbs productName="Product Name" isProductPage />
+          <Breadcrumbs productName={name} isProductPage />
           <div className="page-content__section">
             <section className="product">
               <div className="container">
@@ -188,7 +201,10 @@ function ProductPage() {
                   <p className="product__price">
                     <span className="visually-hidden">Цена:</span>{price} ₽
                   </p>
-                  <button className="btn btn--purple" type="button">
+                  <button
+                    className="btn btn--purple"
+                    type="button"
+                  >
                     <svg width={24} height={16} aria-hidden="true">
                       <use xlinkHref="#icon-add-basket" />
                     </svg>
@@ -257,18 +273,30 @@ function ProductPage() {
               <div className="container">
                 <div className="page-content__headed">
                   <h2 className="title title--h3">Отзывы</h2>
-                  <button className="btn" type="button">
+                  <button
+                    className="btn"
+                    type="button"
+                    onClick={openReviewModal}
+                  >
                     Оставить свой отзыв
                   </button>
                 </div>
                 {currentReviews && <ReviewsList reviews={currentReviews} />}
                 <div className="review-block__buttons">
-                  <button className="btn btn--purple" type="button">
+                  <button
+                    className="btn btn--purple"
+                    type="button"
+                  >
                     Показать больше отзывов
                   </button>
                 </div>
               </div>
             </section>
+            {isReviewModalOpen && (
+              <ReviewAdd
+                closeModal={() => setIsReviewModalOpen(false)}
+              />
+            )}
           </div>
         </div >
       </main >
@@ -279,7 +307,6 @@ function ProductPage() {
       </a>
       <Footer />
     </div >
-
   );
 }
 
