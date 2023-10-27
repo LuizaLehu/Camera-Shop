@@ -9,7 +9,7 @@ type TProps = {
 
 function Pagination({ products, page }: TProps) {
   const [currentPage, setCurrentPage] = useState(page);
-  const totalPages = 6; // Replace with the actual number of pages
+  const totalPages = 5; // Replace with the actual number of pages
 
   const displayPages = [];
   if (totalPages <= 3) {

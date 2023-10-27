@@ -61,9 +61,9 @@ function ReviewAdd({ closeModal}: TReviewAdd) {
           review: formObject['user-comment'],
           rating: +formObject['rate'],
           cameraId: +id,
-          name: formObject['user-name'],
-          advantage: formObject['advantage'],
-          disadvantage: formObject['disadvantage'],
+          userName: formObject['user-name'],
+          advantage: formObject['user-plus'],
+          disadvantage: formObject['user-minus'],
 
         }));
 

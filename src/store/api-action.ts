@@ -76,8 +76,8 @@ export const postReviewProductAction = createAsyncThunk<TReview, TReview, {
   extra: AxiosInstance;
 }>(
   'REVIEWS/post',
-  async (val, { extra: api }) => {
-    const { data } = await api.post<TReview>(APIRoute.PostReview, val);
+  async ({ review, rating, cameraId, userName, advantage, disadvantage },{ extra: api }) => {
+    const { data } = await api.post<TReview>(APIRoute.PostReview, { review, cameraId, rating, advantage, disadvantage, userName});
     return data;
   }
 );
