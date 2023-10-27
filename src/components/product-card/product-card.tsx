@@ -31,7 +31,7 @@ function ProductCard({ product, onMouseEnter, onMouseLeave }: ProductCardProp): 
     onMouseLeave?.();
   };
 
-  const renderStarRating = (rating: number) => {
+  const renderStarRating = (rating) => {
     const maxRating = 5;
     const fullStars = Math.floor(rating);
     const hasHalfStar = rating % 1 !== 0;

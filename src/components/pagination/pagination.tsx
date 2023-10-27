@@ -1,4 +1,4 @@
-//import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { TProduct } from '../../types/products';
 
@@ -55,13 +55,13 @@ function Pagination({ products, page }: TProps) {
             {page === currentPage ? (
               <span className="pagination__link pagination__link--active">{page}</span>
             ) : (
-              <a
+              <Link
                 className="pagination__link"
-                href={`?page=${page}`}
+                to={`?page=${page}`}
                 onClick={() => handlePageClick(page)}
               >
                 {page}
-              </a>
+              </Link>
             )}
           </li>
         ))}
