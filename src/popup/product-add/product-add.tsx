@@ -57,7 +57,7 @@ function AddToBasketButton() {
   );
 }
 
-function ProductAdd({ product, closePopup }: { product: TProduct, closePopup: () => void }): JSX.Element {
+function ProductAdd({ product, closePopup }: { product: TProduct; closePopup: () => void }): JSX.Element {
   return (
     <div className="modal is-active">
       <div className="modal__wrapper">

@@ -4,7 +4,7 @@ import { TFullProduct, TProduct, TPromo } from '../types/products.js';
 
 import { APIRoute } from '../const';
 import { AppDispatch, State } from '../types/state';
-import { TNewReview, TReview } from '../types/review.js';
+import { TReview } from '../types/review.js';
 //import { redirectToRoute } from './action.js';
 
 export const fetchProductsAction = createAsyncThunk<TProduct[], undefined, {
@@ -70,14 +70,14 @@ export const fetchReviewsProductAction = createAsyncThunk<TReview[], string, {
 );
 
 
-export const postReviewProductAction = createAsyncThunk<TReview, TNewReview, {
+export const postReviewProductAction = createAsyncThunk<TReview, TReview, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'REVIEWS/post',
-  async ({ review, cameraId }, { extra: api }) => {
-    const { data } = await api.post<TReview>(`${APIRoute.Reviews}/${cameraId}`, { review });
+  async (val, { extra: api }) => {
+    const { data } = await api.post<TReview>(APIRoute.PostReview, val);
     return data;
   }
 );

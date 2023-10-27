@@ -1,11 +1,16 @@
-import { useState, ChangeEvent, FormEvent } from 'react';
+import { useState, FormEvent } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useParams } from 'react-router';
 import { postReviewProductAction } from '../../store/api-action';
 import { getReviewStatus } from '../../store/comments-data/comments-data.selectors';
 import { MAX_CHARACTERS_COUNT, MIN_CHARACTERS_COUNT, Status } from '../../const';
 
-function ReviewAdd({ closeModal }): JSX.Element {
+type TReviewAdd = {
+  closeModal: () => void;
+};
+
+
+function ReviewAdd({ closeModal}: TReviewAdd) {
 
   const { id } = useParams();
   const dispatch = useAppDispatch();
@@ -22,23 +27,18 @@ function ReviewAdd({ closeModal }): JSX.Element {
 
   const postReviewStatus = useAppSelector(getReviewStatus);
 
-  const handleFormChange = (evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
-    const { name, value } = evt.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const isFormValid =
+  /*const isFormValid =
     formData.review.length >= MIN_CHARACTERS_COUNT &&
     formData.review.length <= MAX_CHARACTERS_COUNT &&
     +formData.rating > 0 &&
     postReviewStatus !== Status.Loading;
-
+*/
   const resetForm = () => {
     setFormData(initialFormData);
   };
 
 
-  const resetData = (evt: FormEvent<HTMLFormElement>) => {
+  /*const resetData = (evt: FormEvent<HTMLFormElement>) => {
     setFormData({
       ...formData,
       review: '',
@@ -48,19 +48,27 @@ function ReviewAdd({ closeModal }): JSX.Element {
       disadvantage: ''
     });
     evt.currentTarget.reset();
-  };
+  };  */
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     if (id) {
+      const data = new FormData(evt.target);
+      const formObject = Object.fromEntries(data.entries());
+
       dispatch(
         postReviewProductAction({
-          review: formData.review,
-          rating: +formData.rating,
-          cameraId: id
+          review: formObject['user-comment'],
+          rating: +formObject['rate'],
+          cameraId: +id,
+          name: formObject['user-name'],
+          advantage: formObject['advantage'],
+          disadvantage: formObject['disadvantage'],
+
         }));
+
       if (postReviewStatus === Status.Loading || !(postReviewStatus === Status.Error)) {
-        setFormData({ ...formData, review: '', rating: '0' });
+        setFormData({ ...formData, review: '', rating: '0', name: '', advantage: '', disadvantage: '' });
       }
     }
     resetForm();
@@ -235,9 +243,8 @@ function ReviewAdd({ closeModal }): JSX.Element {
                 <button
                   className="btn btn--purple form-review__btn"
                   type="submit"
-                  disabled={!isFormValid}
-                >{postReviewStatus === Status.Loading ? 'In process...' : 'Submit'}
-                  Отправить отзыв
+                // disabled={!isFormValid}
+                >{postReviewStatus === Status.Loading ? 'загрузка...' : 'Отправить отзыв'}
                 </button>
               </form>
             </div>

@@ -41,15 +41,15 @@ function ProductCard({ product, onMouseEnter, onMouseLeave }: ProductCardProp): 
       if (i <= fullStars) {
         stars.push(<svg key={i} width={17} height={16} aria-hidden="true">
           <use xlinkHref="#icon-full-star" />
-        </svg>);
+                   </svg>);
       } else if (hasHalfStar && i === fullStars + 1) {
         stars.push(<svg key={i} width={17} height={16} aria-hidden="true">
           <use xlinkHref="#icon-half-star" />
-        </svg>);
+                   </svg>);
       } else {
         stars.push(<svg key={i} width={17} height={16} aria-hidden="true">
           <use xlinkHref="#icon-star" />
-        </svg>);
+                   </svg>);
       }
     }
 

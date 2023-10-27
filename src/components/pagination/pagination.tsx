@@ -2,10 +2,6 @@
 import { useState } from 'react';
 import { TProduct } from '../../types/products';
 
-// Dispatch state type from react
-//import { Dispatch } from 'react';
-
-
 type TProps = {
   products: TProduct[];
   page: number;

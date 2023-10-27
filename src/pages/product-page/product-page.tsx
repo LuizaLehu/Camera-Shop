@@ -17,7 +17,8 @@ import { isReviewsStatusLoading } from '../../store/comments-data/comments-data.
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import ReviewAdd from '../../popup/review-add/review-add';
 import ProductAdd from '../../popup/product-add/product-add';
-import ProductTabs from '../../components/tabs/tabs';
+//import ProductTabs from '../../components/tabs/tabs';
+//import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 
 function ProductPage() {
   const { id: cameraId } = useParams();
@@ -35,7 +36,8 @@ function ProductPage() {
   //const similarProducts = similarProductsList?.slice(0, 3);
   const similarProducts = similarProductsList || [];
 
-  const currentReviews = reviews.length ? reviews?.slice(0, 3) : [];
+  const [currentReviews, setCurrentReviews] = useState(reviews.length ? reviews.slice(0, 3) : []);
+
 
   const [activeTab, setActiveTab] = useState('characteristics');
 
@@ -56,14 +58,22 @@ function ProductPage() {
   };
 
   const similarProductsPerPage = 3;
-  //const isOpen = isReviewModalOpen;
-  //const for popup review add
 
   const displayedProducts = similarProducts.slice(
     currentIndex,
     currentIndex + similarProductsPerPage
   );
 
+  const handleShowMoreReviews = () => {
+
+
+    setReviewsToShow(reviewsToShow + 3);
+
+  };
+
+  useEffect(() => {
+    setCurrentReviews(reviews.slice(0, reviewsToShow));
+  }, [reviewsToShow, reviews]);
 
   const handleNextClick = () => {
     if (currentIndex + similarProductsPerPage < similarProducts.length) {
@@ -81,10 +91,6 @@ function ProductPage() {
   const handleTabClick = (tabName) => {
     //if (tabName === 'characteristics' || tabName === 'description')
     setActiveTab(tabName);
-  };
-
-  const handleShowMoreReviews = () => {
-    setReviewsToShow((prevCount) => prevCount + 3);
   };
 
   const openReviewModal = () => {
@@ -222,7 +228,7 @@ function ProductPage() {
                     </svg>
                     Добавить в корзину
                   </button>
-<div className="tabs product__tabs">
+                  <div className="tabs product__tabs">
                     <div className="tabs__controls product__tabs-controls">
                       <button
                         className="tabs__control"
@@ -252,30 +258,32 @@ function ProductPage() {
               <div className="container">
                 <h2 className="title title--h3">Похожие товары</h2>
                 <div className="product-similar__slider">
-                  <ProductsList products={displayedProducts} />
+                  <div class="product-similar__slider-list">
+                    <ProductsList products={displayedProducts} />
 
-                  <button
-                    className="slider-controls slider-controls--prev"
-                    type="button"
-                    aria-label="Предыдущий слайд"
-                    onClick={handlePrevClick}
-                    disabled={currentIndex === 0}
-                  >
-                    <svg width={7} height={12} aria-hidden="true">
-                      <use xlinkHref="#icon-arrow" />
-                    </svg>
-                  </button>
-                  <button
-                    className="slider-controls slider-controls--next"
-                    type="button"
-                    aria-label="Следующий слайд"
-                    onClick={handleNextClick}
-                    disabled={currentIndex + similarProductsPerPage >= similarProducts.length}
-                  >
-                    <svg width={7} height={12} aria-hidden="true">
-                      <use xlinkHref="#icon-arrow" />
-                    </svg>
-                  </button>
+                    <button
+                      className="slider-controls slider-controls--prev"
+                      type="button"
+                      aria-label="Предыдущий слайд"
+                      onClick={handlePrevClick}
+                      disabled={currentIndex === 0}
+                    >
+                      <svg width={7} height={12} aria-hidden="true">
+                        <use xlinkHref="#icon-arrow" />
+                      </svg>
+                    </button>
+                    <button
+                      className="slider-controls slider-controls--next"
+                      type="button"
+                      aria-label="Следующий слайд"
+                      onClick={handleNextClick}
+                      disabled={currentIndex + similarProductsPerPage >= similarProducts.length}
+                    >
+                      <svg width={7} height={12} aria-hidden="true">
+                        <use xlinkHref="#icon-arrow" />
+                      </svg>
+                    </button>
+                  </div>
                 </div>
               </div>
             </section>
@@ -293,15 +301,20 @@ function ProductPage() {
                     Оставить свой отзыв
                   </button>
                 </div>
-                {currentReviews && <ReviewsList reviews={currentReviews} />}
-                <div className="review-block__buttons">
-                  <button
-                    className="btn btn--purple"
-                    type="button"
-                  >
-                    Показать больше отзывов
-                  </button>
-                </div>
+                {currentReviews && (
+                  <ReviewsList reviews={currentReviews} />
+                )}
+                {reviewsToShow < reviews.length && (
+                  <div className="review-block__buttons">
+                    <button
+                      className="btn btn--purple"
+                      type="button"
+                      onClick={handleShowMoreReviews}
+                    >
+                      Показать больше отзывов
+                    </button>
+                  </div>
+                )}
               </div>
             </section>
             {isReviewModalOpen && (

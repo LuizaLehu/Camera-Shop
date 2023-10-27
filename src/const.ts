@@ -12,6 +12,7 @@ export enum APIRoute {
   NotFound = '/404',
   Reviews = '/cameras',
   Basket = '/basket',
+  PostReview = '/reviews',
 }
 
 
