@@ -1,5 +1,4 @@
 import BasketList from '../../components/basket-list/basket-list';
-//import BasketItem from '../../components/basket-list/basket-list';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';

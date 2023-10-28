@@ -258,7 +258,7 @@ function ProductPage() {
               <div className="container">
                 <h2 className="title title--h3">Похожие товары</h2>
                 <div className="product-similar__slider">
-                  <div class="product-similar__slider-list">
+                  <div className="product-similar__slider-list">
                     <ProductsList products={displayedProducts} />
 
                     <button
