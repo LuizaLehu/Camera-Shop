@@ -7,7 +7,7 @@ function Footer(): JSX.Element {
         <div className="footer__info">
           <Link
             className="footer__logo"
-            to="index.html"
+            to="/"
             aria-label="Переход на главную"
           >
             <svg width={100} height={36} aria-hidden="true">
@@ -58,7 +58,7 @@ function Footer(): JSX.Element {
             <p className="footer__title">Навигация</p>
             <ul className="footer__list">
               <li className="footer__item">
-                <Link className="link" to="#">
+                <Link className="link" to="/">
                   Каталог
                 </Link>
               </li>
