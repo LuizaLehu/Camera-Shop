@@ -1,5 +1,6 @@
 import { TProduct } from '../../types/products';
 import ProductCard from '../product-card/product-card';
+import { useState } from 'react';
 
 
 type SimilarProductsListProps = {
@@ -10,15 +11,18 @@ type SimilarProductsListProps = {
 
 
 function SimilarProductsList({ products, onMouseEnter, onMouseLeave }: SimilarProductsListProps) {
+  const [activeCards, setActiveCards] = useState([true, true, true]);
+
 
   return (
     <div className="product-similar__slider-list">
-      {products?.map((product) => (
+      {products?.map((product, index) => (
         <ProductCard
           key={product.id}
           product={product}
           onMouseEnter={onMouseEnter}
           onMouseLeave={onMouseLeave}
+          isActive={activeCards[index]}
         />
       ))}
     </div>

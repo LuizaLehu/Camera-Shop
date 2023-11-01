@@ -17,6 +17,7 @@ import { isReviewsStatusLoading } from '../../store/comments-data/comments-data.
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import ReviewAdd from '../../popup/review-add/review-add';
 import ProductAdd from '../../popup/product-add/product-add';
+import SimilarProductsList from '../../components/similar-product-list/similar-product-list';
 //import ProductTabs from '../../components/tabs/tabs';
 //import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 
@@ -258,32 +259,32 @@ function ProductPage() {
               <div className="container">
                 <h2 className="title title--h3">Похожие товары</h2>
                 <div className="product-similar__slider">
-                  <div className="product-similar__slider-list">
-                    <ProductsList products={displayedProducts} />
 
-                    <button
-                      className="slider-controls slider-controls--prev"
-                      type="button"
-                      aria-label="Предыдущий слайд"
-                      onClick={handlePrevClick}
-                      disabled={currentIndex === 0}
-                    >
-                      <svg width={7} height={12} aria-hidden="true">
-                        <use xlinkHref="#icon-arrow" />
-                      </svg>
-                    </button>
-                    <button
-                      className="slider-controls slider-controls--next"
-                      type="button"
-                      aria-label="Следующий слайд"
-                      onClick={handleNextClick}
-                      disabled={currentIndex + similarProductsPerPage >= similarProducts.length}
-                    >
-                      <svg width={7} height={12} aria-hidden="true">
-                        <use xlinkHref="#icon-arrow" />
-                      </svg>
-                    </button>
-                  </div>
+                  <SimilarProductsList products={displayedProducts} />
+
+                  <button
+                    className="slider-controls slider-controls--prev"
+                    type="button"
+                    aria-label="Предыдущий слайд"
+                    onClick={handlePrevClick}
+                    disabled={currentIndex === 0}
+                  >
+                    <svg width={7} height={12} aria-hidden="true">
+                      <use xlinkHref="#icon-arrow" />
+                    </svg>
+                  </button>
+                  <button
+                    className="slider-controls slider-controls--next"
+                    type="button"
+                    aria-label="Следующий слайд"
+                    onClick={handleNextClick}
+                    disabled={currentIndex + similarProductsPerPage >= similarProducts.length}
+                  >
+                    <svg width={7} height={12} aria-hidden="true">
+                      <use xlinkHref="#icon-arrow" />
+                    </svg>
+                  </button>
+
                 </div>
               </div>
             </section>

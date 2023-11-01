@@ -7,10 +7,11 @@ type ProductCardProp = {
   product: TProduct | TFullProduct;
   onMouseEnter?: (id: string) => void;
   onMouseLeave?: () => void;
+  isActive?: boolean;
 }
 
 
-function ProductCard({ product, onMouseEnter, onMouseLeave }: ProductCardProp): JSX.Element {
+function ProductCard({ product, onMouseEnter, onMouseLeave, isActive }: ProductCardProp): JSX.Element {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const { id, name, price, rating, reviewCount, previewImg, previewImg2x } = product;
@@ -65,7 +66,7 @@ function ProductCard({ product, onMouseEnter, onMouseLeave }: ProductCardProp): 
   };
 
   return (
-    <article className="product-card"
+    <article className={`product-card ${isActive ? 'is-active' : ''}`}
       onMouseEnter={() => onCardMouseEnter}
       onMouseLeave={onCardMouseLeave}
     >
@@ -73,10 +74,10 @@ function ProductCard({ product, onMouseEnter, onMouseLeave }: ProductCardProp): 
         <picture>
           <source
             type="image/webp"
-            srcSet={previewImg}
+            srcSet={`/${previewImg}`}
           />
           <img
-            src={previewImg}
+            src={`/${previewImg}`}
             srcSet={previewImg2x}
             width={280}
             height={240}
