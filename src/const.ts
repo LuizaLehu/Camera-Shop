@@ -19,7 +19,6 @@ export enum APIRoute {
 export enum NameSpace {
   Data = 'DATA',
   Review = 'REVIEW',
-  User = 'USER',
 }
 
 export enum Status {

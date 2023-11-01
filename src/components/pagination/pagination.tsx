@@ -1,57 +1,54 @@
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { TProduct } from '../../types/products';
 
 type TProps = {
   products: TProduct[];
-  page: number;
+  displayedPage: number;
 };
 
-function Pagination({ products, page }: TProps) {
-  const [currentPage, setCurrentPage] = useState(page);
-  const totalPages = 6; // Replace with the actual number of pages
+function Pagination({ products, displayedPage }: TProps) {
+  const totalPages = Math.floor(products.length / 9);
+  const [currentPage, setCurrentPage] = useState(displayedPage);
 
-  const displayPages = [];
-  if (totalPages <= 3) {
-    for (let i = 1; i <= totalPages; i++) {
-      displayPages.push(i);
-    }
+  const displayedPages = [];
+
+  // fill in displayedPages with the list of pages to be displayed where there can be only 3 numberd pages + back and forrward
+
+  if (currentPage === 1) {
+    displayedPages.push(currentPage, currentPage + 1, currentPage + 2);
+  } else if (currentPage === totalPages) {
+    displayedPages.push(currentPage - 2, currentPage - 1, currentPage);
   } else {
-    if (currentPage <= 3) {
-      for (let i = 1; i <= 3; i++) {
-        displayPages.push(i);
-      }
-      displayPages.push('Далее');
-    } else if (currentPage <= totalPages - 3) {
-      displayPages.push('Назад');
-      for (let i = currentPage - 1; i <= currentPage + 1; i++) {
-        displayPages.push(i);
-      }
-      displayPages.push('Далее');
-    } else {
-      displayPages.push('Назад');
-      for (let i = totalPages - 2; i <= totalPages; i++) {
-        displayPages.push(i);
-      }
-    }
+    displayedPages.push(currentPage - 1, currentPage, currentPage + 1);
   }
 
+  const showNextPage = currentPage < totalPages;
+  const showPreviousPage = currentPage > 1;
+
+  useEffect(() => {
+    setCurrentPage(displayedPage);
+
+  }, [displayedPage]);
+
   // Handle page navigation
-  const handlePageClick = (page) => {
-    if (page === 'Далее' && currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
-    } else if (page === 'Назад' && currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    } else if (typeof page === 'number') {
-      setCurrentPage(page);
-    }
+  const handlePageClick = (item: number) => {
+
+    setCurrentPage(item);
   };
 
   return (
     <div className="pagination">
       <ul className="pagination__list">
-        {displayPages.map((page, index) => (
-          <li key={index} className={'pagination__item'}>
+        {showPreviousPage && (
+          <li className="pagination__item">
+            <Link className="pagination__link" to={`?page=${currentPage - 1}`}>
+              Previous
+            </Link>
+          </li>
+        )}
+        { displayedPages.map((page) => (
+          <li key={page} className={'pagination__item'}>
             {page === currentPage ? (
               <span className="pagination__link pagination__link--active">{page}</span>
             ) : (
@@ -65,6 +62,13 @@ function Pagination({ products, page }: TProps) {
             )}
           </li>
         ))}
+        {showNextPage && (
+          <li className="pagination__item">
+            <Link className="pagination__link" to={`?page=${currentPage + 1}`}>
+              Next
+            </Link>
+          </li>
+        )}
       </ul>
     </div>
   );

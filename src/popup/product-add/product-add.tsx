@@ -17,10 +17,10 @@ function ProductDescription({ product }: ProductDescriptionProp): JSX.Element {
         <picture>
           <source
             type="image/webp"
-            srcSet={previewImg}
+            srcSet={`/${previewImg}`}
           />
           <img
-            src={previewImg}
+            src={`/${previewImg}`}
             srcSet={previewImg2x}
             width={140}
             height={120}

@@ -53,7 +53,7 @@ function MainPage() {
   useEffect(() => {
     if (!products.length && !isProductsDataLoading) {
       dispatch(fetchProductsAction());
-      dispatch(fetchPromoProductsAction());
+      dispatch(fetchPromoProductsAction([]));
     }
 
   }, [dispatch, isProductsDataLoading, products.length, selectedProduct]);
@@ -94,7 +94,7 @@ function MainPage() {
                       onMouseLeave={onMouseLeave}
                     />
                   </div>
-                  <Pagination products={products} page={page} />
+                  <Pagination products={products} displayedPage={page} />
                 </div>
               </div>
             </div>

@@ -49,7 +49,7 @@ function ProductCard({ product, onMouseEnter, onMouseLeave }: ProductCardProp): 
       } else {
         stars.push(<svg key={i} width={17} height={16} aria-hidden="true">
           <use xlinkHref="#icon-star" />
-                   </svg>);
+        </svg>);
       }
     }
 

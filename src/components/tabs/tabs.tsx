@@ -1,7 +1,15 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { TProduct, TFullProduct } from '../../types/products';
 
-const ProductTabs = () => {
+
+type TabsProp = {
+  product: TProduct | TFullProduct;
+}
+
+function ProductTabs({ product }: TabsProp): JSX.Element {
   const [activeTab, setActiveTab] = useState(1);
+
+  const {vendorCode, type, level, description, category } = product;
 
   const handleTabClick = (tabIndex) => {
     setActiveTab(tabIndex);
@@ -30,39 +38,32 @@ const ProductTabs = () => {
           <ul className="product__tabs-list">
             <li className="item-list">
               <span className="item-list__title">Артикул:</span>
-              <p className="item-list__text">DA4IU67AD5</p>
+              <p className="item-list__text">{vendorCode}</p>
             </li>
             <li className="item-list">
               <span className="item-list__title">Категория:</span>
-              <p className="item-list__text">Видеокамера</p>
+              <p className="item-list__text">{category}</p>
             </li>
             <li className="item-list">
               <span className="item-list__title">Тип камеры:</span>
-              <p className="item-list__text">Коллекционная</p>
+              <p className="item-list__text">{type}</p>
             </li>
             <li className="item-list">
               <span className="item-list__title">Уровень:</span>
-              <p className="item-list__text">Любительский</p>
+              <p className="item-list__text">{level}</p>
             </li>
           </ul>
         </div>
         <div className={`tabs__element ${activeTab === 2 ? 'is-active' : ''}`}>
           <div className="product__tabs-text">
             <p>
-              Немецкий концерн BRW разработал видеокамеру Das Auge IV в начале
-              80-х годов, однако она до сих пор пользуется популярностью среди
-              коллекционеров и яростных почитателей старинной техники.
-            </p>
-            <p>
-              Вы тоже можете прикоснуться к волшебству аналоговой съёмки,
-              заказав этот чудо-аппарат. Кто знает, может с Das Auge
-              IV начнётся ваш путь к наградам всех престижных кинофестивалей.
+              {description}
             </p>
           </div>
         </div>
       </div>
     </div>
   );
-};
+}
 
 export default ProductTabs;
