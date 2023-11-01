@@ -1,4 +1,4 @@
-/*import { render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import App from './app';
 import { withHistory, withStore } from '../../utils/mock-component';
 import { MemoryHistory, createMemoryHistory } from 'history';
@@ -34,15 +34,16 @@ describe('Application Routing', () => {
   });
 }
 );
-*/
 
 
+/*
 import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit'; // You'll need to install this package
 
 import App from './app';
 import { BrowserRouter as Router } from 'react-router-dom';
+
 
 const mockStore = configureStore;
 
@@ -98,3 +99,4 @@ describe('App Component', () => {
     expect(mainPageElement).toBeInTheDocument();
   });
 });
+*/
