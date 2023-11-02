@@ -8,13 +8,11 @@ describe('BasketList Component', () => {
         id: '1',
         name: 'Product 1',
         price: 10,
-        // Add other properties as needed
       },
       {
         id: '2',
         name: 'Product 2',
         price: 15,
-        // Add other properties as needed
       },
     ];
 

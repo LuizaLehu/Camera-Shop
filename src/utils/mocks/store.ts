@@ -3,21 +3,26 @@ import { State } from '../../types/state';
 import { makeFakeProducts } from './products';
 import { makeFakeProduct } from './product';
 import { makeFakeReviews } from './reviews';
+import { fetchProductsAction } from '../../store/api-action';
+import { FetchStatus } from '../../types/fetch-status';
+import { postReviewProductAction } from '../../store/api-action';
+import { Status } from '../../const';
+
 
 export const makeFakeStore = (initialState: Partial<State>): State => ({
 
   [NameSpace.Data]: {
     products: makeFakeProducts(),
-    fetchProductsStatus: FetchStatus.Success,
+    fetchProductsAction: Status.Success,
     product: makeFakeProduct(),
-    fetchProductStatus: FetchStatus.Success,
+    fetchProductAction: Status.Success,
     similarProducts: makeFakeProducts(),
-    fetchSimilarProductsStatus: FetchStatus.Success,
+    fetchSimilarProductsStatus: Status.Success,
   },
   [NameSpace.Review]: {
     reviews: makeFakeReviews(),
-    fetchReviewsStatus: FetchStatus.Success,
-    postReviewStatus: FetchStatus.Success,
+    fetchReviewProductAction: Status.Success,
+    postReviewProductAction: Status.Success,
   },
   ...initialState,
 });

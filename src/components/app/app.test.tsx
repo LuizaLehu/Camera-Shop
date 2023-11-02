@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+/*  import { render, screen } from '@testing-library/react';
 import App from './app';
 import { withHistory, withStore } from '../../utils/mocks/mock-component';
 import { MemoryHistory, createMemoryHistory } from 'history';
@@ -21,8 +21,6 @@ describe('Application Routing', () => {
 
 
     it('should render "NotFoundScreen" when user navigate to non-existent route', () => {
-      const withHistoryComponent = withHistory(<App />, mockHistory);
-      const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore());
       const unknownRoute = '/unknown-route';
       mockHistory.push(unknownRoute);
 
@@ -33,10 +31,9 @@ describe('Application Routing', () => {
     });
   });
 }
-);
+);  */
 
 
-/*
 import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit'; // You'll need to install this package
@@ -99,4 +96,4 @@ describe('App Component', () => {
     expect(mainPageElement).toBeInTheDocument();
   });
 });
-*/
+

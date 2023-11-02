@@ -1,5 +1,3 @@
-/* eslint-disable camelcase */
-//import Banner from '../../components/banner/banner';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import Filter from '../../components/filter/filter';
 import Footer from '../../components/footer/footer';

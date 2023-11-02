@@ -264,28 +264,7 @@ function ProductPage() {
 
                   <SimilarProductsSlider products={similarProducts} />
 
-                  <button
-                    className="slider-controls slider-controls--prev"
-                    type="button"
-                    aria-label="Предыдущий слайд"
-                    onClick={handlePrevClick}
-                    disabled={currentIndex === 0}
-                  >
-                    <svg width={7} height={12} aria-hidden="true">
-                      <use xlinkHref="#icon-arrow" />
-                    </svg>
-                  </button>
-                  <button
-                    className="slider-controls slider-controls--next"
-                    type="button"
-                    aria-label="Следующий слайд"
-                    onClick={handleNextClick}
-                    disabled={currentIndex + similarProductsPerPage >= similarProducts.length}
-                  >
-                    <svg width={7} height={12} aria-hidden="true">
-                      <use xlinkHref="#icon-arrow" />
-                    </svg>
-                  </button>
+                 
 
                 </div>
               </div>

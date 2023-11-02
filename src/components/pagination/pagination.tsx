@@ -8,7 +8,7 @@ type TProps = {
 };
 
 function Pagination({ products, displayedPage }: TProps) {
-  const totalPages = Math.floor(products.length / 9);
+  const totalPages = Math.ceil(products.length / 9);
   const [currentPage, setCurrentPage] = useState(displayedPage);
 
   const displayedPages = [];

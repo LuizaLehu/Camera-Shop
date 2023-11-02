@@ -1,38 +1,52 @@
 import { render, screen } from '@testing-library/react';
-import { MemoryRouter, Route } from 'react-router-dom'; // You can use MemoryRouter to set route parameters
-import { Provider } from 'react-redux'; // You need to wrap the component in a Redux provider
-
+import { MemoryRouter, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
 import ProductPage from './product-page';
+import { withStore } from '../../utils/mocks/mock-component';
+import { makeFakeProduct } from '../../utils/mocks/product';
+import { makeFakeProducts } from '../../utils/mocks/products';
+import { makeFakeReviews } from '../../utils/mocks/reviews';
 
 describe('ProductPage', () => {
   it('renders ProductPage component with correct content', () => {
     const cameraId = 'your-camera-id'; // Set the camera ID you want to test
-    const productData = {
-      // Mock the product data here
-    };
-    const similarProducts = [
-      // Mock similar products data
-    ];
-    const reviews = [
-      // Mock reviews data
-    ];
+    const productData = makeFakeProduct;
+    const store = {};
 
-    render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={[`/product/${cameraId}`]}>
-          <Route path="/product/:id">
-            <ProductPage />
-          </Route>
-        </MemoryRouter>
-      </Provider>
+
+    const similarProducts = makeFakeProducts;
+
+    const reviews = makeFakeReviews;
+
+    const initialState = {
+      DATA: {
+        isProductsDataLoading: false,
+        products: [], // Add any products data you need for your test
+        hasError: false,
+      },
+      REVIEW: {
+        isReviewsDataLoading: false,
+        reviews: [], // Add any reviews data you need for your test
+      },
+    };
+
+    // Get the component with the mock store and route
+    const { withStoreComponent } = withStore(
+      <MemoryRouter initialEntries={[`/product/${cameraId}`]}>
+        <Route path="/product/:id">
+          <ProductPage />
+        </Route>
+      </MemoryRouter>,
+      initialState
     );
 
-    // You can use screen queries to check if specific content is rendered as expected
-    // For example:
+    render(
+      <Provider store={store}>{withStoreComponent}</Provider>
+    );
+
     expect(screen.getByText(productData.name)).toBeInTheDocument();
     expect(screen.getByText('Похожие товары')).toBeInTheDocument();
 
-    // You can also test interactions and other aspects of the component as needed
-    // For example, opening the review modal, clicking buttons, etc.
+
   });
 });

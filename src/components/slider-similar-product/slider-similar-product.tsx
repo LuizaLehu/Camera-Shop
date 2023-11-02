@@ -10,6 +10,7 @@ function SimilarProductsSlider({ products }: { products: TProduct[] }) {
   const totalPages = Math.ceil(products.length / productsPerPage);
 
   const handlePageClick = (page: number) => {
+
     setCurrentPage(page);
   };
 
@@ -33,10 +34,31 @@ function SimilarProductsSlider({ products }: { products: TProduct[] }) {
       </div>
       <div className="similar-products-slider__controls">
         {currentPage > 1 && (
-          <button onClick={() => handlePageClick(currentPage - 1)}> Previous</button>
+          <button
+            className="slider-controls slider-controls--prev"
+            style={{pointerEvents: 'all'}}
+            aria-label="Предыдущий слайд"
+            onClick={() => handlePageClick(currentPage - 1)}
+            // disabled={currentIndex === 0}
+          >
+            <svg width={7} height={12} aria-hidden="true">
+              <use xlinkHref="#icon-arrow" />
+            </svg>
+          </button>
         )}
+
         {currentPage < totalPages && (
-          <button onClick={() => handlePageClick(currentPage + 1)}>Next</button>
+          <button
+            className="slider-controls slider-controls--next"
+            style={{ pointerEvents: 'all' }}
+            aria-label="Следующий слайд"
+            onClick={() => handlePageClick(currentPage + 1)}
+            //  disabled={currentIndex + similarProductsPerPage >= similarProducts.length}
+          >
+            <svg width={7} height={12} aria-hidden="true">
+              <use xlinkHref="#icon-arrow" />
+            </svg>
+          </button>
         )}
       </div>
     </div>
