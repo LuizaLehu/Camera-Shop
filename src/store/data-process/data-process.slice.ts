@@ -1,6 +1,5 @@
 import { NameSpace } from '../../const';
 import { TProducts } from '../../types/state';
-//import { State } from '../../types/state';
 import { createSlice } from '@reduxjs/toolkit';
 
 import {

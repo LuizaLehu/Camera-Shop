@@ -17,7 +17,6 @@ describe('Review Selectors', () => {
       isReviewsDataLoading: false,
       status: 'success',
     },
-    // Other namespaces and state here if needed
   };
 
   it('should select reviews from the state', () => {

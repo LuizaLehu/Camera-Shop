@@ -51,13 +51,11 @@ describe('Reviews Slice', () => {
   });
 
   it('should handle postReviewProductAction.rejected', () => {
-    // Mock the toast.warn function (use Jest mock)
     const toastWarnMock = jest.fn();
     toast.warn = toastWarnMock;
 
     reviewsReducer(initialState, postReviewProductAction.rejected());
 
-    // Assert that toast.warn was called
     expect(toastWarnMock).toHaveBeenCalledWith('Failed to post comment. Please, try again later');
   });
 });

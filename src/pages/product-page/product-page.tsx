@@ -3,7 +3,7 @@ import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import { useEffect, useState } from 'react';
 import { useAppDispatch } from '../../hooks';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
 import { getProduct, getSimilarProducts } from '../../store/data-process/data-process.selectors';
 import { isSimilarProductsStatusLoading, isProductsStatusLoading } from '../../store/data-process/data-process.selectors';
@@ -11,17 +11,12 @@ import { dropProduct } from '../../store/data-process/data-process.slice';
 import NotFoundPage from '../not-found-page/not-found-page';
 import { Helmet } from 'react-helmet-async';
 import { fetchSimilarProductAction, fetchReviewsProductAction, fetchProductAction } from '../../store/api-action';
-import ProductsList from '../../components/products-list/product-list';
 import { getReviews } from '../../store/comments-data/comments-data.selectors';
 import { isReviewsStatusLoading } from '../../store/comments-data/comments-data.selectors';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import ReviewAdd from '../../popup/review-add/review-add';
 import ProductAdd from '../../popup/product-add/product-add';
-import SimilarProductsList from '../../components/similar-product-list/similar-product-list';
 import SimilarProductsSlider from '../../components/slider-similar-product/slider-similar-product';
-//import ProductTabs from '../../components/tabs/tabs';
-//import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
-//import SimilarProductsSlider from '../../components/slider-similar-product/slider-similar-product';
 
 function ProductPage() {
   const { id: cameraId } = useParams();
@@ -36,7 +31,6 @@ function ProductPage() {
   const isSimilarProductsLoading = useAppSelector(isSimilarProductsStatusLoading);
   const similarProductsList = useAppSelector(getSimilarProducts);
 
-  //const similarProducts = similarProductsList?.slice(0, 3);
   const similarProducts = similarProductsList || [];
 
   const [currentReviews, setCurrentReviews] = useState(reviews.length ? reviews.slice(0, 3) : []);
@@ -122,18 +116,6 @@ function ProductPage() {
   }
 
   const { name, vendorCode, type, category, description, previewImg, previewImg2x, level, price, rating, reviewCount, previewImgWebp } = currentProduct;
-
-  /*const handleBasketClick = () => {
-      dispatch(addToBasketAction({ status: (!isInBasket ? 1 : 0), id: cameraId as string }));
-    }
-
-  };
-  const basketClass = classNames(
-    'product__bookmark-button', 'button',
-    { 'product__bookmark-button--active': isInBasket },
-  );
-     */
-
 
   let tabContent;
   if (activeTab === 'characteristics') {
@@ -263,8 +245,6 @@ function ProductPage() {
                 <div className="product-similar__slider">
 
                   <SimilarProductsSlider products={similarProducts} />
-
-                 
 
                 </div>
               </div>

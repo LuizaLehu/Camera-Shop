@@ -243,7 +243,6 @@ function ReviewAdd({ closeModal}: TReviewAdd) {
                 <button
                   className="btn btn--purple form-review__btn"
                   type="submit"
-                // disabled={!isFormValid}
                 >{postReviewStatus === Status.Loading ? 'загрузка...' : 'Отправить отзыв'}
                 </button>
               </form>

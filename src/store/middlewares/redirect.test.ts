@@ -1,6 +1,6 @@
 import { MiddlewareAPI, Dispatch, AnyAction } from '@reduxjs/toolkit';
-import { redirect } from 'react-router-dom'; // Replace with the actual import path
-import { rootReducer } from '../root-reducer'; // Replace with the actual import path
+import { redirect } from 'react-router-dom';
+import { rootReducer } from '../root-reducer';
 import { createBrowserHistory } from 'history';
 import { push } from 'connected-react-router';
 
@@ -19,10 +19,8 @@ describe('redirect middleware', () => {
       dispatch,
     };
 
-    // Invoke the middleware function
     redirect(api)(dispatch)(action);
 
-    // Expect that a push action is dispatched
     expect(dispatch).toHaveBeenCalledWith(push('/some-path'));
   });
 
@@ -37,10 +35,8 @@ describe('redirect middleware', () => {
       dispatch,
     };
 
-    // Invoke the middleware function with a non-APP/redirectToRoute action
     redirect(api)(dispatch)(action);
 
-    // Expect that dispatch is not called
     expect(dispatch).not.toHaveBeenCalledWith(push('/some-path'));
   });
 });

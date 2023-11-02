@@ -5,7 +5,6 @@ import { TFullProduct, TProduct, TPromo } from '../types/products.js';
 import { APIRoute } from '../const';
 import { AppDispatch, State } from '../types/state';
 import { TReview } from '../types/review.js';
-//import { redirectToRoute } from './action.js';
 
 export const fetchProductsAction = createAsyncThunk<TProduct[], undefined, {
   dispatch: AppDispatch;
