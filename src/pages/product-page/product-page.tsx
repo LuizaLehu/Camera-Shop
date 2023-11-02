@@ -18,8 +18,10 @@ import ReviewsList from '../../components/reviews-list/reviews-list';
 import ReviewAdd from '../../popup/review-add/review-add';
 import ProductAdd from '../../popup/product-add/product-add';
 import SimilarProductsList from '../../components/similar-product-list/similar-product-list';
+import SimilarProductsSlider from '../../components/slider-similar-product/slider-similar-product';
 //import ProductTabs from '../../components/tabs/tabs';
 //import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+//import SimilarProductsSlider from '../../components/slider-similar-product/slider-similar-product';
 
 function ProductPage() {
   const { id: cameraId } = useParams();
@@ -260,7 +262,7 @@ function ProductPage() {
                 <h2 className="title title--h3">Похожие товары</h2>
                 <div className="product-similar__slider">
 
-                  <SimilarProductsList products={displayedProducts} />
+                  <SimilarProductsSlider products={similarProducts} />
 
                   <button
                     className="slider-controls slider-controls--prev"
