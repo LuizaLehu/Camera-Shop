@@ -6,7 +6,7 @@ type SortingProps = {
 };
 
 function Sorting({ activeSorting, onChange }: SortingProps) {
-  const [isOpened, setIsOpened] = useState(false);
+  //const [isOpened, setIsOpened] = useState(false);
   const [priceSortOrder, setPriceSortOrder] = useState('asc'); // 'asc' or 'desc' for price sorting
   const [popularSortOrder, setPopularSortOrder] = useState('asc'); // 'asc' or 'desc' for popularity sorting
 
@@ -17,7 +17,7 @@ function Sorting({ activeSorting, onChange }: SortingProps) {
       setPopularSortOrder(newSortOrder);
     }
     onChange(newSorting);
-    setIsOpened(false);
+    //setIsOpened(false);
   };
 
   return (

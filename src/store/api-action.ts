@@ -4,7 +4,7 @@ import { TFullProduct, TProduct, TPromo } from '../types/products.js';
 
 import { APIRoute } from '../const';
 import { AppDispatch, State } from '../types/state';
-import { TReview } from '../types/review.js';
+import { TNewReview, TReview } from '../types/review.js';
 
 export const fetchProductsAction = createAsyncThunk<TProduct[], undefined, {
   dispatch: AppDispatch;
@@ -69,7 +69,7 @@ export const fetchReviewsProductAction = createAsyncThunk<TReview[], string, {
 );
 
 
-export const postReviewProductAction = createAsyncThunk<TReview, TReview, {
+export const postReviewProductAction = createAsyncThunk<TReview, TNewReview, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;

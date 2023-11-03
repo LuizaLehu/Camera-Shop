@@ -1,6 +1,6 @@
 export type TReview = {
   id: number;
-  createAt: number;
+  createAt: string;
   userName: string;
   advantage: string;
   disadvantage: string;

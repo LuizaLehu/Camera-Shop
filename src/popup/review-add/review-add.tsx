@@ -10,7 +10,7 @@ type TReviewAdd = {
 };
 
 
-function ReviewAdd({ closeModal}: TReviewAdd) {
+function ReviewAdd({ closeModal }: TReviewAdd) {
 
   const { id } = useParams();
   const dispatch = useAppDispatch();
@@ -34,17 +34,22 @@ function ReviewAdd({ closeModal}: TReviewAdd) {
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     if (id) {
-      const data = new FormData(evt.target);
+      const data = new FormData(evt.currentTarget);
       const formObject = Object.fromEntries(data.entries());
+
+      const review = formObject['user-comment'].toString();
+      const userName = formObject['user-name'].toString();
+      const advantage = formObject['user-plus'].toString();
+      const disadvantage = formObject['user-minus'].toString();
 
       dispatch(
         postReviewProductAction({
-          review: formObject['user-comment'],
+          review,
           rating: +formObject['rate'],
           cameraId: +id,
-          userName: formObject['user-name'],
-          advantage: formObject['user-plus'],
-          disadvantage: formObject['user-minus'],
+          userName,
+          advantage,
+          disadvantage,
 
         }));
 

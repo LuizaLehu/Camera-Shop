@@ -1,7 +1,7 @@
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
-import { useEffect, useState } from 'react';
+import { SetStateAction, useEffect, useState } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { useParams } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
@@ -40,7 +40,7 @@ function ProductPage() {
 
   const [reviewsToShow, setReviewsToShow] = useState(3);
 
-  const [currentIndex, setCurrentIndex] = useState(0);
+  //const [currentIndex, setCurrentIndex] = useState(0);
 
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
 
@@ -54,12 +54,7 @@ function ProductPage() {
     setIsProductAddModalOpen(false);
   };
 
-  const similarProductsPerPage = 3;
-
-  const displayedProducts = similarProducts.slice(
-    currentIndex,
-    currentIndex + similarProductsPerPage
-  );
+  //const similarProductsPerPage = 3;
 
   const handleShowMoreReviews = () => {
 
@@ -72,20 +67,8 @@ function ProductPage() {
     setCurrentReviews(reviews.slice(0, reviewsToShow));
   }, [reviewsToShow, reviews]);
 
-  const handleNextClick = () => {
-    if (currentIndex + similarProductsPerPage < similarProducts.length) {
-      setCurrentIndex(currentIndex + similarProductsPerPage);
-    }
-  };
 
-  const handlePrevClick = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex(currentIndex - similarProductsPerPage);
-    }
-  };
-
-
-  const handleTabClick = (tabName) => {
+  const handleTabClick = (tabName: SetStateAction<string>) => {
     setActiveTab(tabName);
   };
 

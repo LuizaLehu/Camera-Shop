@@ -41,6 +41,17 @@ function MainPage() {
 
   const isProductsDataLoading = useAppSelector(isProductsStatusLoading);
 
+  function mapSortingStringToEnum(value: string): TSorting {
+    switch (value) {
+      case 'Price':
+        return 'Price';
+      case 'Popular':
+        return 'Popular';
+      // Add more cases as needed
+      default:
+        return 'Price'; // Set a default value if necessary
+    }
+  }
 
   useEffect(() => {
     const currentProducts = paginate(products, 9, page);
@@ -82,7 +93,7 @@ function MainPage() {
                 <div className="catalog__content">
                   <Sorting
                     activeSorting={activeSorting}
-                    onChange={(newSorting) => setActiveSorting(newSorting)}
+                    onChange={(newSorting) => setActiveSorting(mapSortingStringToEnum(newSorting))}
                   />
                   <div className="cards catalog__cards">
                     <ProductsList
