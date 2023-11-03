@@ -5,6 +5,8 @@ import { postReviewProductAction } from '../../store/api-action';
 import { getReviewStatus } from '../../store/comments-data/comments-data.selectors';
 import { Status } from '../../const';
 
+import { MAX_CHARACTERS_COUNT, MIN_CHARACTERS_COUNT } from '../../const';
+
 type TReviewAdd = {
   closeModal: () => void;
 };
@@ -30,6 +32,13 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
   const resetForm = () => {
     setFormData(initialFormData);
   };
+
+  const isFormValid =
+    formData.review.length >= MIN_CHARACTERS_COUNT &&
+    formData.review.length <= MAX_CHARACTERS_COUNT &&
+    +formData.rating > 0 &&
+    postReviewStatus !== Status.Loading;
+
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -229,6 +238,7 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
                 <button
                   className="btn btn--purple form-review__btn"
                   type="submit"
+                  disabled={!isFormValid}
                 >{postReviewStatus === Status.Loading ? 'загрузка...' : 'Отправить отзыв'}
                 </button>
               </form>
