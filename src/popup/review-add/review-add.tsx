@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useParams } from 'react-router';
 import { postReviewProductAction } from '../../store/api-action';
 import { getReviewStatus } from '../../store/comments-data/comments-data.selectors';
-import { MAX_CHARACTERS_COUNT, MIN_CHARACTERS_COUNT, Status } from '../../const';
+import { Status } from '../../const';
 
 type TReviewAdd = {
   closeModal: () => void;
@@ -27,28 +27,9 @@ function ReviewAdd({ closeModal}: TReviewAdd) {
 
   const postReviewStatus = useAppSelector(getReviewStatus);
 
-  /*const isFormValid =
-    formData.review.length >= MIN_CHARACTERS_COUNT &&
-    formData.review.length <= MAX_CHARACTERS_COUNT &&
-    +formData.rating > 0 &&
-    postReviewStatus !== Status.Loading;
-*/
   const resetForm = () => {
     setFormData(initialFormData);
   };
-
-
-  /*const resetData = (evt: FormEvent<HTMLFormElement>) => {
-    setFormData({
-      ...formData,
-      review: '',
-      rating: '0',
-      name: '',
-      advantage: '',
-      disadvantage: ''
-    });
-    evt.currentTarget.reset();
-  };  */
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();

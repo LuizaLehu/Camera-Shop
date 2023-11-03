@@ -86,7 +86,6 @@ function ProductPage() {
 
 
   const handleTabClick = (tabName) => {
-    //if (tabName === 'characteristics' || tabName === 'description')
     setActiveTab(tabName);
   };
 

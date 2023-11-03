@@ -3,7 +3,6 @@ import Filter from '../../components/filter/filter';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import Pagination from '../../components/pagination/pagination';
-//import ProductCard from '../../components/product-card/product-card';
 import { useSearchParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useAppDispatch } from '../../hooks';

@@ -4,29 +4,23 @@ import { Provider } from 'react-redux';
 import ProductPage from './product-page';
 import { withStore } from '../../utils/mocks/mock-component';
 import { makeFakeProduct } from '../../utils/mocks/product';
-import { makeFakeProducts } from '../../utils/mocks/products';
-import { makeFakeReviews } from '../../utils/mocks/reviews';
+
 
 describe('ProductPage', () => {
   it('renders ProductPage component with correct content', () => {
-    const cameraId = 'your-camera-id'; // Set the camera ID you want to test
+    const cameraId = 'your-camera-id';
     const productData = makeFakeProduct;
     const store = {};
-
-
-    const similarProducts = makeFakeProducts;
-
-    const reviews = makeFakeReviews;
 
     const initialState = {
       DATA: {
         isProductsDataLoading: false,
-        products: [], // Add any products data you need for your test
+        products: [],
         hasError: false,
       },
       REVIEW: {
         isReviewsDataLoading: false,
-        reviews: [], // Add any reviews data you need for your test
+        reviews: [],
       },
     };
 

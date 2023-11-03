@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import SimilarProductsList from '../similar-product-list/similar-product-list'; // Adjust the import path as needed
+import SimilarProductsList from '../similar-product-list/similar-product-list';
 import { TProduct } from '../../types/products';
 
 function SimilarProductsSlider({ products }: { products: TProduct[] }) {
-  const productsPerPage = 3; // Number of products to show per slide
+  const productsPerPage = 3;
   const [currentPage, setCurrentPage] = useState(1);
 
   // Calculate the total number of pages based on the products and productsPerPage
@@ -39,7 +39,6 @@ function SimilarProductsSlider({ products }: { products: TProduct[] }) {
             style={{pointerEvents: 'all'}}
             aria-label="Предыдущий слайд"
             onClick={() => handlePageClick(currentPage - 1)}
-            // disabled={currentIndex === 0}
           >
             <svg width={7} height={12} aria-hidden="true">
               <use xlinkHref="#icon-arrow" />
@@ -53,7 +52,6 @@ function SimilarProductsSlider({ products }: { products: TProduct[] }) {
             style={{ pointerEvents: 'all' }}
             aria-label="Следующий слайд"
             onClick={() => handlePageClick(currentPage + 1)}
-            //  disabled={currentIndex + similarProductsPerPage >= similarProducts.length}
           >
             <svg width={7} height={12} aria-hidden="true">
               <use xlinkHref="#icon-arrow" />
