@@ -16,7 +16,7 @@ function BasketCard({ product }: BasketCardProps): JSX.Element {
   };
 
   const handleRemoveFromBasket = () => {
-    dispatch(removeFromBasketAction({ id: id }));
+    dispatch(removeFromBasketAction({status: 0, id: id}));
   };
 
   return (

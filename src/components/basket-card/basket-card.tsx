@@ -16,7 +16,10 @@ function BasketCard({ product }: BasketCardProps): JSX.Element {
   };
 
   const handleRemoveFromBasket = () => {
-    dispatch(removeFromBasketAction({ id: id }));
+    dispatch(removeFromBasketAction({
+      id: id,
+      status: 0
+    }));
   };
 
   return (

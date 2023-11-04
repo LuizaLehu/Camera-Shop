@@ -3,7 +3,7 @@ import Logo from './logo';
 
 describe('Component: Logo', () => {
   it('should render correctly', () => {
-
+    render(<Logo />);
 
     // Find the link element by its aria-label attribute
     const logoLink = screen.getByRole('link', { name: 'Переход на главную' });
