@@ -1,5 +1,5 @@
 
-import { reviews } from './comments-data.slice'; // replace 'yourSliceFileName' with the actual file name
+import { reviews } from './comments-data.slice';
 import { Status } from '../../const';
 import { fetchReviewsProductAction, postReviewProductAction } from '../api-action';
 

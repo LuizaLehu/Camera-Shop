@@ -40,8 +40,6 @@ function ProductPage() {
 
   const [reviewsToShow, setReviewsToShow] = useState(3);
 
-  //const [currentIndex, setCurrentIndex] = useState(0);
-
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
 
   const [isProductAddModalOpen, setIsProductAddModalOpen] = useState(false);
@@ -54,7 +52,6 @@ function ProductPage() {
     setIsProductAddModalOpen(false);
   };
 
-  //const similarProductsPerPage = 3;
 
   const handleShowMoreReviews = () => {
 
