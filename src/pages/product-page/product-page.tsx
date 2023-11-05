@@ -17,6 +17,7 @@ import ReviewsList from '../../components/reviews-list/reviews-list';
 import ReviewAdd from '../../popup/review-add/review-add';
 import ProductAdd from '../../popup/product-add/product-add';
 import SimilarProductsSlider from '../../components/slider-similar-product/slider-similar-product';
+import Spinner from '../../components/spinner/spinner';
 
 function ProductPage() {
   const { id: cameraId } = useParams();
@@ -87,7 +88,7 @@ function ProductPage() {
 
 
   if (isFullProductLoading || isSimilarProductsLoading || isReviewsDataLoading) {
-    return;
+    return <Spinner />;
   }
 
   if (!currentProduct) {
