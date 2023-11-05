@@ -1,4 +1,4 @@
-import { State } from '../../types/state';
+/*import { State } from '../../types/state';
 import { Action } from '@reduxjs/toolkit';
 import { ThunkDispatch } from '@reduxjs/toolkit';
 import { createAPI } from '../../services/api';
@@ -12,3 +12,4 @@ export const makeFakeStore = (initialState?: Partial<State>): State => ({
 });
 
 export const extractActionsTypes = (actions: Action<string>[]) => actions.map(({ type }) => type);
+*/

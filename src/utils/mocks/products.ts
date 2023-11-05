@@ -1,4 +1,4 @@
-import { name, random, datatype, commerce, system } from 'faker';
+/*import { name, random, datatype, commerce, system } from 'faker';
 import { TProduct } from '../../types/products';
 
 const makeFakeProducts = (): TProduct[] => new Array(5).fill(null).map(
@@ -18,3 +18,4 @@ const makeFakeProducts = (): TProduct[] => new Array(5).fill(null).map(
 );
 
 export { makeFakeProducts };
+*/
