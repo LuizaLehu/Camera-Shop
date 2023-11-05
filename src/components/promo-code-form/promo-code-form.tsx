@@ -5,7 +5,7 @@ function PromoCodeForm() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: { preventDefault: () => void }) => {
     event.preventDefault();
 
     if (promoCode === 'your-valid-promo-code') {

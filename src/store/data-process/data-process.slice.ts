@@ -1,4 +1,4 @@
-import { NameSpace } from '../../const';
+import { NameSpace, Status } from '../../const';
 import { TProducts } from '../../types/state';
 import { createSlice } from '@reduxjs/toolkit';
 
@@ -23,10 +23,11 @@ const initialState: TProducts = {
   isSimilarProductsLoading: false,
   isPromoProductsLoading: false,
   hasError: false,
+  status: Status.Idle,
 };
 
 export const products = createSlice({
-  name: NameSpace.Data,
+  name: NameSpace.DATA,
   initialState,
   reducers: {
     dropProduct: (state) => {

@@ -11,7 +11,7 @@ function ProductTabs({ product }: TabsProp): JSX.Element {
 
   const {vendorCode, type, level, description, category } = product;
 
-  const handleTabClick = (tabIndex) => {
+  const handleTabClick = (tabIndex: number) => {
     setActiveTab(tabIndex);
   };
 

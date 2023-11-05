@@ -16,7 +16,7 @@ import { fetchProductsAction, fetchPromoProductsAction } from '../../store/api-a
 import { TProduct } from '../../types/products';
 import Sorting from '../../components/sorting/sorting';
 import { TSorting } from '../../types/sorting';
-
+import { SortingType } from '../../const';
 
 function paginate(array: TProduct[], pageSize: number, pageNumber: number): TProduct[] {
   return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
@@ -41,15 +41,14 @@ function MainPage() {
 
   const isProductsDataLoading = useAppSelector(isProductsStatusLoading);
 
-  function mapSortingStringToEnum(value: string): TSorting {
+  function mapSortingStringToEnum(value: string): SortingType {
     switch (value) {
       case 'Price':
-        return 'Price';
+        return SortingType.Price;
       case 'Popular':
-        return 'Popular';
-      // Add more cases as needed
+        return SortingType.Popular;
       default:
-        return 'Price'; // Set a default value if necessary
+        return SortingType.Price;
     }
   }
 

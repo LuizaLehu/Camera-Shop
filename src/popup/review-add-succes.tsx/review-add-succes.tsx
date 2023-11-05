@@ -1,4 +1,4 @@
-function ReviewAddSucces({ onClose }): JSX.Element {
+function ReviewAddSucces({ onClose }: { onClose: () => void }): JSX.Element {
   return (
     <div className="modal is-active modal--narrow">
       <div className="modal__wrapper">

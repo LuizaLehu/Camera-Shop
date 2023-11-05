@@ -32,7 +32,7 @@ function ProductCard({ product, onMouseEnter, onMouseLeave, isActive }: ProductC
     onMouseLeave?.();
   };
 
-  const renderStarRating = (rating) => {
+  const renderStarRating = () => {
     const maxRating = 5;
     const fullStars = Math.floor(rating);
     const hasHalfStar = rating % 1 !== 0;
@@ -40,17 +40,20 @@ function ProductCard({ product, onMouseEnter, onMouseLeave, isActive }: ProductC
 
     for (let i = 1; i <= maxRating; i++) {
       if (i <= fullStars) {
-        stars.push(<svg key={i} width={17} height={16} aria-hidden="true">
-          <use xlinkHref="#icon-full-star" />
-                   </svg>);
+        stars.push(
+          <svg key={i} width={17} height={16} aria-hidden="true">
+            <use xlinkHref="#icon-full-star" />
+          </svg>);
       } else if (hasHalfStar && i === fullStars + 1) {
-        stars.push(<svg key={i} width={17} height={16} aria-hidden="true">
-          <use xlinkHref="#icon-half-star" />
-                   </svg>);
+        stars.push(
+          <svg key={i} width={17} height={16} aria-hidden="true">
+            <use xlinkHref="#icon-half-star" />
+          </svg>);
       } else {
-        stars.push(<svg key={i} width={17} height={16} aria-hidden="true">
-          <use xlinkHref="#icon-star" />
-        </svg>);
+        stars.push(
+          <svg key={i} width={17} height={16} aria-hidden="true">
+            <use xlinkHref="#icon-star" />
+          </svg>);
       }
     }
 
@@ -86,7 +89,7 @@ function ProductCard({ product, onMouseEnter, onMouseLeave, isActive }: ProductC
         </picture>
       </div>
       <div className="product-card__info">
-        {renderStarRating(rating)}
+        {renderStarRating()}
         <p className="product-card__title">
           {name}
         </p>

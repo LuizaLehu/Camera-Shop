@@ -14,6 +14,7 @@ export type TProducts = {
   isSimilarProductsLoading: boolean;
   isPromoProductsLoading: boolean;
   hasError: boolean;
+  status: Status;
 }
 
 export type TReviews = {

@@ -12,7 +12,7 @@ const initialState: TReviews = {
 };
 
 export const reviews = createSlice({
-  name: NameSpace.Review,
+  name: NameSpace.REVIEW,
   initialState,
   reducers: {},
   extraReducers(builder) {

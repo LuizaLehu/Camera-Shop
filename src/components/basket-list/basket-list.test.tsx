@@ -16,8 +16,6 @@ describe('BasketList Component', () => {
       },
     ];
 
-    render(<BasketList basketProducts={basketProductsMock} />);
-
     // Find all BasketCard elements
     const basketCards = screen.getAllByRole('listitem');
 

@@ -5,6 +5,6 @@ import { reviews } from './comments-data/comments-data.slice';
 
 export const rootReducer = combineReducers({
 
-  [NameSpace.Data]: products.reducer,
-  [NameSpace.Review]: reviews.reducer,
+  [NameSpace.DATA]: products.reducer,
+  [NameSpace.REVIEW]: reviews.reducer,
 });

@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import ProductAddSucces from './ProductAddSucces';
+import ProductAddSucces from './product-add-succes';
 
 describe('ProductAddSucces', () => {
   it('renders ProductAddSucces component with correct content', () => {

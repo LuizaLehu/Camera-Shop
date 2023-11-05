@@ -3,6 +3,13 @@ import ProductAdd from './product-add';
 
 // Define a mock product for testing
 const mockProduct = {
+  id: '1',
+  category: 'Sample Category',
+  description: 'Sample Description',
+  previewImgWebp: 'sample.webp',
+  previewImgWebp2x: 'sample.webp2x',
+  rating: 4.5,
+  reviewCount: 10,
   name: 'Sample Product',
   vendorCode: '123456',
   type: 'Sample Type',

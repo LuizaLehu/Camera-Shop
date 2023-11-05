@@ -11,7 +11,7 @@ type SimilarProductsListProps = {
 
 
 function SimilarProductsList({ products, onMouseEnter, onMouseLeave }: SimilarProductsListProps) {
-  const [activeCards, setActiveCards] = useState([true, true, true]);
+  const [activeCards] = useState([true, true, true]);
 
 
   return (

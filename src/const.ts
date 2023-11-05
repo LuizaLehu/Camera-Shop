@@ -15,10 +15,14 @@ export enum APIRoute {
   PostReview = '/reviews',
 }
 
+export enum SortingType {
+  Price = 'Price',
+  Popular = 'Popular',
+}
 
 export enum NameSpace {
-  Data = 'DATA',
-  Review = 'REVIEW',
+  REVIEW = 'REVIEW',
+  DATA = 'DATA'
 }
 
 export enum Status {
@@ -31,26 +35,6 @@ export enum Status {
 export const SortProductsType = {
   Price: 'по цене',
   Popular: 'по популярности',
-};
-
-export const FilterCategory = {
-  Photocamera: 'Фотокамера',
-  Videocamera: 'Видеокамера',
-
-};
-
-export const FilterTypes = {
-  Digital: 'Цифровая',
-  Film: 'Плёночная',
-  Snapshot: 'Моментальная',
-  Collection: 'Коллекционная',
-
-};
-
-export const FilterLevel = {
-  Zero: 'Нулевой',
-  NonProfessional: 'Любительский',
-  Professional: 'Профессиональный',
 };
 
 export const TabName = {
