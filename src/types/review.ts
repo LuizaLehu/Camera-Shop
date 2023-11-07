@@ -8,7 +8,6 @@ export type TReview = {
   rating: number;
 }
 
-
 export type TNewReview = {
   cameraId: number;
   userName: string;

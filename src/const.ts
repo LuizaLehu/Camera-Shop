@@ -4,7 +4,6 @@ export enum AppRoute {
   Product = '/camera/:id'
 }
 
-
 export enum APIRoute {
   Products = '/cameras',
   SimilarProducts = '/cameras',
