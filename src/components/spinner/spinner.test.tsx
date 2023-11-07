@@ -12,7 +12,6 @@ describe('Spinner Component', () => {
     expect(spinner).toHaveAttribute('width', '100');
   });
 
-
   afterEach(() => {
     // Clean up or reset any changes made during the tests
   });

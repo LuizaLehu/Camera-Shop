@@ -6,7 +6,6 @@ function SimilarProductsSlider({ products }: { products: TProduct[] }) {
   const productsPerPage = 3;
   const [currentPage, setCurrentPage] = useState(1);
 
-  // Calculate the total number of pages based on the products and productsPerPage
   const totalPages = Math.ceil(products.length / productsPerPage);
 
   const handlePageClick = (page: number) => {
