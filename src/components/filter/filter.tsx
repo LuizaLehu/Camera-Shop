@@ -112,7 +112,6 @@ function Filter(): JSX.Element {
               <input
                 type="checkbox"
                 name="digital"
-                checked={filters.digital}
                 onChange={handleInputChange}
               />
               <span className="custom-checkbox__icon" />
@@ -138,7 +137,6 @@ function Filter(): JSX.Element {
               <input
                 type="checkbox"
                 name="snapshot"
-                checked={filters.snapshot}
                 onChange={handleInputChange}
               />
               <span className="custom-checkbox__icon" />
@@ -152,7 +150,6 @@ function Filter(): JSX.Element {
               <input
                 type="checkbox"
                 name="collection"
-                checked={filters.collection}
                 onChange={handleInputChange}
               />
               <span className="custom-checkbox__icon" />
@@ -169,7 +166,6 @@ function Filter(): JSX.Element {
               <input
                 type="checkbox"
                 name="zero"
-                checked={filters.zero}
                 onChange={handleInputChange}
               />
               <span className="custom-checkbox__icon" />

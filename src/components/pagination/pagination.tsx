@@ -43,7 +43,7 @@ function Pagination({ products, displayedPage }: TProps) {
         {showPreviousPage && (
           <li className="pagination__item">
             <Link className="pagination__link" to={`?page=${currentPage - 1}`}>
-              Previous
+              Назад
             </Link>
           </li>
         )}
@@ -65,7 +65,7 @@ function Pagination({ products, displayedPage }: TProps) {
         {showNextPage && (
           <li className="pagination__item">
             <Link className="pagination__link" to={`?page=${currentPage + 1}`}>
-              Next
+              Далее
             </Link>
           </li>
         )}
