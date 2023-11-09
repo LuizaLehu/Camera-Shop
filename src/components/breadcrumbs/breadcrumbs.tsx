@@ -20,14 +20,21 @@ function Breadcrumbs({ productName, isProductPage }: BreadcrumbsProp): JSX.Eleme
             </Link>
           </li>
           <li className="breadcrumbs__item">
-            <Link className="breadcrumbs__link" to={AppRoute.Main}>
-              Каталог
-              {isProductPage && (
+            {isProductPage ? (
+              < Link className="breadcrumbs__link" to={AppRoute.Main}>
+                Каталог
                 <svg width={5} height={8} aria-hidden="true">
                   <use xlinkHref="#icon-arrow-mini" />
                 </svg>
-              )}
-            </Link>
+              </Link>
+            ) : (
+              <span className="breadcrumbs__link breadcrumbs__link--active">
+                Каталог
+                <svg width={5} height={8} aria-hidden="true">
+                  <use xlinkHref="#icon-arrow-mini" />
+                </svg>
+              </span>
+            )}
           </li>
           {isProductPage && (
             <li className="breadcrumbs__item">
@@ -43,5 +50,3 @@ function Breadcrumbs({ productName, isProductPage }: BreadcrumbsProp): JSX.Eleme
 }
 
 export default Breadcrumbs;
-
-
