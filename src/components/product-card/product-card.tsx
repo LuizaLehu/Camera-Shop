@@ -32,6 +32,8 @@ function ProductCard({ product, onMouseEnter, onMouseLeave, isActive }: ProductC
     onMouseLeave?.();
   };
 
+  const formattedPrice = price.toLocaleString('ru-RU');
+
   const renderStarRating = () => {
     const maxRating = 5;
     const fullStars = Math.floor(rating);
@@ -94,7 +96,7 @@ function ProductCard({ product, onMouseEnter, onMouseLeave, isActive }: ProductC
           {name}
         </p>
         <p className="product-card__price">
-          <span className="visually-hidden">Цена:</span>{price}
+          <span className="visually-hidden">Цена:</span>{formattedPrice}
         </p>
       </div>
       <div className="product-card__buttons">
