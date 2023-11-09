@@ -94,13 +94,13 @@ function MainPage() {
                     activeSorting={activeSorting}
                     onChange={(newSorting) => setActiveSorting(mapSortingStringToEnum(newSorting))}
                   />
-                  <div className="cards catalog__cards">
-                    <ProductsList
-                      products={currentPageProducts}
-                      onMouseEnter={onMouseEnter}
-                      onMouseLeave={onMouseLeave}
-                    />
-                  </div>
+
+                  <ProductsList
+                    products={currentPageProducts}
+                    onMouseEnter={onMouseEnter}
+                    onMouseLeave={onMouseLeave}
+                  />
+
                   <Pagination products={products} displayedPage={page} />
                 </div>
               </div>
