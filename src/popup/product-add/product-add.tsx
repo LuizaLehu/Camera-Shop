@@ -1,7 +1,23 @@
 import { TProduct } from '../../types/products';
+import { useEffect } from 'react';
 
-function ModalOverlay() {
-  return <div className="modal__overlay" />;
+function ModalOverlay({ closePopup }: { closePopup: () => void }) {
+
+  useEffect(() => {
+    const handleEscKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        closePopup();
+      }
+    };
+
+    document.addEventListener('keydown', handleEscKey);
+
+    return () => {
+      document.removeEventListener('keydown', handleEscKey);
+    };
+  }, [closePopup]);
+
+  return <div className="modal__overlay" onClick={closePopup} />;
 }
 
 type ProductDescriptionProp = {
@@ -61,7 +77,7 @@ function ProductAdd({ product, closePopup }: { product: TProduct; closePopup: ()
   return (
     <div className="modal is-active">
       <div className="modal__wrapper">
-        <ModalOverlay />
+        <ModalOverlay closePopup={closePopup} />
         <div className="modal__content">
           <p className="title title--h4">Добавить товар в корзину</p>
           < ProductDescription product={product} />
