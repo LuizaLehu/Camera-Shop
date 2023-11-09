@@ -97,6 +97,8 @@ function ProductPage() {
 
   const { name, vendorCode, type, category, description, previewImg, previewImg2x, level, price, rating, reviewCount, previewImgWebp } = currentProduct;
 
+  const formattedPrice = price.toLocaleString('ru-RU');
+
   let tabContent;
   if (activeTab === 'characteristics') {
     tabContent = (
@@ -181,7 +183,7 @@ function ProductPage() {
                     </p>
                   </div>
                   <p className="product__price">
-                    <span className="visually-hidden">Цена:</span>{price} ₽
+                    <span className="visually-hidden">Цена:</span>{formattedPrice} ₽
                   </p>
                   <button
                     className="btn btn--purple"
