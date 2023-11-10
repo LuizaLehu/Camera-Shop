@@ -6,9 +6,11 @@ type TReviewsProps = {
 };
 
 function ReviewsList({ reviews }: TReviewsProps): JSX.Element {
+  const sortedReviews = [...reviews].sort((a, b) => new Date(b.createAt).getTime() - new Date(a.createAt).getTime());
+
   return (
     <ul className="review-block__list">
-      {reviews.map((review) => (
+      {sortedReviews.map((review) => (
         <ReviewItem
           key={review.id}
           review={review}
