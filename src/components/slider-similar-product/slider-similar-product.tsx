@@ -27,7 +27,7 @@ function SimilarProductsSlider({ products }: { products: TProduct[] }) {
   const currentProducts = products.slice(startIndex, endIndex);
 
   return (
-    <div className="similar-products-slider">
+    <div className="product-similar__slider">
       <div id="similarProductsSlider" className="similar-products-slider__content">
         <SimilarProductsList products={currentProducts} />
       </div>
@@ -35,7 +35,7 @@ function SimilarProductsSlider({ products }: { products: TProduct[] }) {
         {currentPage > 1 && (
           <button
             className="slider-controls slider-controls--prev"
-            style={{pointerEvents: 'all'}}
+            style={{ pointerEvents: 'all' }}
             aria-label="Предыдущий слайд"
             onClick={() => handlePageClick(currentPage - 1)}
           >
