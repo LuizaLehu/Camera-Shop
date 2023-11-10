@@ -1,4 +1,4 @@
-import { useState } from 'react';
+/*import { useState } from 'react';
 import { TProduct, TFullProduct } from '../../types/products';
 
 
@@ -67,3 +67,26 @@ function ProductTabs({ product }: TabsProp): JSX.Element {
 }
 
 export default ProductTabs;
+*/
+
+
+import { Link, useLocation } from 'react-router-dom';
+
+interface TabProps {
+  label: string;
+  path: string;
+}
+
+
+const Tab = ({ label, path }: TabProps) => {
+  const location = useLocation();
+  const isActive = location.pathname.includes(path);
+
+  return (
+    <Link to={path} className={`tabs__control ${isActive ? 'is-active' : ''}`}>
+      {label}
+    </Link>
+  );
+};
+
+export default Tab;
