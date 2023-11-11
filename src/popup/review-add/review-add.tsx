@@ -1,11 +1,11 @@
-import { useState, FormEvent, ChangeEvent } from 'react';
+import { useState, FormEvent } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useParams } from 'react-router';
 import { postReviewProductAction } from '../../store/api-action';
 import { getReviewStatus } from '../../store/comments-data/comments-data.selectors';
 import { Status } from '../../const';
 
-import { MAX_CHARACTERS_COUNT, MIN_CHARACTERS_COUNT } from '../../const';
+//import { MAX_CHARACTERS_COUNT, MIN_CHARACTERS_COUNT } from '../../const';
 
 type TReviewAdd = {
   closeModal: () => void;
@@ -17,75 +17,70 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
   const { id } = useParams();
   const dispatch = useAppDispatch();
 
-  const [formData, setFormData] = useState({
+  const initialFormData = {
+    name: '',
     rating: '0',
     review: '',
     disadvantage: '',
-    advantage: '',
-    name: ''
-  });
+    advantage: ''
+  };
+
+  const [formData, setFormData] = useState(initialFormData);
 
   const postReviewStatus = useAppSelector(getReviewStatus);
 
+  /*const isFormValid =
+    formData.review.length >= MIN_CHARACTERS_COUNT &&
+    formData.review.length <= MAX_CHARACTERS_COUNT &&
+    +formData.rating > 0 &&
+    postReviewStatus !== Status.Loading;
+*/
 
-  const handleFormChange = (
-    evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ): void => {
-    const { name, value } = evt.target;
-    setFormData({ ...formData, [name]: value });
+  const resetForm = () => {
+    setFormData(initialFormData);
   };
 
-  const buttonDisabled =
-    formData.review.length < MIN_CHARACTERS_COUNT
-    || formData.review.length > MAX_CHARACTERS_COUNT
-    || !+formData.rating
-    || !formData.name
-    || !formData.advantage
-    || !formData.disadvantage;
-
-  const resetData = (evt: FormEvent<HTMLFormElement>) => {
-    setFormData({
-      ...formData,
-      review: '',
-      rating: '0',
-      disadvantage: '',
-      advantage: '',
-      name: '',
-    });
-    evt.currentTarget.reset();
-  };
+  /*const resetData = (evt: FormEvent<HTMLFormElement>) => {
+      setFormData({
+        ...formData,
+        review: '',
+        rating: '0',
+        name: '',
+        advantage: '',
+        disadvantage: ''
+      });
+      evt.currentTarget.reset();
+    };  */
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-
     if (id) {
+      const formData = new FormData(evt.target as HTMLFormElement);
+
+      const review = formData.get('user-comment') as string;
+      const rating = +formData.get('rate')!;
+      const cameraId = +id;
+      const userName = formData.get('user-name') as string;
+      const advantage = formData.get('user-plus') as string;
+      const disadvantage = formData.get('user-minus') as string;
+
       dispatch(
-
         postReviewProductAction({
-          review: formData.review,
-          rating: +formData.rating,
-          cameraId: +id,
-          userName: formData.name,
-          advantage: formData.advantage,
-          disadvantage: formData.disadvantage,
-        })
-      )
-        .then((success) => {
+          review,
+          userName,
+          rating,
+          cameraId,
+          advantage,
+          disadvantage,
 
-          if (success) {
-            resetData(evt);
-            closeModal();
-          }
-        })
-        .catch((error) => {
-          // Handle submission error
-          // You might want to show an error message to the user
-          console.error('Error submitting review:', error);
+        }));
 
-          // For example, you can set an error state and display it in the UI
-          // setErrorState(true);
-        });
+      if (postReviewStatus === Status.Loading || !(postReviewStatus === Status.Error)) {
+        setFormData({ ...initialFormData });
+      }
     }
+    resetForm();
+    closeModal();
   };
 
 
@@ -195,8 +190,6 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
                         name="user-name"
                         placeholder="Введите ваше имя"
                         required
-                        value={formData.name}
-                        onChange={handleFormChange}
                       />
                     </label>
                     <p className="custom-input__error">Нужно указать имя</p>
@@ -214,8 +207,6 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
                         name="user-plus"
                         placeholder="Основные преимущества товара"
                         required
-                        value={formData.advantage}
-                        onChange={handleFormChange}
                       />
                     </label>
                     <p className="custom-input__error">Нужно указать достоинства</p>
@@ -233,8 +224,6 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
                         name="user-minus"
                         placeholder="Главные недостатки товара"
                         required
-                        value={formData.disadvantage}
-                        onChange={handleFormChange}
                       />
                     </label>
                     <p className="custom-input__error">Нужно указать недостатки</p>
@@ -252,8 +241,6 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
                         minLength={5}
                         placeholder="Поделитесь своим опытом покупки"
                         defaultValue={''}
-                        value={formData.review}
-                        onChange={handleFormChange}
                       />
                     </label>
                     <div className="custom-textarea__error">
@@ -264,7 +251,7 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
                 <button
                   className="btn btn--purple form-review__btn"
                   type="submit"
-                  disabled={buttonDisabled}
+                // disabled={!isFormValid}}
                 >{postReviewStatus === Status.Loading ? 'загрузка...' : 'Отправить отзыв'}
                 </button>
               </form>
