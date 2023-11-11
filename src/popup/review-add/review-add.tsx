@@ -1,4 +1,4 @@
-import { useState, FormEvent } from 'react';
+import { useState, FormEvent, ChangeEvent } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useParams } from 'react-router';
 import { postReviewProductAction } from '../../store/api-action';
@@ -17,57 +17,75 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
   const { id } = useParams();
   const dispatch = useAppDispatch();
 
-  const initialFormData = {
-    name: '',
+  const [formData, setFormData] = useState({
     rating: '0',
     review: '',
     disadvantage: '',
-    advantage: ''
-  };
-
-  const [formData, setFormData] = useState(initialFormData);
+    advantage: '',
+    name: ''
+  });
 
   const postReviewStatus = useAppSelector(getReviewStatus);
 
-  const resetForm = () => {
-    setFormData(initialFormData);
+
+  const handleFormChange = (
+    evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ): void => {
+    const { name, value } = evt.target;
+    setFormData({ ...formData, [name]: value });
   };
 
-  const isFormValid =
-    formData.review.length >= MIN_CHARACTERS_COUNT &&
-    formData.review.length <= MAX_CHARACTERS_COUNT &&
-    +formData.rating > 0 &&
-    postReviewStatus !== Status.Loading;
+  const buttonDisabled =
+    formData.review.length < MIN_CHARACTERS_COUNT
+    || formData.review.length > MAX_CHARACTERS_COUNT
+    || !+formData.rating
+    || !formData.name
+    || !formData.advantage
+    || !formData.disadvantage;
 
+  const resetData = (evt: FormEvent<HTMLFormElement>) => {
+    setFormData({
+      ...formData,
+      review: '',
+      rating: '0',
+      disadvantage: '',
+      advantage: '',
+      name: '',
+    });
+    evt.currentTarget.reset();
+  };
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
+
     if (id) {
-      const data = new FormData(evt.currentTarget);
-      const formObject = Object.fromEntries(data.entries());
-
-      const review = formObject['user-comment'].toString();
-      const userName = formObject['user-name'].toString();
-      const advantage = formObject['user-plus'].toString();
-      const disadvantage = formObject['user-minus'].toString();
-
       dispatch(
+
         postReviewProductAction({
-          review,
-          rating: +formObject['rate'],
+          review: formData.review,
+          rating: +formData.rating,
           cameraId: +id,
-          userName,
-          advantage,
-          disadvantage,
+          userName: formData.name,
+          advantage: formData.advantage,
+          disadvantage: formData.disadvantage,
+        })
+      )
+        .then((success) => {
 
-        }));
+          if (success) {
+            resetData(evt);
+            closeModal();
+          }
+        })
+        .catch((error) => {
+          // Handle submission error
+          // You might want to show an error message to the user
+          console.error('Error submitting review:', error);
 
-      if (postReviewStatus === Status.Loading || !(postReviewStatus === Status.Error)) {
-        setFormData({ ...formData, review: '', rating: '0', name: '', advantage: '', disadvantage: '' });
-      }
+          // For example, you can set an error state and display it in the UI
+          // setErrorState(true);
+        });
     }
-    resetForm();
-    closeModal();
   };
 
 
@@ -177,6 +195,8 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
                         name="user-name"
                         placeholder="Введите ваше имя"
                         required
+                        value={formData.name}
+                        onChange={handleFormChange}
                       />
                     </label>
                     <p className="custom-input__error">Нужно указать имя</p>
@@ -194,6 +214,8 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
                         name="user-plus"
                         placeholder="Основные преимущества товара"
                         required
+                        value={formData.advantage}
+                        onChange={handleFormChange}
                       />
                     </label>
                     <p className="custom-input__error">Нужно указать достоинства</p>
@@ -211,6 +233,8 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
                         name="user-minus"
                         placeholder="Главные недостатки товара"
                         required
+                        value={formData.disadvantage}
+                        onChange={handleFormChange}
                       />
                     </label>
                     <p className="custom-input__error">Нужно указать недостатки</p>
@@ -228,6 +252,8 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
                         minLength={5}
                         placeholder="Поделитесь своим опытом покупки"
                         defaultValue={''}
+                        value={formData.review}
+                        onChange={handleFormChange}
                       />
                     </label>
                     <div className="custom-textarea__error">
@@ -238,7 +264,7 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
                 <button
                   className="btn btn--purple form-review__btn"
                   type="submit"
-                  disabled={!isFormValid}
+                  disabled={buttonDisabled}
                 >{postReviewStatus === Status.Loading ? 'загрузка...' : 'Отправить отзыв'}
                 </button>
               </form>
@@ -259,5 +285,3 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
 }
 
 export default ReviewAdd;
-
-
