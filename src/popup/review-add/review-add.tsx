@@ -41,28 +41,29 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
   };
 
   /*const resetData = (evt: FormEvent<HTMLFormElement>) => {
-      setFormData({
-        ...formData,
-        review: '',
-        rating: '0',
-        name: '',
-        advantage: '',
-        disadvantage: ''
-      });
-      evt.currentTarget.reset();
-    };  */
+    setFormData({
+      ...formData,
+      review: '',
+      rating: '0',
+      name: '',
+      advantage: '',
+      disadvantage: ''
+    });
+    evt.currentTarget.reset();
+  };  */
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     if (id) {
-      const formData = new FormData(evt.target as HTMLFormElement);
+      const form = new FormData(evt.target as HTMLFormElement);
 
-      const review = formData.get('user-comment') as string;
-      const rating = +formData.get('rate')!;
+      const review = form.get('user-comment') as string;
+      const ratingRaw = form.get('rate');
+      const rating = ratingRaw ? +ratingRaw : 0;
       const cameraId = +id;
-      const userName = formData.get('user-name') as string;
-      const advantage = formData.get('user-plus') as string;
-      const disadvantage = formData.get('user-minus') as string;
+      const userName = form.get('user-name') as string;
+      const advantage = form.get('user-plus') as string;
+      const disadvantage = form.get('user-minus') as string;
 
       dispatch(
         postReviewProductAction({
