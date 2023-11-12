@@ -74,6 +74,16 @@ function AddToBasketButton() {
 }
 
 function ProductAdd({ product, closePopup }: { product: TProduct; closePopup: () => void }): JSX.Element {
+  useEffect(() => {
+    // Add a class to the body to prevent scrolling when the modal is open
+    document.body.style.overflow = 'hidden';
+
+    // Cleanup function to remove the class when the component unmounts
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, []);
+
   return (
     <div className="modal is-active">
       <div className="modal__wrapper">

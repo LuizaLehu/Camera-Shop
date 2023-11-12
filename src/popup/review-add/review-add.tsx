@@ -4,7 +4,7 @@ import { useParams } from 'react-router';
 import { postReviewProductAction } from '../../store/api-action';
 import { getReviewStatus } from '../../store/comments-data/comments-data.selectors';
 import { Status } from '../../const';
-
+import { useEffect} from 'react';
 //import { MAX_CHARACTERS_COUNT, MIN_CHARACTERS_COUNT } from '../../const';
 
 type TReviewAdd = {
@@ -13,6 +13,16 @@ type TReviewAdd = {
 
 
 function ReviewAdd({ closeModal }: TReviewAdd) {
+
+  useEffect(() => {
+    // Add a class to the body to prevent scrolling when the modal is open
+    document.body.style.overflow = 'hidden';
+
+    // Cleanup function to remove the class when the component unmounts
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, []);
 
   const { id } = useParams();
   const dispatch = useAppDispatch();
@@ -55,35 +65,29 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     if (id) {
-      const form = new FormData(evt.target as HTMLFormElement);
-
-      const review = form.get('user-comment') as string;
-      const ratingRaw = form.get('rate');
-      const rating = ratingRaw ? +ratingRaw : 0;
-      const cameraId = +id;
-      const userName = form.get('user-name') as string;
-      const advantage = form.get('user-plus') as string;
-      const disadvantage = form.get('user-minus') as string;
+      const form = evt.target as HTMLFormElement;
+      const data = new FormData(form);
+      const formObject = Object.fromEntries(data.entries());
 
       dispatch(
         postReviewProductAction({
-          review,
-          userName,
-          rating,
-          cameraId,
-          advantage,
-          disadvantage,
+          review: String(formObject['user-comment']),
+          rating: +formObject['rate'],
+          cameraId: +id,
+          userName: String(formObject['user-name']),
+          advantage: String(formObject['user-plus']),
+          disadvantage: String(formObject['user-minus']),
 
         }));
 
+
       if (postReviewStatus === Status.Loading || !(postReviewStatus === Status.Error)) {
-        setFormData({ ...initialFormData });
+        setFormData({ ...formData, review: '', rating: '0', name: '', advantage: '', disadvantage: '' });
       }
     }
     resetForm();
     closeModal();
   };
-
 
   return (
     <div>
