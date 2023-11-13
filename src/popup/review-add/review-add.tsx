@@ -4,8 +4,8 @@ import { useParams } from 'react-router';
 import { postReviewProductAction } from '../../store/api-action';
 import { getReviewStatus } from '../../store/comments-data/comments-data.selectors';
 import { Status } from '../../const';
-import { useEffect} from 'react';
-//import { MAX_CHARACTERS_COUNT, MIN_CHARACTERS_COUNT } from '../../const';
+import { useEffect } from 'react';
+import { MAX_CHARACTERS_COUNT, MIN_CHARACTERS_COUNT, STARS_COUNT } from '../../const';
 
 type TReviewAdd = {
   closeModal: () => void;
@@ -39,12 +39,18 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
 
   const postReviewStatus = useAppSelector(getReviewStatus);
 
-  /*const isFormValid =
+  const isFormValid =
     formData.review.length >= MIN_CHARACTERS_COUNT &&
     formData.review.length <= MAX_CHARACTERS_COUNT &&
     +formData.rating > 0 &&
-    postReviewStatus !== Status.Loading;
-*/
+    +formData.rating < STARS_COUNT &&
+    formData.name.length >= MIN_CHARACTERS_COUNT &&
+    formData.name.length <= MAX_CHARACTERS_COUNT &&
+    formData.advantage.length >= MIN_CHARACTERS_COUNT &&
+    formData.advantage.length <= MAX_CHARACTERS_COUNT &&
+    formData.disadvantage.length >= MIN_CHARACTERS_COUNT &&
+    formData.disadvantage.length <= MAX_CHARACTERS_COUNT;
+
 
   const resetForm = () => {
     setFormData(initialFormData);
@@ -192,6 +198,7 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
                       </span>
                       <input
                         type="text"
+                        id="user-name"
                         name="user-name"
                         placeholder="Введите ваше имя"
                         required
@@ -209,6 +216,7 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
                       </span>
                       <input
                         type="text"
+                        id="user-plus"
                         name="user-plus"
                         placeholder="Основные преимущества товара"
                         required
@@ -226,6 +234,7 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
                       </span>
                       <input
                         type="text"
+                        id="user-minus"
                         name="user-minus"
                         placeholder="Главные недостатки товара"
                         required
@@ -243,6 +252,7 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
                       </span>
                       <textarea
                         name="user-comment"
+                        id="user-comment"
                         minLength={5}
                         placeholder="Поделитесь своим опытом покупки"
                         defaultValue={''}
@@ -256,7 +266,7 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
                 <button
                   className="btn btn--purple form-review__btn"
                   type="submit"
-                // disabled={!isFormValid}}
+                  disabled={!isFormValid}
                 >{postReviewStatus === Status.Loading ? 'загрузка...' : 'Отправить отзыв'}
                 </button>
               </form>
