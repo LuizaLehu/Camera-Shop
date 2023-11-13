@@ -3,7 +3,6 @@ import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import { useEffect, useState } from 'react';
 import { useAppDispatch } from '../../hooks';
-import { useParams } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
 import { getProduct, getSimilarProducts } from '../../store/data-process/data-process.selectors';
 import { isSimilarProductsStatusLoading, isProductsStatusLoading } from '../../store/data-process/data-process.selectors';
@@ -19,11 +18,16 @@ import ProductAdd from '../../popup/product-add/product-add';
 import SimilarProductsSlider from '../../components/slider-similar-product/slider-similar-product';
 import Spinner from '../../components/spinner/spinner';
 import ProductTabs from '../../components/tabs/tabs';
-
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 
 function ProductPage() {
-  const { id: cameraId } = useParams();
+  const { id: cameraId } = useParams<{ id?: string }>();
+  const actualCameraId = cameraId ?? 'defaultCameraId';
   const dispatch = useAppDispatch();
+
+  const history = useNavigate();
+  const location = useLocation();
+
 
   const currentProduct = useAppSelector(getProduct);
   const isFullProductLoading = useAppSelector(isProductsStatusLoading);
@@ -66,7 +70,13 @@ function ProductPage() {
     setCurrentReviews(reviews.slice(0, reviewsToShow));
   }, [reviewsToShow, reviews]);
 
+  const handleTabClick = (tabIndex: number) => {
+    // Update the URL when the tab is clicked
+    history(`/camera/${actualCameraId}/${tabIndex === 1 ? 'characteristics' : 'description'}`);
+  };
 
+  // Extract the tab name from the URL
+  const currentTab = location.pathname.split('/').pop();
   /* const handleTabClick = (tabName: SetStateAction<string>) => {
     setActiveTab(tabName);
   };*/
@@ -196,7 +206,7 @@ function ProductPage() {
                     </svg>
                     Добавить в корзину
                   </button>
-                  <ProductTabs currentProduct={currentProduct }/>
+                  <ProductTabs currentProduct={currentProduct} currentUrl={currentTab || ''} onTabClick={handleTabClick} />
                 </div>
               </div>
             </section>

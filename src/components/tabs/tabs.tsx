@@ -1,19 +1,31 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { TFullProduct } from '../../types/products';
 
 
 type TabsProp = {
   currentProduct: TFullProduct;
+  currentUrl: string;
+  onTabClick: (tabIndex: number) => void;
 }
 
-function ProductTabs({ currentProduct }: TabsProp): JSX.Element {
+
+function ProductTabs({ currentProduct, currentUrl, onTabClick }: TabsProp): JSX.Element {
   const [activeTab, setActiveTab] = useState(1);
 
-  const {vendorCode, type, level, description, category } = currentProduct;
+  useEffect(() => {
+    // Update the active tab based on the current URL
+    setActiveTab(currentUrl.includes('description') ? 2 : 1);
+  }, [currentUrl]);
 
-  const handleTabClick = (tabIndex: number) => {
-    setActiveTab(tabIndex);
-  };
+  const { vendorCode, type, level, description, category } = currentProduct;
+
+  /* const handleTabClick = (tabIndex: number) => {
+     setActiveTab(tabIndex);
+   };
+
+   const isCharacteristicsTabActive = currentUrl.includes('characteristics');
+   const isDescriptionTabActive = currentUrl.includes('description');
+ */
 
   return (
     <div className="tabs product__tabs">
@@ -21,14 +33,20 @@ function ProductTabs({ currentProduct }: TabsProp): JSX.Element {
         <button
           className={`tabs__control ${activeTab === 1 ? 'is-active' : ''}`}
           type="button"
-          onClick={() => handleTabClick(1)}
+          onClick={() => {
+            onTabClick(1);
+            setActiveTab(1);
+          }}
         >
           Характеристики
         </button>
         <button
           className={`tabs__control ${activeTab === 2 ? 'is-active' : ''}`}
           type="button"
-          onClick={() => handleTabClick(2)}
+          onClick={() => {
+            onTabClick(2);
+            setActiveTab(2);
+          }}
         >
           Описание
         </button>
@@ -68,24 +86,3 @@ function ProductTabs({ currentProduct }: TabsProp): JSX.Element {
 
 export default ProductTabs;
 
-
-/*import { Link, useLocation } from 'react-router-dom';
-
-interface TabProps {
-  label: string;
-  path: string;
-}
-
-
-const Tab = ({ label, path }: TabProps) => {
-  const location = useLocation();
-  const isActive = location.pathname.includes(path);
-
-  return (
-    <Link to={path} className={`tabs__control ${isActive ? 'is-active' : ''}`}>
-      {label}
-    </Link>
-  );
-};
-
-export default Tab;*/

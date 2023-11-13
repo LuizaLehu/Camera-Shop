@@ -8,10 +8,18 @@ import ProductPage from '../../pages/product-page/product-page';
 import ScrollToTop from '../scroll-to-top/scroll-to-top';
 import browserHistory from '../../browser-history';
 import HistoryRouter from '../history-route/history-route';
-
+import ErrorPage from '../../pages/error-page/error-page';
+import { useAppSelector } from '../../hooks';
+import { getErrorStatus } from '../../store/data-process/data-process.selectors';
 
 function App() {
+  const hasError = useAppSelector(getErrorStatus);
 
+  if (hasError) {
+    return (
+      <ErrorPage />
+    );
+  }
 
   return (
     <HelmetProvider>
