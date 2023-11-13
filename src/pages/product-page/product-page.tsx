@@ -1,7 +1,7 @@
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
-import { SetStateAction, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { useParams } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
@@ -18,6 +18,8 @@ import ReviewAdd from '../../popup/review-add/review-add';
 import ProductAdd from '../../popup/product-add/product-add';
 import SimilarProductsSlider from '../../components/slider-similar-product/slider-similar-product';
 import Spinner from '../../components/spinner/spinner';
+import ProductTabs from '../../components/tabs/tabs';
+
 
 function ProductPage() {
   const { id: cameraId } = useParams();
@@ -36,8 +38,7 @@ function ProductPage() {
 
   const [currentReviews, setCurrentReviews] = useState(reviews.length ? reviews.slice(0, 3) : []);
 
-
-  const [activeTab, setActiveTab] = useState('characteristics');
+  // const [activeTab, setActiveTab] = useState('characteristics');
 
   const [reviewsToShow, setReviewsToShow] = useState(3);
 
@@ -66,9 +67,9 @@ function ProductPage() {
   }, [reviewsToShow, reviews]);
 
 
-  const handleTabClick = (tabName: SetStateAction<string>) => {
+  /* const handleTabClick = (tabName: SetStateAction<string>) => {
     setActiveTab(tabName);
-  };
+  };*/
 
   const openReviewModal = () => {
     setIsReviewModalOpen(true);
@@ -95,11 +96,11 @@ function ProductPage() {
     return <NotFoundPage />;
   }
 
-  const { name, vendorCode, type, category, description, previewImg, previewImg2x, level, price, rating, reviewCount, previewImgWebp } = currentProduct;
+  const { name, previewImg, previewImg2x, price, rating, reviewCount, previewImgWebp } = currentProduct;
 
   const formattedPrice = price.toLocaleString('ru-RU');
 
-  let tabContent;
+  /*let tabContent;
   if (activeTab === 'characteristics') {
     tabContent = (
       <ul className="product__tabs-list">
@@ -129,7 +130,7 @@ function ProductPage() {
       </div>
     );
   }
-
+*/
 
   return (
 
@@ -195,27 +196,7 @@ function ProductPage() {
                     </svg>
                     Добавить в корзину
                   </button>
-                  <div className="tabs product__tabs">
-                    <div className="tabs__controls product__tabs-controls">
-                      <button
-                        className="tabs__control"
-                        type="button"
-                        onClick={() => handleTabClick('characteristics')}
-                      >
-                        Характеристики
-                      </button>
-                      <button
-                        className={`tabs__control ${activeTab === 'description' ? 'is-active' : ''}`}
-                        type="button"
-                        onClick={() => handleTabClick('description')}
-                      >
-                        Описание
-                      </button>
-                    </div>
-                    <div className="tabs__content">
-                      {tabContent}
-                    </div>
-                  </div>
+                  <ProductTabs currentProduct={currentProduct }/>
                 </div>
               </div>
             </section>

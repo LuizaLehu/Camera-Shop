@@ -1,15 +1,15 @@
-/*import { useState } from 'react';
-import { TProduct, TFullProduct } from '../../types/products';
+import { useState } from 'react';
+import { TFullProduct } from '../../types/products';
 
 
 type TabsProp = {
-  product: TProduct | TFullProduct;
+  currentProduct: TFullProduct;
 }
 
-function ProductTabs({ product }: TabsProp): JSX.Element {
+function ProductTabs({ currentProduct }: TabsProp): JSX.Element {
   const [activeTab, setActiveTab] = useState(1);
 
-  const {vendorCode, type, level, description, category } = product;
+  const {vendorCode, type, level, description, category } = currentProduct;
 
   const handleTabClick = (tabIndex: number) => {
     setActiveTab(tabIndex);
@@ -67,10 +67,9 @@ function ProductTabs({ product }: TabsProp): JSX.Element {
 }
 
 export default ProductTabs;
-*/
 
 
-import { Link, useLocation } from 'react-router-dom';
+/*import { Link, useLocation } from 'react-router-dom';
 
 interface TabProps {
   label: string;
@@ -89,4 +88,4 @@ const Tab = ({ label, path }: TabProps) => {
   );
 };
 
-export default Tab;
+export default Tab;*/
