@@ -13,17 +13,6 @@ type TReviewAdd = {
 
 
 function ReviewAdd({ closeModal }: TReviewAdd) {
-
-  useEffect(() => {
-    // Add a class to the body to prevent scrolling when the modal is open
-    document.body.style.overflow = 'hidden';
-
-    // Cleanup function to remove the class when the component unmounts
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, []);
-
   const { id } = useParams();
   const dispatch = useAppDispatch();
 
@@ -40,19 +29,45 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
 
   const postReviewStatus = useAppSelector(getReviewStatus);
 
+
+  useEffect(() => {
+    // Add a class to the body to prevent scrolling when the modal is open
+    document.body.style.overflow = 'hidden';
+
+    // Cleanup function to remove the class when the component unmounts
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, []);
+
+
   function validateForm() {
+    console.log('formData', formData);
+    const isReviewValid =
+      formData.review.length >= MIN_CHARACTERS_COUNT &&
+      formData.review.length <= MAX_CHARACTERS_COUNT;
+
+    const isRatingValid =
+      +formData.rating > 0 && +formData.rating < STARS_COUNT;
+
+    const isNameValid =
+      formData.name.length >= MIN_CHARACTERS_COUNT &&
+      formData.name.length <= MAX_CHARACTERS_COUNT;
+
+    const isAdvantageValid =
+      formData.advantage.length >= MIN_CHARACTERS_COUNT &&
+      formData.advantage.length <= MAX_CHARACTERS_COUNT;
+
+    const isDisadvantageValid =
+      formData.disadvantage.length >= MIN_CHARACTERS_COUNT &&
+      formData.disadvantage.length <= MAX_CHARACTERS_COUNT;
 
     setIsFormValid(
-      formData.review.length >= MIN_CHARACTERS_COUNT &&
-      formData.review.length <= MAX_CHARACTERS_COUNT &&
-      +formData.rating > 0 &&
-      +formData.rating < STARS_COUNT &&
-      formData.name.length >= MIN_CHARACTERS_COUNT &&
-      formData.name.length <= MAX_CHARACTERS_COUNT &&
-      formData.advantage.length >= MIN_CHARACTERS_COUNT &&
-      formData.advantage.length <= MAX_CHARACTERS_COUNT &&
-      formData.disadvantage.length >= MIN_CHARACTERS_COUNT &&
-      formData.disadvantage.length <= MAX_CHARACTERS_COUNT
+      isReviewValid &&
+      isRatingValid &&
+      isNameValid &&
+      isAdvantageValid &&
+      isDisadvantageValid
     );
 
   }
@@ -74,9 +89,21 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
     evt.currentTarget.reset();
   };  */
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
+
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    if (id) {
+
+    validateForm();
+
+
+    if (isFormValid && id) {
       const form = evt.target as HTMLFormElement;
       const data = new FormData(form);
       const formObject = Object.fromEntries(data.entries());
@@ -89,8 +116,8 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
           userName: String(formObject['user-name']),
           advantage: String(formObject['user-plus']),
           disadvantage: String(formObject['user-minus']),
-
-        }));
+        })
+      );
 
 
       if (postReviewStatus === Status.Loading || !(postReviewStatus === Status.Error)) {
@@ -132,8 +159,11 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
                           name="rate"
                           type="radio"
                           defaultValue={5}
-                          onChange={validateForm}
-
+                          onChange={(e) => {
+                            handleChange(e);
+                            validateForm();
+                          }}
+                          value={formData.rating}
                         />
                         <label
                           className="rate__label"
@@ -146,8 +176,11 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
                           name="rate"
                           type="radio"
                           defaultValue={4}
-                          onChange={validateForm}
-
+                          onChange={(e) => {
+                            handleChange(e);
+                            validateForm();
+                          }}
+                          value={formData.rating}
                         />
                         <label
                           className="rate__label"
@@ -160,8 +193,11 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
                           name="rate"
                           type="radio"
                           defaultValue={3}
-                          onChange={validateForm}
-
+                          onChange={(e) => {
+                            handleChange(e);
+                            validateForm();
+                          }}
+                          value={formData.rating}
                         />
                         <label
                           className="rate__label"
@@ -174,8 +210,11 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
                           name="rate"
                           type="radio"
                           defaultValue={2}
-                          onChange={validateForm}
-
+                          onChange={(e) => {
+                            handleChange(e);
+                            validateForm();
+                          }}
+                          value={formData.rating}
                         />
                         <label
                           className="rate__label"
@@ -188,8 +227,11 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
                           name="rate"
                           type="radio"
                           defaultValue={1}
-                          onChange={validateForm}
-
+                          onChange={(e) => {
+                            handleChange(e);
+                            validateForm();
+                          }}
+                          value={formData.rating}
                         />
                         <label
                           className="rate__label"
@@ -217,7 +259,11 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
                         id="user-name"
                         name="user-name"
                         placeholder="Введите ваше имя"
-                        onChange={validateForm}
+                        onChange={(e) => {
+                          handleChange(e);
+                          validateForm();
+                        }}
+                        value={formData.name}
                         required
                       />
                     </label>
@@ -236,8 +282,11 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
                         id="user-plus"
                         name="user-plus"
                         placeholder="Основные преимущества товара"
-                        onChange={validateForm}
-
+                        onChange={(e) => {
+                          handleChange(e);
+                          validateForm();
+                        }}
+                        value={formData.advantage}
                         required
                       />
                     </label>
@@ -257,8 +306,11 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
                         name="user-minus"
                         placeholder="Главные недостатки товара"
                         required
-                        onChange={validateForm}
-
+                        onChange={(e) => {
+                          handleChange(e);
+                          validateForm();
+                        }}
+                        value={formData.disadvantage}
                       />
                     </label>
                     <p className="custom-input__error">Нужно указать недостатки</p>
@@ -277,8 +329,11 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
                         minLength={5}
                         placeholder="Поделитесь своим опытом покупки"
                         defaultValue={''}
-                        onChange={validateForm}
-
+                        value={formData.review}
+                        onChange={(e) => {
+                          handleChange(e);
+                          validateForm();
+                        }}
                       />
                     </label>
                     <div className="custom-textarea__error">
@@ -289,8 +344,9 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
                 <button
                   className="btn btn--purple form-review__btn"
                   type="submit"
-                  disabled={!isFormValid}
-                >{postReviewStatus === Status.Loading ? 'загрузка...' : 'Отправить отзыв'}
+                  disabled={!isFormValid || postReviewStatus === Status.Loading}
+                >
+                  {postReviewStatus === Status.Loading ? 'загрузка...' : 'Отправить отзыв'}
                 </button>
               </form>
             </div>
