@@ -38,7 +38,7 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
   }, []);
 
   function validateForm() {
-    console.log('formData', formData);
+
     const isReviewValid =
       formData.review.length >= MIN_CHARACTERS_COUNT &&
       formData.review.length <= MAX_CHARACTERS_COUNT;
@@ -87,20 +87,27 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
     validateForm();
 
     if (isFormValid && id) {
-      const form = evt.target as HTMLFormElement;
-      const data = new FormData(form);
-      const formObject = Object.fromEntries(data.entries());
+      try {
+        const form = evt.target as HTMLFormElement;
+        const data = new FormData(form);
+        const formObject = Object.fromEntries(data.entries());
 
-      await dispatch(
-        postReviewProductAction({
-          review: String(formObject['user-comment']),
-          rating: +formObject['rate'],
-          cameraId: +id,
-          userName: String(formObject['user-name']),
-          advantage: String(formObject['user-plus']),
-          disadvantage: String(formObject['user-minus']),
-        })
-      );
+        await Promise.resolve();
+
+        await dispatch(
+          postReviewProductAction({
+            review: String(formObject['review']),
+            rating: +formObject['rating'],
+            cameraId: +id,
+            userName: String(formObject['name']),
+            advantage: String(formObject['advantage']),
+            disadvantage: String(formObject['disadvantage']),
+          })
+        );
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error('Error submitting review:', error);
+      }
     }
     resetForm();
     closeModal();
@@ -120,6 +127,7 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
             <div className="form-review">
               <form
                 method="post"
+                // eslint-disable-next-line @typescript-eslint/no-misused-promises
                 onSubmit={handleSubmit}
               >
                 <div className="form-review__rate">
@@ -135,7 +143,7 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
                         <input
                           className="visually-hidden"
                           id="star-5"
-                          name="rate"
+                          name="rating"
                           type="radio"
                           defaultValue={5}
                           onChange={(e) => {
@@ -152,7 +160,7 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
                         <input
                           className="visually-hidden"
                           id="star-4"
-                          name="rate"
+                          name="rating"
                           type="radio"
                           defaultValue={4}
                           onChange={(e) => {
@@ -168,7 +176,7 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
                         <input
                           className="visually-hidden"
                           id="star-3"
-                          name="rate"
+                          name="rating"
                           type="radio"
                           defaultValue={3}
                           onChange={(e) => {
@@ -184,7 +192,7 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
                         <input
                           className="visually-hidden"
                           id="star-2"
-                          name="rate"
+                          name="rating"
                           type="radio"
                           defaultValue={2}
                           onChange={(e) => {
@@ -200,7 +208,7 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
                         <input
                           className="visually-hidden"
                           id="star-1"
-                          name="rate"
+                          name="rating"
                           type="radio"
                           defaultValue={1}
                           onChange={(e) => {
@@ -231,8 +239,8 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
                       </span>
                       <input
                         type="text"
-                        id="user-name"
-                        name="user-name"
+                        id="name"
+                        name="name"
                         placeholder="Введите ваше имя"
                         required
                         onChange={(e) => {
@@ -253,8 +261,8 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
                       </span>
                       <input
                         type="text"
-                        id="user-plus"
-                        name="user-plus"
+                        id="advantage"
+                        name="advantage"
                         placeholder="Основные преимущества товара"
                         onChange={(e) => {
                           handleChange(e);
@@ -275,8 +283,8 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
                       </span>
                       <input
                         type="text"
-                        id="user-minus"
-                        name="user-minus"
+                        id="disadvantage"
+                        name="disadvantage"
                         placeholder="Главные недостатки товара"
                         required
                         onChange={(e) => {
@@ -296,8 +304,8 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
                         </svg>
                       </span>
                       <textarea
-                        name="user-comment"
-                        id="user-comment"
+                        name="review"
+                        id="review"
                         minLength={5}
                         placeholder="Поделитесь своим опытом покупки"
                         defaultValue={''}

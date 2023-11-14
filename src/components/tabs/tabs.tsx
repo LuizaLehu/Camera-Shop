@@ -23,7 +23,7 @@ function ProductTabs({ currentProduct }: TabsProp): JSX.Element {
   useEffect(() => {
     // Update the active tab based on the current URL
     updateTab(+currentTabIndex);
-  }, []
+  },
   );
 
   const { vendorCode, type, level, description, category } = currentProduct;
