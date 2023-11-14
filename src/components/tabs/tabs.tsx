@@ -1,21 +1,29 @@
 import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { TFullProduct } from '../../types/products';
 
 
 type TabsProp = {
   currentProduct: TFullProduct;
-  currentUrl: string;
-  onTabClick: (tabIndex: number) => void;
 }
 
 
-function ProductTabs({ currentProduct, currentUrl, onTabClick }: TabsProp): JSX.Element {
-  const [activeTab, setActiveTab] = useState(1);
+function ProductTabs({ currentProduct }: TabsProp): JSX.Element {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const currentTabIndex = searchParams.get('activeTabIndex') ?? 1;
+  const [activeTab, setActiveTab] = useState(currentTabIndex);
+
+  const updateTab = (index: number) => {
+    searchParams.set('activeTabIndex', String(index));
+    setSearchParams(searchParams);
+    setActiveTab(index);
+  };
+
 
   useEffect(() => {
     // Update the active tab based on the current URL
-    setActiveTab(currentUrl.includes('description') ? 2 : 1);
-  }, [currentUrl]);
+    updateTab(+currentTabIndex);
+  }, []);
 
   const { vendorCode, type, level, description, category } = currentProduct;
 
@@ -34,8 +42,7 @@ function ProductTabs({ currentProduct, currentUrl, onTabClick }: TabsProp): JSX.
           className={`tabs__control ${activeTab === 1 ? 'is-active' : ''}`}
           type="button"
           onClick={() => {
-            onTabClick(1);
-            setActiveTab(1);
+            updateTab(1);
           }}
         >
           Характеристики
@@ -44,8 +51,7 @@ function ProductTabs({ currentProduct, currentUrl, onTabClick }: TabsProp): JSX.
           className={`tabs__control ${activeTab === 2 ? 'is-active' : ''}`}
           type="button"
           onClick={() => {
-            onTabClick(2);
-            setActiveTab(2);
+            updateTab(2);
           }}
         >
           Описание

@@ -36,20 +36,26 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
   };
 
   const [formData, setFormData] = useState(initialFormData);
+  const [isFormValid, setIsFormValid] = useState(false);
 
   const postReviewStatus = useAppSelector(getReviewStatus);
 
-  const isFormValid =
-    formData.review.length >= MIN_CHARACTERS_COUNT &&
-    formData.review.length <= MAX_CHARACTERS_COUNT &&
-    +formData.rating > 0 &&
-    +formData.rating < STARS_COUNT &&
-    formData.name.length >= MIN_CHARACTERS_COUNT &&
-    formData.name.length <= MAX_CHARACTERS_COUNT &&
-    formData.advantage.length >= MIN_CHARACTERS_COUNT &&
-    formData.advantage.length <= MAX_CHARACTERS_COUNT &&
-    formData.disadvantage.length >= MIN_CHARACTERS_COUNT &&
-    formData.disadvantage.length <= MAX_CHARACTERS_COUNT;
+  function validateForm() {
+
+    setIsFormValid(
+      formData.review.length >= MIN_CHARACTERS_COUNT &&
+      formData.review.length <= MAX_CHARACTERS_COUNT &&
+      +formData.rating > 0 &&
+      +formData.rating < STARS_COUNT &&
+      formData.name.length >= MIN_CHARACTERS_COUNT &&
+      formData.name.length <= MAX_CHARACTERS_COUNT &&
+      formData.advantage.length >= MIN_CHARACTERS_COUNT &&
+      formData.advantage.length <= MAX_CHARACTERS_COUNT &&
+      formData.disadvantage.length >= MIN_CHARACTERS_COUNT &&
+      formData.disadvantage.length <= MAX_CHARACTERS_COUNT
+    );
+
+  }
 
 
   const resetForm = () => {
@@ -126,6 +132,8 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
                           name="rate"
                           type="radio"
                           defaultValue={5}
+                          onChange={validateForm}
+
                         />
                         <label
                           className="rate__label"
@@ -138,6 +146,8 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
                           name="rate"
                           type="radio"
                           defaultValue={4}
+                          onChange={validateForm}
+
                         />
                         <label
                           className="rate__label"
@@ -150,6 +160,8 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
                           name="rate"
                           type="radio"
                           defaultValue={3}
+                          onChange={validateForm}
+
                         />
                         <label
                           className="rate__label"
@@ -162,6 +174,8 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
                           name="rate"
                           type="radio"
                           defaultValue={2}
+                          onChange={validateForm}
+
                         />
                         <label
                           className="rate__label"
@@ -174,6 +188,8 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
                           name="rate"
                           type="radio"
                           defaultValue={1}
+                          onChange={validateForm}
+
                         />
                         <label
                           className="rate__label"
@@ -201,6 +217,7 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
                         id="user-name"
                         name="user-name"
                         placeholder="Введите ваше имя"
+                        onChange={validateForm}
                         required
                       />
                     </label>
@@ -219,6 +236,8 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
                         id="user-plus"
                         name="user-plus"
                         placeholder="Основные преимущества товара"
+                        onChange={validateForm}
+
                         required
                       />
                     </label>
@@ -238,6 +257,8 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
                         name="user-minus"
                         placeholder="Главные недостатки товара"
                         required
+                        onChange={validateForm}
+
                       />
                     </label>
                     <p className="custom-input__error">Нужно указать недостатки</p>
@@ -256,6 +277,8 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
                         minLength={5}
                         placeholder="Поделитесь своим опытом покупки"
                         defaultValue={''}
+                        onChange={validateForm}
+
                       />
                     </label>
                     <div className="custom-textarea__error">

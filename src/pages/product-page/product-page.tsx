@@ -21,8 +21,8 @@ import ProductTabs from '../../components/tabs/tabs';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 
 function ProductPage() {
-  const { id: cameraId } = useParams<{ id?: string }>();
-  const actualCameraId = cameraId ?? 'defaultCameraId';
+  const { id: cameraId } = useParams();
+
   const dispatch = useAppDispatch();
 
   const history = useNavigate();
@@ -206,7 +206,7 @@ function ProductPage() {
                     </svg>
                     Добавить в корзину
                   </button>
-                  <ProductTabs currentProduct={currentProduct} currentUrl={currentTab || ''} onTabClick={handleTabClick} />
+                  <ProductTabs currentProduct={currentProduct} currentUrl={currentTab || ''} />
                 </div>
               </div>
             </section>
