@@ -37,6 +37,23 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
     };
   }, []);
 
+  useEffect(() => {
+    // Add event listener for the "Esc" key
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        closeModal();
+      }
+    };
+
+    // Attach the event listener when the component mounts
+    document.addEventListener('keydown', handleKeyDown);
+
+    // Detach the event listener when the component unmounts
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [closeModal]);
+
   function validateForm() {
 
     const isReviewValid =

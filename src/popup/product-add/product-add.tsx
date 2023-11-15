@@ -27,6 +27,8 @@ type ProductDescriptionProp = {
 
 function ProductDescription({ product }: ProductDescriptionProp): JSX.Element {
   const { name, vendorCode, type, level, price, previewImg, previewImg2x } = product;
+
+  const formattedPrice = price.toLocaleString('ru-RU');
   return (
     <div className="basket-item basket-item--short">
       <div className="basket-item__img">
@@ -55,7 +57,7 @@ function ProductDescription({ product }: ProductDescriptionProp): JSX.Element {
           <li className="basket-item__list-item">{level}</li>
         </ul>
         <p className="basket-item__price">
-          <span className="visually-hidden">Цена:</span>{price} руб.
+          <span className="visually-hidden">Цена:</span>{formattedPrice} руб.
         </p>
       </div>
     </div>
