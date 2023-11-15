@@ -96,7 +96,7 @@ function ProductCard({ product, onMouseEnter, onMouseLeave, isActive }: ProductC
           {name}
         </p>
         <p className="product-card__price">
-          <span className="visually-hidden">Цена:</span>{formattedPrice}
+          <span className="visually-hidden">Цена:</span>{formattedPrice} ₽
         </p>
       </div>
       <div className="product-card__buttons">

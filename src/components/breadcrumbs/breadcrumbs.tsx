@@ -14,25 +14,31 @@ function Breadcrumbs({ productName, isProductPage }: BreadcrumbsProp): JSX.Eleme
           <li className="breadcrumbs__item">
             <Link className="breadcrumbs__link" to={AppRoute.Main}>
               Главная
+
               <svg width={5} height={8} aria-hidden="true">
                 <use xlinkHref="#icon-arrow-mini" />
               </svg>
+
             </Link>
           </li>
           <li className="breadcrumbs__item">
             {isProductPage ? (
               < Link className="breadcrumbs__link" to={AppRoute.Main}>
                 Каталог
-                <svg width={5} height={8} aria-hidden="true">
-                  <use xlinkHref="#icon-arrow-mini" />
-                </svg>
+                {isProductPage && (
+                  <svg width={5} height={8} aria-hidden="true">
+                    <use xlinkHref="#icon-arrow-mini" />
+                  </svg>
+                )}
               </Link>
             ) : (
               <span className="breadcrumbs__link breadcrumbs__link--active">
                 Каталог
-                <svg width={5} height={8} aria-hidden="true">
-                  <use xlinkHref="#icon-arrow-mini" />
-                </svg>
+                {isProductPage && (
+                  <svg width={5} height={8} aria-hidden="true">
+                    <use xlinkHref="#icon-arrow-mini" />
+                  </svg>
+                )}
               </span>
             )}
           </li>

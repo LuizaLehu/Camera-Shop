@@ -306,7 +306,6 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
                       <textarea
                         name="review"
                         id="review"
-                        minLength={5}
                         placeholder="Поделитесь своим опытом покупки"
                         defaultValue={''}
                         onChange={(e) => {
