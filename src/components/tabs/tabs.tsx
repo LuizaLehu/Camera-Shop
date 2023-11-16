@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { TFullProduct } from '../../types/products';
 
@@ -13,18 +13,20 @@ function ProductTabs({ currentProduct }: TabsProp): JSX.Element {
   const currentTabIndex = searchParams.get('activeTabIndex') ?? 1;
   const [activeTab, setActiveTab] = useState(currentTabIndex);
 
-  const updateTab = (index: number) => {
-    searchParams.set('activeTabIndex', String(index));
-    setSearchParams(searchParams);
-    setActiveTab(index);
-  };
+  const updateTab = useCallback(
+    (index: number) => {
+      searchParams.set('activeTabIndex', String(index));
+      setSearchParams(searchParams);
+      setActiveTab(index);
+    },
+    [searchParams, setSearchParams]
+  );
 
 
   useEffect(() => {
     // Update the active tab based on the current URL
     updateTab(+currentTabIndex);
-  },
-  );
+  }, [currentTabIndex, updateTab]);
 
   const { vendorCode, type, level, description, category } = currentProduct;
 
@@ -35,18 +37,14 @@ function ProductTabs({ currentProduct }: TabsProp): JSX.Element {
         <button
           className={`tabs__control ${activeTab === 1 ? 'is-active' : ''}`}
           type="button"
-          onClick={() => {
-            updateTab(1);
-          }}
+          onClick={() => updateTab(1)}
         >
           Характеристики
         </button>
         <button
           className={`tabs__control ${activeTab === 2 ? 'is-active' : ''}`}
           type="button"
-          onClick={() => {
-            updateTab(2);
-          }}
+          onClick={() => updateTab(2)}
         >
           Описание
         </button>
