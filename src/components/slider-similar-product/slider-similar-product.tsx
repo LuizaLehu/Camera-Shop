@@ -28,7 +28,7 @@ function SimilarProductsSlider({ products }: { products: TProduct[] }) {
 
   return (
     <div className="product-similar__slider">
-      <div id="similarProductsSlider" className="similar-products-slider__content">
+      <div className="product-similar__slider-list">
         <SimilarProductsList products={currentProducts} />
       </div>
       <div className="similar-products-slider__controls">
