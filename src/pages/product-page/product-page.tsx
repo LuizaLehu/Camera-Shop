@@ -19,16 +19,22 @@ import SimilarProductsSlider from '../../components/slider-similar-product/slide
 import Spinner from '../../components/spinner/spinner';
 import ProductTabs from '../../components/tabs/tabs';
 import { useParams} from 'react-router-dom';
+import ScrollToTop from '../../components/scroll-to-top/scroll-to-top';
 
 function ProductPage() {
   const { id: cameraId } = useParams();
 
   const dispatch = useAppDispatch();
 
-  //const history = useNavigate();
+  // const history = useNavigate();
   //const location = useLocation();
 
-
+  const handleScrollToTop = (): void => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
   const currentProduct = useAppSelector(getProduct);
   const isFullProductLoading = useAppSelector(isProductsStatusLoading);
 
@@ -146,6 +152,7 @@ function ProductPage() {
   return (
 
     <div className="wrapper">
+      <ScrollToTop />
       <Helmet>
         <title>{name}</title>
       </Helmet>
@@ -260,11 +267,14 @@ function ProductPage() {
           </div>
         </div >
       </main >
-      <a className="up-btn" href="#header">
+      <button
+        className="up-btn"
+        onClick={handleScrollToTop}
+      >
         <svg width={12} height={18} aria-hidden="true">
           <use xlinkHref="#icon-arrow2" />
         </svg>
-      </a>
+      </button>
       <Footer />
     </div >
   );
