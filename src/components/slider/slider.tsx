@@ -10,7 +10,7 @@ import { useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { fetchProductAction } from '../../store/api-action';
-
+import './slider.css';
 
 function Slider() {
 

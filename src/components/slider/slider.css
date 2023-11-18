@@ -1,0 +1,27 @@
+.swiper-pagination {
+  bottom: 20px;
+  right: 10px;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+  margin-left:-20px;
+}
+
+/* Customize the style of the pagination bullets */
+.swiper-pagination-bullet {
+  width: 10px;
+  height: 10px;
+  margin: 0 5px;
+  background-color: #fff;
+  border-radius: 50%;
+  opacity: 0.6;
+  transition: background-color 0.3s ease;
+}
+
+/* Customize the style of the active pagination bullet */
+.swiper-pagination-bullet-active {
+  background-color: #2c39f2;
+  /* Set the background color for the active bullet */
+  opacity: 1;
+  /* Set full opacity for the active bullet */
+}
