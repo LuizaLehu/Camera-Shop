@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { TFullProduct, TProduct } from '../../types/products';
 import { useState } from 'react';
 import ProductAdd from '../../popup/product-add/product-add';
+import { STARS_COUNT } from '../../const';
 
 type ProductCardProp = {
   product: TProduct | TFullProduct;
@@ -35,7 +36,7 @@ function ProductCard({ product, onMouseEnter, onMouseLeave, isActive }: ProductC
   const formattedPrice = price.toLocaleString('ru-RU');
 
   const renderStarRating = () => {
-    const maxRating = 5;
+    const maxRating = STARS_COUNT;
     const fullStars = Math.floor(rating);
     const hasHalfStar = rating % 1 !== 0;
     const stars = [];

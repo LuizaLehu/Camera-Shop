@@ -7,16 +7,28 @@ type ReviewItemProps = {
 
 
 function renderStars(rating: number) {
+  const maxRating = STARS_COUNT;
+
   const fullStars = Math.floor(rating);
-  const emptyStars = STARS_COUNT - fullStars;
+  const hasHalfStar = rating % 1 !== 0;
   const stars = [];
 
-  for (let i = 0; i < fullStars; i++) {
-    stars.push(<svg key={i} className="star" width={17} height={16} aria-hidden="true"><use xlinkHref="#icon-full-star" /></svg>);
-  }
+  for (let i = 0; i < maxRating; i++) {
+    let starType;
 
-  for (let i = 0; i < emptyStars; i++) {
-    stars.push(<svg key={i + fullStars} className="empty-star" width={17} height={16} aria-hidden="true"><use xlinkHref="#icon-empty-star" /></svg>);
+    if (i < fullStars) {
+      starType = 'full-star';
+    } else if (hasHalfStar && i === fullStars) {
+      starType = 'half-star';
+    } else {
+      starType = 'star';
+    }
+
+    stars.push(
+      <svg key={i} width={17} height={16} aria-hidden="true">
+        <use xlinkHref={`#icon-${starType}`} />
+      </svg>
+    );
   }
 
   return stars;
