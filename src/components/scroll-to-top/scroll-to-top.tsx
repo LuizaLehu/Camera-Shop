@@ -10,7 +10,7 @@ interface ExtendedMath extends Math {
 }
 
 
-function ScrollToTop({ duration = 50 }: ScrollToTopProps) {
+function ScrollToTop({ duration = 100 }: ScrollToTopProps) {
   const { pathname } = useLocation();
 
   useEffect(() => {
@@ -18,7 +18,7 @@ function ScrollToTop({ duration = 50 }: ScrollToTopProps) {
     const start: number = element.scrollTop;
     const change: number = -start;
     let currentTime = 0;
-    const increment = 20;
+    const increment = 50;
 
     const animateScroll = function () {
       currentTime += increment;
@@ -41,9 +41,6 @@ function ScrollToTop({ duration = 50 }: ScrollToTopProps) {
 
     animateScroll();
 
-    return () => {
-      // Cleanup logic if needed
-    };
   }, [pathname, duration]);
 
   return null;
