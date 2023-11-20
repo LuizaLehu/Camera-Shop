@@ -1,5 +1,7 @@
 import { TReview } from '../../types/review';
 import { STARS_COUNT } from '../../const';
+import format from 'date-fns/format';
+import { ru } from 'date-fns/esm/locale';
 
 type ReviewItemProps = {
   review: TReview;
@@ -35,7 +37,8 @@ function renderStars(rating: number) {
 }
 
 function ReviewItem({ review }: ReviewItemProps): JSX.Element {
-  const reviewDate = new Date(review.createAt).toLocaleDateString('en-US', { day: 'numeric', month: 'short' });
+  //const reviewDate = new Date(review.createAt).toLocaleDateString('en-US', { day: 'numeric', month: 'short' });
+  const reviewDate = format(new Date(review.createAt), 'dd MMMM', { locale: ru });
 
   return (
     <li className="review-card" key={review.id}>
