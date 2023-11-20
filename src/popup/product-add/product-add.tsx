@@ -57,7 +57,7 @@ function ProductDescription({ product }: ProductDescriptionProp): JSX.Element {
           <li className="basket-item__list-item">{level}</li>
         </ul>
         <p className="basket-item__price">
-          <span className="visually-hidden">Цена:</span>{formattedPrice} руб.
+          <span className="visually-hidden">Цена:</span>{formattedPrice} ₽
         </p>
       </div>
     </div>
