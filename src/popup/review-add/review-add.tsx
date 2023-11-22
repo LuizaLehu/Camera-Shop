@@ -54,6 +54,14 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
     };
   }, [closeModal]);
 
+  useEffect(() => {
+    const nameInput = document.getElementById('name');
+    if (nameInput) {
+      nameInput.focus();
+    }
+  }, []);
+
+
   function validateForm() {
 
     const isReviewValid =

@@ -32,31 +32,27 @@ function SimilarProductsSlider({ products }: { products: TProduct[] }) {
         <SimilarProductsList products={currentProducts} />
       </div>
       <div className="similar-products-slider__controls">
-        {currentPage > 1 && (
-          <button
-            className="slider-controls slider-controls--prev"
-            style={{ pointerEvents: 'all' }}
-            aria-label="Предыдущий слайд"
-            onClick={() => handlePageClick(currentPage - 1)}
-          >
-            <svg width={7} height={12} aria-hidden="true">
-              <use xlinkHref="#icon-arrow" />
-            </svg>
-          </button>
-        )}
+        <button
+          className="slider-controls slider-controls--prev"
+          style={{ pointerEvents: currentPage > 1 ? 'all' : 'none' }}
+          aria-label="Предыдущий слайд"
+          onClick={() => handlePageClick(currentPage - 1)}
+        >
+          <svg width={7} height={12} aria-hidden="true">
+            <use xlinkHref="#icon-arrow" />
+          </svg>
+        </button>
 
-        {currentPage < totalPages && (
-          <button
-            className="slider-controls slider-controls--next"
-            style={{ pointerEvents: 'all' }}
-            aria-label="Следующий слайд"
-            onClick={() => handlePageClick(currentPage + 1)}
-          >
-            <svg width={7} height={12} aria-hidden="true">
-              <use xlinkHref="#icon-arrow" />
-            </svg>
-          </button>
-        )}
+        <button
+          className="slider-controls slider-controls--next"
+          style={{ pointerEvents: currentPage < totalPages ? 'all' : 'none' }}
+          aria-label="Следующий слайд"
+          onClick={() => handlePageClick(currentPage + 1)}
+        >
+          <svg width={7} height={12} aria-hidden="true">
+            <use xlinkHref="#icon-arrow" />
+          </svg>
+        </button>
       </div>
     </div>
   );
