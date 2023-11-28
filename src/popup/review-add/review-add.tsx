@@ -6,6 +6,7 @@ import { getReviewStatus } from '../../store/comments-data/comments-data.selecto
 import { Status } from '../../const';
 import { useEffect } from 'react';
 import { MIN_CHARACTERS_COUNT, MAX_CHARACTERS_COUNT, STARS_COUNT } from '../../const';
+import ReviewRating from './review-raiting';
 
 type TReviewAdd = {
   closeModal: () => void;
@@ -25,6 +26,7 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
 
   const [formData, setFormData] = useState(initialFormData);
   const [isFormValid, setIsFormValid] = useState(false);
+  const [selectedRating, setSelectedRating] = useState(0);
 
   const postReviewStatus = useAppSelector(getReviewStatus);
 
@@ -99,11 +101,22 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
       ...prevFormData,
       [name]: value,
     }));
+    validateForm();
+  };
+
+  const handleChangeRating = (value: number) => {
+    setSelectedRating(value);
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      rating: String(value),
+    }));
+    validateForm();
   };
 
 
   const resetForm = () => {
     setFormData(initialFormData);
+    setSelectedRating(0);
   };
 
   const handleSubmit = async (evt: FormEvent<HTMLFormElement>) => {
@@ -163,95 +176,7 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
                         <use xlinkHref="#icon-snowflake" />
                       </svg>
                     </legend>
-                    <div className="rate__bar">
-                      <div className="rate__group">
-                        <input
-                          className="visually-hidden"
-                          id="star-5"
-                          name="rating"
-                          type="radio"
-                          defaultValue={5}
-                          onChange={(e) => {
-                            handleChange(e);
-                            validateForm();
-                          }}
-
-                        />
-                        <label
-                          className="rate__label"
-                          htmlFor="star-5"
-                          title="Отлично"
-                        />
-                        <input
-                          className="visually-hidden"
-                          id="star-4"
-                          name="rating"
-                          type="radio"
-                          defaultValue={4}
-                          onChange={(e) => {
-                            handleChange(e);
-                            validateForm();
-                          }}
-                        />
-                        <label
-                          className="rate__label"
-                          htmlFor="star-4"
-                          title="Хорошо"
-                        />
-                        <input
-                          className="visually-hidden"
-                          id="star-3"
-                          name="rating"
-                          type="radio"
-                          defaultValue={3}
-                          onChange={(e) => {
-                            handleChange(e);
-                            validateForm();
-                          }}
-                        />
-                        <label
-                          className="rate__label"
-                          htmlFor="star-3"
-                          title="Нормально"
-                        />
-                        <input
-                          className="visually-hidden"
-                          id="star-2"
-                          name="rating"
-                          type="radio"
-                          defaultValue={2}
-                          onChange={(e) => {
-                            handleChange(e);
-                            validateForm();
-                          }}
-                        />
-                        <label
-                          className="rate__label"
-                          htmlFor="star-2"
-                          title="Плохо"
-                        />
-                        <input
-                          className="visually-hidden"
-                          id="star-1"
-                          name="rating"
-                          type="radio"
-                          defaultValue={1}
-                          onChange={(e) => {
-                            handleChange(e);
-                            validateForm();
-                          }}
-                        />
-                        <label
-                          className="rate__label"
-                          htmlFor="star-1"
-                          title="Ужасно"
-                        />
-                      </div>
-                      <div className="rate__progress">
-                        <span className="rate__stars">0</span> <span>/</span>{' '}
-                        <span className="rate__all-stars">5</span>
-                      </div>
-                    </div>
+                    <ReviewRating selectedRating={selectedRating} handleChange={handleChangeRating} />
                     <p className="rate__message">Нужно оценить товар</p>
                   </fieldset>
                   <div className="custom-input form-review__item">
