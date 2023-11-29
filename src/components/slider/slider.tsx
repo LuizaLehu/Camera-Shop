@@ -32,9 +32,9 @@ function Slider() {
       slidesPerView={1}
       effect='fade'
       pagination={{ clickable: true }}
-      scrollbar={{ draggable: true }}
+      scrollbar={{ draggable: false }}
       autoplay={{ delay: 3000 }}
-
+      className="swiper-container"
     >
       {products?.map((product) => (
         <SwiperSlide key={product.id}>
