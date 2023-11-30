@@ -55,3 +55,6 @@ export const RATING_TITLES = [
   'Ужасно'
 ] as const;
 
+export const INITIAL_RATING = '0';
+export const MIN_RATING = 0;
+export const MAX_RATING = STARS_COUNT;

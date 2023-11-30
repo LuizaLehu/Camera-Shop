@@ -1,4 +1,11 @@
 function ReviewAddSucces({ onClose }: { onClose: () => void }): JSX.Element {
+  //console.log('Rendering ReviewAddSucces component');
+
+  const handleReturnToShopping = () => {
+    //console.log('Returning to shopping...');
+    onClose();
+  };
+
   return (
     <div className="modal is-active modal--narrow">
       <div className="modal__wrapper">
@@ -15,6 +22,7 @@ function ReviewAddSucces({ onClose }: { onClose: () => void }): JSX.Element {
             <button
               className="btn btn--purple modal__btn modal__btn--fit-width"
               type="button"
+              onClick={handleReturnToShopping}
             >
               Вернуться к покупкам
             </button>
