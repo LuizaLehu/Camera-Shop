@@ -20,14 +20,12 @@ import Spinner from '../../components/spinner/spinner';
 import ProductTabs from '../../components/tabs/tabs';
 import { useParams} from 'react-router-dom';
 import ScrollToTop from '../../components/scroll-to-top/scroll-to-top';
+import ReviewAddSucces from '../../popup/review-add-succes.tsx/review-add-succes';
 
 function ProductPage() {
   const { id: cameraId } = useParams();
 
   const dispatch = useAppDispatch();
-
-  // const history = useNavigate();
-  //const location = useLocation();
 
   const handleScrollToTop = (): void => {
     window.scrollTo({
@@ -48,13 +46,12 @@ function ProductPage() {
 
   const [currentReviews, setCurrentReviews] = useState(reviews.length ? reviews.slice(0, 3) : []);
 
-  // const [activeTab, setActiveTab] = useState('characteristics');
-
   const [reviewsToShow, setReviewsToShow] = useState(3);
 
-  const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
-
   const [isProductAddModalOpen, setIsProductAddModalOpen] = useState(false);
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+  const [isReviewAddPopupOpen, setIsReviewAddPopupOpen] = useState(false);
+
 
   const openProductAddModal = () => {
     setIsProductAddModalOpen(true);
@@ -76,20 +73,9 @@ function ProductPage() {
     setCurrentReviews(reviews.slice(0, reviewsToShow));
   }, [reviewsToShow, reviews]);
 
-  /*const handleTabClick = (tabIndex: number) => {
-    // Update the URL when the tab is clicked
-    history(`/camera/${actualCameraId}/${tabIndex === 1 ? 'characteristics' : 'description'}`);
-  };  */
-
-  /*
-  // Extract the tab name from the URL
-  const currentTab = location.pathname.split('/').pop();
-  /* const handleTabClick = (tabName: SetStateAction<string>) => {
-    setActiveTab(tabName);
-  };*/
 
   const openReviewModal = () => {
-    setIsReviewModalOpen(true);
+    setIsReviewAddPopupOpen(true);
   };
 
   useEffect(() => {
@@ -117,37 +103,11 @@ function ProductPage() {
 
   const formattedPrice = price.toLocaleString('ru-RU');
 
-  /*let tabContent;
-  if (activeTab === 'characteristics') {
-    tabContent = (
-      <ul className="product__tabs-list">
-        <li className="item-list">
-          <span className="item-list__title">Артикул:</span>
-          <p className="item-list__text">{vendorCode}</p>
-        </li>
-        <li className="item-list">
-          <span className="item-list__title">Категория:</span>
-          <p className="item-list__text">{category}</p>
-        </li>
-        <li className="item-list">
-          <span className="item-list__title">Тип камеры:</span>
-          <p className="item-list__text">{type}</p>
-        </li>
-        <li className="item-list">
-          <span className="item-list__title">Уровень:</span>
-          <p className="item-list__text">{level}</p>
-        </li>
-      </ul>
-    );
-  } else if (activeTab === 'description') {
-    tabContent = (
-      <div className="product__tabs-text">
-        <p>{description}</p>
-
-      </div>
-    );
-  }
-*/
+  const handleReviewSubmitSuccess = () => {
+    // Handle logic when the review is successfully submitted
+    // To show the success popup
+    setShowSuccessPopup(true);
+  };
 
   return (
 
@@ -256,10 +216,14 @@ function ProductPage() {
                 )}
               </div>
             </section>
-            {isReviewModalOpen && (
+            {isReviewAddPopupOpen && (
               <ReviewAdd
-                closeModal={() => setIsReviewModalOpen(false)}
+                closeModal={() => setIsReviewAddPopupOpen(false)}
+                onSubmitSuccess={handleReviewSubmitSuccess}
               />
+            )}
+            {showSuccessPopup && (
+              <ReviewAddSucces onClose={() => setShowSuccessPopup(false)} />
             )}
             {isProductAddModalOpen && (
               <ProductAdd product={currentProduct} closePopup={closeProductAddModal} />

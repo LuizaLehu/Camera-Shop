@@ -1,10 +1,26 @@
-function ReviewAddSucces({ onClose }: { onClose: () => void }): JSX.Element {
-  //console.log('Rendering ReviewAddSucces component');
+import { useEffect } from 'react';
 
+function ReviewAddSucces({ onClose }: { onClose: () => void }): JSX.Element {
   const handleReturnToShopping = () => {
-    //console.log('Returning to shopping...');
     onClose();
   };
+
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = '';
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [onClose]);
 
   return (
     <div className="modal is-active modal--narrow">

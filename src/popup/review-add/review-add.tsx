@@ -11,9 +11,10 @@ import ReviewAddSucces from '../review-add-succes.tsx/review-add-succes';
 
 type TReviewAdd = {
   closeModal: () => void;
+  onSubmitSuccess: () => void;
 };
 
-function ReviewAdd({ closeModal }: TReviewAdd) {
+function ReviewAdd({ closeModal, onSubmitSuccess }: TReviewAdd) {
   const { id } = useParams();
   const dispatch = useAppDispatch();
 
@@ -153,6 +154,9 @@ function ReviewAdd({ closeModal }: TReviewAdd) {
         );
 
         setShowSuccessPopup(true);
+
+        // Notify the parent component (ProductPage) about the successful submission
+        onSubmitSuccess();
 
       } catch (error) {
         // Handle the error
